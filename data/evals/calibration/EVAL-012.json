@@ -17,5 +17,35 @@
     "false_operational_match",
     "unsafe_procedure_surfaced"
   ],
-  "acceptance_reason": "Tests abstention when a plausible third-party dependency failure is outside the authored corpus, despite existing records sharing generic delivery-delay vocabulary."
+  "acceptance_reason": "Tests abstention when a plausible third-party dependency failure is outside the authored corpus, despite existing records sharing generic delivery-delay vocabulary.",
+  "observed_facts": [
+    {
+      "fact": "provider_status",
+      "status": "confirmed"
+    },
+    {
+      "fact": "database_connection_pool_utilization",
+      "status": "contradicted"
+    },
+    {
+      "fact": "database_connection_acquire_latency",
+      "status": "contradicted"
+    },
+    {
+      "fact": "active_database_connections",
+      "status": "contradicted"
+    },
+    {
+      "fact": "migration_lock_waits",
+      "status": "contradicted"
+    },
+    {
+      "fact": "consumer_error_rate",
+      "status": "contradicted"
+    },
+    {
+      "fact": "queue_depth",
+      "status": "contradicted"
+    }
+  ]
 }

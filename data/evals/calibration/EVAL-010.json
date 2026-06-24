@@ -20,5 +20,27 @@
     "overconfident_evidence_presentation",
     "unsafe_procedure_surfaced"
   ],
-  "acceptance_reason": "Prevents the system from presenting a client-pool procedure as applicable when the decisive pool and lock facts are absent."
+  "acceptance_reason": "Prevents the system from presenting a client-pool procedure as applicable when the decisive pool and lock facts are absent.",
+  "observed_facts": [
+    {
+      "fact": "active_database_connections",
+      "status": "confirmed"
+    },
+    {
+      "fact": "error_rate_by_component",
+      "status": "confirmed"
+    },
+    {
+      "fact": "database_connection_pool_utilization",
+      "status": "unknown"
+    },
+    {
+      "fact": "database_connection_acquire_latency",
+      "status": "unknown"
+    },
+    {
+      "fact": "migration_lock_waits",
+      "status": "unknown"
+    }
+  ]
 }

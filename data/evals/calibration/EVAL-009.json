@@ -20,5 +20,27 @@
     "correct_precedent_ranked_first",
     "candidate_procedure_relevance"
   ],
-  "acceptance_reason": "Tests that active connections and queue-like slowdown do not select a migration-lock procedure when connection acquisition pressure is confirmed and lock waits are absent."
+  "acceptance_reason": "Tests that active connections and queue-like slowdown do not select a migration-lock procedure when connection acquisition pressure is confirmed and lock waits are absent.",
+  "observed_facts": [
+    {
+      "fact": "database_connection_pool_utilization",
+      "status": "confirmed"
+    },
+    {
+      "fact": "database_connection_acquire_latency",
+      "status": "confirmed"
+    },
+    {
+      "fact": "active_database_connections",
+      "status": "confirmed"
+    },
+    {
+      "fact": "migration_lock_waits",
+      "status": "contradicted"
+    },
+    {
+      "fact": "error_rate_by_component",
+      "status": "confirmed"
+    }
+  ]
 }

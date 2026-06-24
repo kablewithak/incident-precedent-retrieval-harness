@@ -34,8 +34,9 @@ alerting product, or generic RAG chatbot.
   conflict case
 - **Source grounding:** source-linked and pending explicit human verification
   before any record may be promoted to `source_grounded`
-- **Retrieval baseline, held-out evaluation, and promotion gate:** not yet
-  implemented
+- **Keyword retrieval baseline:** calibration-only evidence recorded
+- **Deterministic anti-anchoring policy:** calibration-only prototype recorded
+- **Held-out evaluation and promotion gate:** not yet implemented
 
 The current evidence is intentionally mixed, not silently rounded up to a pass.
 See:
@@ -148,3 +149,28 @@ It writes only generated, reviewable evidence:
 
 The report deliberately does not evaluate held-out cases, assign a final decision
 state, surface procedures, or make a semantic/provider-latency claim.
+
+## Deterministic anti-anchoring policy: calibration evidence
+
+The keyword baseline demonstrates why ranking cannot determine safe incident
+support by itself. The policy prototype consumes ranked candidates plus explicit
+structured intake observations (`confirmed`, `contradicted`, or `unknown`). It
+then assigns a final decision state deterministically.
+
+The current calibration report records zero surfaced unsafe precedents and zero
+unsafe procedures across the 12 authoring cases. This is **calibration evidence**,
+not a held-out safety claim.
+
+Run it from the repository root:
+
+```powershell
+python .\scripts\run_anti_anchoring_policy.py --repository-root . --top-k 5
+```
+
+It writes:
+
+- `docs/reports/anti-anchoring-policy-calibration.md`
+- `evidence_vault/reports/anti-anchoring-policy-calibration.json`
+
+The policy supports only the three authored families. It does not extract facts
+from free text, call SIE, diagnose a current incident, or authorize a procedure.

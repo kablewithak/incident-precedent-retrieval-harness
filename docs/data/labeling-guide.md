@@ -45,6 +45,18 @@ Each case is accepted only when it is diagnostic:
 | Conflict | At least two acceptable precedents with divergent paths; no preferred procedure |
 | Provider failure | Explicit degraded expected state and failure label |
 
+### Structured calibration observations
+
+Where policy behavior depends on facts that a real intake would carry as fields,
+the fixture must include `observed_facts`. Each fact is exactly one of:
+
+- `confirmed`: the fact is observed and supports or rules out a path;
+- `contradicted`: the fact is observed to be absent or incompatible;
+- `unknown`: the responder has not verified it yet.
+
+These are policy inputs, not hidden evaluator labels. Do not populate them from
+the expected decision state after the fact.
+
 ## Accept/reject reasons for new hard cases
 
 Store an `acceptance_reason` that explains why the case exposes a real weakness.

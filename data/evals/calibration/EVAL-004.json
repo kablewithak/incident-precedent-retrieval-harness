@@ -11,5 +11,7 @@
     "provider_unavailable",
     "provider_degraded"
   ],
-  "acceptance_reason": "Tests that the evidence service does not present ordinary semantic evidence when the required provider capability is unavailable."
+  "acceptance_reason": "Tests that the evidence service does not present ordinary semantic evidence when the required provider capability is unavailable.",
+  "observed_facts": [],
+  "provider_available": false
 }

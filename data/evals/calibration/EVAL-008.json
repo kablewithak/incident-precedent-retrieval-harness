@@ -17,5 +17,19 @@
     "false_operational_match",
     "unsafe_procedure_surfacing"
   ],
-  "acceptance_reason": "Tests abstention when a maintenance-time correlation lacks the specific lock-wait and component evidence required for migration-contention precedent."
+  "acceptance_reason": "Tests abstention when a maintenance-time correlation lacks the specific lock-wait and component evidence required for migration-contention precedent.",
+  "observed_facts": [
+    {
+      "fact": "migration_lock_waits",
+      "status": "unknown"
+    },
+    {
+      "fact": "active_database_connections",
+      "status": "unknown"
+    },
+    {
+      "fact": "error_rate_by_component",
+      "status": "unknown"
+    }
+  ]
 }

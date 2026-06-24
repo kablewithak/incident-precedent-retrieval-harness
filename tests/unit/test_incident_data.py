@@ -148,3 +148,26 @@ def test_source_manifest_record_requires_explicit_usage_controls() -> None:
     )
 
     assert source.source_status == "approved"
+
+
+def test_eval_case_rejects_duplicate_observed_fact_entries() -> None:
+    with pytest.raises(ValidationError, match="observed_facts must not repeat"):
+        EvalCase(
+            eval_id="EVAL-003",
+            split="calibration",
+            input_summary="Synthetic structured intake.",
+            expected_decision_state=EvidenceDecisionState.MISSING_CRITICAL_FACTS,
+            acceptable_precedent_ids=("INC-001",),
+            observed_facts=(
+                {
+                    "fact": RequiredVerificationFact.QUEUE_DEPTH,
+                    "status": "confirmed",
+                },
+                {
+                    "fact": RequiredVerificationFact.QUEUE_DEPTH,
+                    "status": "unknown",
+                },
+            ),
+            failure_label_intent=("missing_critical_incident_fact",),
+            acceptance_reason="Guards a deterministic intake fact map from ambiguous duplicates.",
+        )
