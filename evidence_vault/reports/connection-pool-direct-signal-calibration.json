@@ -1,0 +1,224 @@
+{
+  "calibration_case_count": 12,
+  "corpus_incident_count": 12,
+  "generated_at": "2026-06-24T22:41:41.889783Z",
+  "known_limits": [
+    "Calibration-only report; held-out cases are not loaded or scored.",
+    "Policy uses explicit structured evaluation facts; it does not perform free-text extraction.",
+    "This prototype supports only the three authored incident families.",
+    "Candidate procedures remain non-executable investigation artifacts.",
+    "No semantic-provider, dense-retrieval, reranking, or warm-latency claim is made."
+  ],
+  "metrics": {
+    "conflict_state_accuracy": 1.0,
+    "decision_state_accuracy": 1.0,
+    "false_operational_match_count": 0,
+    "missing_fact_exact_match_rate": 1.0,
+    "no_precedent_abstention_accuracy": 1.0,
+    "scored_case_count": 12,
+    "unsafe_procedure_surfacing_count": 0
+  },
+  "outcomes": [
+    {
+      "actual_decision_state": "evidence_found",
+      "actual_missing_facts": [],
+      "candidate_procedure_ids": [
+        "RB-001"
+      ],
+      "eval_id": "EVAL-001",
+      "expected_decision_state": "evidence_found",
+      "expected_missing_facts": [],
+      "retained_precedent_ids": [
+        "INC-003"
+      ],
+      "state_matches_expected": true,
+      "unsafe_precedent_surfaced": false,
+      "unsafe_procedure_surfaced": false
+    },
+    {
+      "actual_decision_state": "missing_critical_facts",
+      "actual_missing_facts": [
+        "consumer_error_rate",
+        "error_rate_by_component",
+        "worker_deployment_version"
+      ],
+      "candidate_procedure_ids": [],
+      "eval_id": "EVAL-002",
+      "expected_decision_state": "missing_critical_facts",
+      "expected_missing_facts": [
+        "worker_deployment_version",
+        "consumer_error_rate",
+        "error_rate_by_component"
+      ],
+      "retained_precedent_ids": [
+        "INC-003"
+      ],
+      "state_matches_expected": true,
+      "unsafe_precedent_surfaced": false,
+      "unsafe_procedure_surfaced": false
+    },
+    {
+      "actual_decision_state": "insufficient_precedent",
+      "actual_missing_facts": [],
+      "candidate_procedure_ids": [],
+      "eval_id": "EVAL-003",
+      "expected_decision_state": "insufficient_precedent",
+      "expected_missing_facts": [],
+      "retained_precedent_ids": [],
+      "state_matches_expected": true,
+      "unsafe_precedent_surfaced": false,
+      "unsafe_procedure_surfaced": false
+    },
+    {
+      "actual_decision_state": "provider_degraded",
+      "actual_missing_facts": [],
+      "candidate_procedure_ids": [],
+      "eval_id": "EVAL-004",
+      "expected_decision_state": "provider_degraded",
+      "expected_missing_facts": [],
+      "retained_precedent_ids": [],
+      "state_matches_expected": true,
+      "unsafe_precedent_surfaced": false,
+      "unsafe_procedure_surfaced": false
+    },
+    {
+      "actual_decision_state": "evidence_found",
+      "actual_missing_facts": [],
+      "candidate_procedure_ids": [
+        "RB-002"
+      ],
+      "eval_id": "EVAL-005",
+      "expected_decision_state": "evidence_found",
+      "expected_missing_facts": [],
+      "retained_precedent_ids": [
+        "INC-005"
+      ],
+      "state_matches_expected": true,
+      "unsafe_precedent_surfaced": false,
+      "unsafe_procedure_surfaced": false
+    },
+    {
+      "actual_decision_state": "missing_critical_facts",
+      "actual_missing_facts": [
+        "active_database_connections",
+        "error_rate_by_component",
+        "migration_lock_waits"
+      ],
+      "candidate_procedure_ids": [],
+      "eval_id": "EVAL-006",
+      "expected_decision_state": "missing_critical_facts",
+      "expected_missing_facts": [
+        "migration_lock_waits",
+        "active_database_connections",
+        "error_rate_by_component"
+      ],
+      "retained_precedent_ids": [
+        "INC-007"
+      ],
+      "state_matches_expected": true,
+      "unsafe_precedent_surfaced": false,
+      "unsafe_procedure_surfaced": false
+    },
+    {
+      "actual_decision_state": "evidence_found",
+      "actual_missing_facts": [],
+      "candidate_procedure_ids": [
+        "RB-001"
+      ],
+      "eval_id": "EVAL-007",
+      "expected_decision_state": "evidence_found",
+      "expected_missing_facts": [],
+      "retained_precedent_ids": [
+        "INC-003"
+      ],
+      "state_matches_expected": true,
+      "unsafe_precedent_surfaced": false,
+      "unsafe_procedure_surfaced": false
+    },
+    {
+      "actual_decision_state": "insufficient_precedent",
+      "actual_missing_facts": [],
+      "candidate_procedure_ids": [],
+      "eval_id": "EVAL-008",
+      "expected_decision_state": "insufficient_precedent",
+      "expected_missing_facts": [],
+      "retained_precedent_ids": [],
+      "state_matches_expected": true,
+      "unsafe_precedent_surfaced": false,
+      "unsafe_procedure_surfaced": false
+    },
+    {
+      "actual_decision_state": "evidence_found",
+      "actual_missing_facts": [],
+      "candidate_procedure_ids": [
+        "RB-003"
+      ],
+      "eval_id": "EVAL-009",
+      "expected_decision_state": "evidence_found",
+      "expected_missing_facts": [],
+      "retained_precedent_ids": [
+        "INC-009"
+      ],
+      "state_matches_expected": true,
+      "unsafe_precedent_surfaced": false,
+      "unsafe_procedure_surfaced": false
+    },
+    {
+      "actual_decision_state": "missing_critical_facts",
+      "actual_missing_facts": [
+        "database_connection_acquire_latency",
+        "database_connection_pool_utilization",
+        "migration_lock_waits"
+      ],
+      "candidate_procedure_ids": [],
+      "eval_id": "EVAL-010",
+      "expected_decision_state": "missing_critical_facts",
+      "expected_missing_facts": [
+        "database_connection_pool_utilization",
+        "database_connection_acquire_latency",
+        "migration_lock_waits"
+      ],
+      "retained_precedent_ids": [
+        "INC-010"
+      ],
+      "state_matches_expected": true,
+      "unsafe_precedent_surfaced": false,
+      "unsafe_procedure_surfaced": false
+    },
+    {
+      "actual_decision_state": "evidence_found_with_conflict",
+      "actual_missing_facts": [
+        "consumer_error_rate",
+        "database_connection_pool_utilization"
+      ],
+      "candidate_procedure_ids": [],
+      "eval_id": "EVAL-011",
+      "expected_decision_state": "evidence_found_with_conflict",
+      "expected_missing_facts": [
+        "consumer_error_rate",
+        "database_connection_pool_utilization"
+      ],
+      "retained_precedent_ids": [
+        "INC-011",
+        "INC-003"
+      ],
+      "state_matches_expected": true,
+      "unsafe_precedent_surfaced": false,
+      "unsafe_procedure_surfaced": false
+    },
+    {
+      "actual_decision_state": "insufficient_precedent",
+      "actual_missing_facts": [],
+      "candidate_procedure_ids": [],
+      "eval_id": "EVAL-012",
+      "expected_decision_state": "insufficient_precedent",
+      "expected_missing_facts": [],
+      "retained_precedent_ids": [],
+      "state_matches_expected": true,
+      "unsafe_precedent_surfaced": false,
+      "unsafe_procedure_surfaced": false
+    }
+  ],
+  "report_kind": "anti_anchoring_policy_calibration",
+  "top_k": 5
+}

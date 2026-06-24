@@ -38,6 +38,7 @@ alerting product, or generic RAG chatbot.
 - **Deterministic anti-anchoring policy:** calibration-only prototype recorded
 - **Held-out evaluation and promotion gate:** implemented; the generated report is the source of truth for the current keyword-plus-policy configuration
 - **Held-out baseline:** recorded as blocked at PR #9; its failure autopsy is a separate trace-only evidence step before any intervention
+- **Calibration intervention:** ADR-0008 narrows connection-pool admission so contextual active-connection evidence cannot override two contradicted direct pool signals; held-out cases remain frozen and unrerun until calibration evidence is committed
 
 The current evidence is intentionally mixed, not silently rounded up to a pass.
 See:
@@ -202,3 +203,24 @@ python .\scripts\run_heldout_failure_autopsy.py --repository-root .
 ```
 
 It writes `docs/reports/heldout-tranche-01-failure-autopsy.md` and `evidence_vault/reports/heldout-tranche-01-failure-autopsy.json`. The autopsy identifies a narrowly testable intervention boundary, but it does not modify policy, ranking, frozen fixtures, or held-out evidence.
+
+## Connection-pool direct-signal calibration intervention
+
+ADR-0008 records the first calibration-only intervention arising from the held-out
+failure autopsy. The policy now distinguishes direct connection-pool signals
+(pool utilization and connection-acquisition latency) from contextual active
+connection counts. Confirmed active connections cannot keep a connection-pool
+family admissible once both direct pool signals are contradicted.
+
+This is intentionally not a held-out result. Run the separate calibration-only
+command after committing the intervention code:
+
+```powershell
+python .\scripts\run_connection_pool_direct_signal_calibration.py --repository-root . --top-k 5
+```
+
+It writes a new evidence pair and does not overwrite the prior calibration or
+held-out baseline artifacts:
+
+- `docs/reports/connection-pool-direct-signal-calibration.md`
+- `evidence_vault/reports/connection-pool-direct-signal-calibration.json`

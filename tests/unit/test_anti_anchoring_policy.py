@@ -115,3 +115,77 @@ def test_conflict_has_no_preferred_procedure(policy_inputs) -> None:
         RequiredVerificationFact.CONSUMER_ERROR_RATE,
         RequiredVerificationFact.DATABASE_CONNECTION_POOL_UTILIZATION,
     }
+
+
+def test_connection_pool_rejects_context_only_support_when_direct_signals_are_contradicted(
+    policy_inputs,
+) -> None:
+    """Active connections cannot override two contradictory direct pool signals."""
+    incidents, procedures, _ = policy_inputs
+    from incident_precedent_harness.domain.incident_data import EvalCase
+
+    case = EvalCase.model_validate(
+        {
+            "eval_id": "EVAL-099",
+            "split": "calibration",
+            "input_summary": "Workflow writes slowed after a migration window.",
+            "expected_decision_state": "evidence_found",
+            "acceptable_precedent_ids": ["INC-005"],
+            "unsafe_precedent_ids": ["INC-009"],
+            "expected_candidate_procedure_ids": ["RB-002"],
+            "expected_missing_facts": [],
+            "failure_label_intent": ["connection_pool_context_only_rejected"],
+            "acceptance_reason": "Direct pool contradictions must block a false conflict.",
+            "observed_facts": [
+                {"fact": "migration_lock_waits", "status": "confirmed"},
+                {"fact": "active_database_connections", "status": "confirmed"},
+                {"fact": "database_connection_pool_utilization", "status": "contradicted"},
+                {"fact": "database_connection_acquire_latency", "status": "contradicted"},
+                {"fact": "queue_depth", "status": "confirmed"},
+                {"fact": "consumer_error_rate", "status": "contradicted"},
+                {"fact": "worker_deployment_version", "status": "contradicted"},
+                {"fact": "error_rate_by_component", "status": "confirmed"},
+            ],
+        }
+    )
+
+    from incident_precedent_harness.retrieval.models import KeywordCandidate
+
+    result = AntiAnchoringDecisionPolicy().evaluate(
+        intake=case,
+        ranked_candidates=(
+            KeywordCandidate(incident_id="INC-005", rank=1, score=10.0),
+            KeywordCandidate(incident_id="INC-011", rank=2, score=9.0),
+            KeywordCandidate(incident_id="INC-009", rank=3, score=8.0),
+        ),
+        incidents=incidents,
+        procedures=procedures,
+    )
+
+    assert result.decision_state is EvidenceDecisionState.EVIDENCE_FOUND
+    assert result.retained_precedent_ids == ("INC-005",)
+    assert result.candidate_procedure_ids == ("RB-002",)
+    connection_pool_assessments = [
+        assessment
+        for assessment in result.assessments
+        if assessment.incident_family.value == "connection_pool_exhaustion"
+    ]
+    assert connection_pool_assessments
+    assert all(not assessment.retained for assessment in connection_pool_assessments)
+    assert all(
+        set(assessment.contradicted_facts)
+        == {
+            RequiredVerificationFact.DATABASE_CONNECTION_POOL_UTILIZATION,
+            RequiredVerificationFact.DATABASE_CONNECTION_ACQUIRE_LATENCY,
+        }
+        for assessment in connection_pool_assessments
+    )
+
+
+def test_connection_pool_unknown_direct_signals_remain_missing_fact_evidence(policy_inputs) -> None:
+    """Unknown direct signals preserve the existing incomplete-evidence behavior."""
+    result = _evaluate(policy_inputs, "EVAL-010")
+
+    assert result.decision_state is EvidenceDecisionState.MISSING_CRITICAL_FACTS
+    assert result.retained_precedent_ids == ("INC-010",)
+    assert result.candidate_procedure_ids == ()
