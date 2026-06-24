@@ -224,3 +224,28 @@ held-out baseline artifacts:
 
 - `docs/reports/connection-pool-direct-signal-calibration.md`
 - `evidence_vault/reports/connection-pool-direct-signal-calibration.json`
+
+## Held-out direct-signal comparison and Handover 002
+
+ADR-0008’s calibration evidence passed its declared safety checks. ADR-0009 now
+permits one controlled comparison against the immutable Held-Out Tranche 01
+baseline. The comparison is not a new baseline and does not overwrite any prior
+evidence.
+
+After committing comparison code on a clean branch, run:
+
+```powershell
+python .\scripts\run_heldout_direct_signal_comparison.py --repository-root . --top-k 5
+```
+
+The command verifies the frozen manifest, reads the committed PR #9 baseline,
+records the post-intervention result in a separate write-once report pair, and
+generates the project handover at the resulting evidence boundary:
+
+- `docs/reports/heldout-tranche-01-direct-signal-comparison.md`;
+- `evidence_vault/reports/heldout-tranche-01-direct-signal-comparison.json`;
+- `docs/handover/Incident_Precedent_Retrieval_Harness_Handover_002_Post_Intervention_Comparison.md`.
+
+The comparison can improve while remaining blocked. Its role is to preserve the
+before/after evidence and identify the next narrowly scoped design boundary,
+not to relax the promotion gate or tune frozen case labels.
