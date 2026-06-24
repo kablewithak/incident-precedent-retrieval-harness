@@ -36,7 +36,7 @@ alerting product, or generic RAG chatbot.
   before any record may be promoted to `source_grounded`
 - **Keyword retrieval baseline:** calibration-only evidence recorded
 - **Deterministic anti-anchoring policy:** calibration-only prototype recorded
-- **Held-out evaluation and promotion gate:** not yet implemented
+- **Held-out evaluation and promotion gate:** implemented; the generated report is the source of truth for the current keyword-plus-policy configuration
 
 The current evidence is intentionally mixed, not silently rounded up to a pass.
 See:
@@ -179,4 +179,17 @@ from free text, call SIE, diagnose a current incident, or authorize a procedure.
 
 `heldout_tranche_01` is frozen under `data/evals/heldout` and is intentionally separate from calibration. It contains 12 diagnostic cases across positive, false-operational-match, no-precedent, conflict, and provider-degraded behavior. The tranche is hash-locked by `HELDOUT_FREEZE_MANIFEST.json` and must not be used to tune retrieval, policy, procedure eligibility, or prompts.
 
-The current tranche is not the final planned 36-case holdout and has not yet been used to make a promotion decision.
+The current tranche is not the final planned 36-case holdout. The write-once evaluator verifies the manifest before scoring and records a strict pass-or-block promotion result without modifying retrieval or policy behavior.
+
+Run it only after the working tree is clean and unit tests pass:
+
+```powershell
+python .\scripts\run_heldout_evaluation.py --repository-root . --top-k 5
+```
+
+It writes one committed evidence pair:
+
+- `docs/reports/heldout-tranche-01-keyword-policy.md`
+- `evidence_vault/reports/heldout-tranche-01-keyword-policy.json`
+
+The command refuses to overwrite either file. A `blocked` result is a valid evidence outcome, not a tool error; preserve it and investigate through a separate intervention slice. See `docs/runbooks/heldout-evaluation-runbook.md`.
