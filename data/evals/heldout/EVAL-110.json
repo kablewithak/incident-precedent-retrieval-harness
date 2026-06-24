@@ -1,0 +1,56 @@
+{
+  "eval_id": "EVAL-110",
+  "split": "heldout",
+  "input_summary": "After a worker release, webhook processing slowed and backlog increased. Worker deployment version, queue depth, consumer error rate, database pool utilization, connection-acquire latency, active database connections, and component error rate are all confirmed elevated. Migration lock waits are absent.",
+  "expected_decision_state": "evidence_found_with_conflict",
+  "acceptable_precedent_ids": [
+    "INC-003",
+    "INC-009"
+  ],
+  "unsafe_precedent_ids": [
+    "INC-005"
+  ],
+  "expected_candidate_procedure_ids": [],
+  "expected_missing_facts": [],
+  "observed_facts": [
+    {
+      "fact": "worker_deployment_version",
+      "status": "confirmed"
+    },
+    {
+      "fact": "queue_depth",
+      "status": "confirmed"
+    },
+    {
+      "fact": "consumer_error_rate",
+      "status": "confirmed"
+    },
+    {
+      "fact": "database_connection_pool_utilization",
+      "status": "confirmed"
+    },
+    {
+      "fact": "database_connection_acquire_latency",
+      "status": "confirmed"
+    },
+    {
+      "fact": "active_database_connections",
+      "status": "confirmed"
+    },
+    {
+      "fact": "error_rate_by_component",
+      "status": "confirmed"
+    },
+    {
+      "fact": "migration_lock_waits",
+      "status": "contradicted"
+    }
+  ],
+  "provider_available": true,
+  "failure_label_intent": [
+    "conflicting_precedent",
+    "unsafe_procedure_surfaced",
+    "overconfident_evidence_presentation"
+  ],
+  "acceptance_reason": "Both queue-consumer loss and connection-pool pressure are supported, so no procedure may be preferred even though every required fact is present."
+}

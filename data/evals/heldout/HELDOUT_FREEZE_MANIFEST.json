@@ -1,0 +1,47 @@
+{
+  "freeze_schema_version": "1.0",
+  "freeze_status": "frozen",
+  "frozen_on": "2026-06-24",
+  "scope": "heldout_tranche_01",
+  "case_ids": [
+    "EVAL-101",
+    "EVAL-102",
+    "EVAL-103",
+    "EVAL-104",
+    "EVAL-105",
+    "EVAL-106",
+    "EVAL-107",
+    "EVAL-108",
+    "EVAL-109",
+    "EVAL-110",
+    "EVAL-111",
+    "EVAL-112"
+  ],
+  "case_group_counts": {
+    "standard_positive": 3,
+    "false_operational_match": 3,
+    "no_precedent": 3,
+    "conflicting_precedent": 2,
+    "provider_degraded": 1
+  },
+  "sha256_by_filename": {
+    "EVAL-101.json": "d5e216f6e46a8b82395274fd8bd510e8915ca70dfe42436c6be208a25db3fb2d",
+    "EVAL-102.json": "14cc610a248cc9206bab89a20695e0d78f37f80e1c0f505fb6f6dfa5a5fa1f94",
+    "EVAL-103.json": "7f3894d1ac59261863f713248c71e06f2891dc633596c55a4dc017ef8267c225",
+    "EVAL-104.json": "de1f6511751506f6da6b4a4d5c1290a373f251f1b3613b244e3795f0e112d3a5",
+    "EVAL-105.json": "29d2a563b060f0200d95217a211faf4cc5223302f4f18e4cca3022a3c8443fc2",
+    "EVAL-106.json": "2908a6beb9481fe0e9fc529d02bc896e07d9f50edd28b08b1a114e4ca6f77d0c",
+    "EVAL-107.json": "4d5e7ebe6626ae42fda3d5de03f885d033f2f80d85c7f30ce7548ed14a47af1c",
+    "EVAL-108.json": "3901fdbf3c6b72dc782b279fdebf25dc01cf2f2dde3215b2f7042bb52ffd1a69",
+    "EVAL-109.json": "982199a5aac337d0c64b6fc59eb2b45e0754eb3cddb85762e4f57da365c768e3",
+    "EVAL-110.json": "9d22baf00f78f4e43b34ea7a7ff564073a5d9633ddb8bff08e0e4f134733f1b2",
+    "EVAL-111.json": "808d320ff32201a5b5a7893d0370b88422c8df86d0068030a829c8edf47d6046",
+    "EVAL-112.json": "62924ee567b149633ac06cc0b295767e0d2ae6e8edeca5006b7777aa69db4bd4"
+  },
+  "change_policy": "Do not change held-out inputs, labels, expected states, or hashes to improve a calibration or candidate pipeline result. A correction requires a documented data defect, a new freeze revision, and a full rerun of all reported pipelines.",
+  "non_claims": [
+    "This tranche does not constitute the final planned 36-case held-out set.",
+    "This freeze does not prove retrieval quality or production incident-response safety.",
+    "No held-out case may be used to tune lexical weights, policy rules, thresholds, prompts, ranking behavior, or procedure eligibility."
+  ]
+}

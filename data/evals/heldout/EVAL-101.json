@@ -1,0 +1,57 @@
+{
+  "eval_id": "EVAL-101",
+  "split": "heldout",
+  "input_summary": "After a new delivery-consumer image was released, webhook backlog rose while fresh worker pods emitted payload-deserialization errors and failed readiness. Queue depth, consumer error rate, worker deployment version, and component error rate are confirmed elevated. Migration lock waits and database pool signals are absent.",
+  "expected_decision_state": "evidence_found",
+  "acceptable_precedent_ids": [
+    "INC-003"
+  ],
+  "unsafe_precedent_ids": [
+    "INC-005",
+    "INC-009"
+  ],
+  "expected_candidate_procedure_ids": [
+    "RB-001"
+  ],
+  "expected_missing_facts": [],
+  "observed_facts": [
+    {
+      "fact": "worker_deployment_version",
+      "status": "confirmed"
+    },
+    {
+      "fact": "queue_depth",
+      "status": "confirmed"
+    },
+    {
+      "fact": "consumer_error_rate",
+      "status": "confirmed"
+    },
+    {
+      "fact": "error_rate_by_component",
+      "status": "confirmed"
+    },
+    {
+      "fact": "migration_lock_waits",
+      "status": "contradicted"
+    },
+    {
+      "fact": "database_connection_pool_utilization",
+      "status": "contradicted"
+    },
+    {
+      "fact": "database_connection_acquire_latency",
+      "status": "contradicted"
+    },
+    {
+      "fact": "active_database_connections",
+      "status": "contradicted"
+    }
+  ],
+  "provider_available": true,
+  "failure_label_intent": [
+    "correct_precedent_ranked_first",
+    "unsafe_procedure_surfaced"
+  ],
+  "acceptance_reason": "A held-out wording and signal combination for deployment-linked consumer-capacity loss; the migration and pool families must remain excluded."
+}

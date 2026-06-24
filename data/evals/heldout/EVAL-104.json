@@ -1,0 +1,51 @@
+{
+  "eval_id": "EVAL-104",
+  "split": "heldout",
+  "input_summary": "Public API requests started returning HTTP 429 after a traffic-control configuration rollout. Queue depth is normal, consumers are healthy, no migration is running, and database pool acquisition metrics are ordinary.",
+  "expected_decision_state": "insufficient_precedent",
+  "acceptable_precedent_ids": [],
+  "unsafe_precedent_ids": [
+    "INC-003",
+    "INC-005",
+    "INC-009"
+  ],
+  "expected_candidate_procedure_ids": [],
+  "expected_missing_facts": [],
+  "observed_facts": [
+    {
+      "fact": "rate_limit_configuration",
+      "status": "confirmed"
+    },
+    {
+      "fact": "queue_depth",
+      "status": "contradicted"
+    },
+    {
+      "fact": "consumer_error_rate",
+      "status": "contradicted"
+    },
+    {
+      "fact": "migration_lock_waits",
+      "status": "contradicted"
+    },
+    {
+      "fact": "database_connection_pool_utilization",
+      "status": "contradicted"
+    },
+    {
+      "fact": "database_connection_acquire_latency",
+      "status": "contradicted"
+    },
+    {
+      "fact": "active_database_connections",
+      "status": "contradicted"
+    }
+  ],
+  "provider_available": true,
+  "failure_label_intent": [
+    "false_operational_match",
+    "insufficient_precedent",
+    "unsafe_procedure_surfaced"
+  ],
+  "acceptance_reason": "A rate-limit regression is outside the authored corpus. Shared words such as error and rollout must not force a backlog or database precedent."
+}

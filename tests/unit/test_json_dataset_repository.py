@@ -17,6 +17,7 @@ def test_repository_loads_current_calibration_assets_in_stable_id_order() -> Non
 
     incidents = repository.load_incidents()
     cases = repository.load_calibration_cases()
+    heldout_cases = repository.load_heldout_cases()
 
     assert [incident.incident_id for incident in incidents] == [
         "INC-001",
@@ -33,6 +34,9 @@ def test_repository_loads_current_calibration_assets_in_stable_id_order() -> Non
         "INC-012",
     ]
     assert [case.eval_id for case in cases] == [f"EVAL-{number:03}" for number in range(1, 13)]
+    assert [case.eval_id for case in heldout_cases] == [
+        f"EVAL-{number:03}" for number in range(101, 113)
+    ]
 
 
 def test_repository_rejects_invalid_json(tmp_path: Path) -> None:
@@ -59,3 +63,16 @@ def test_repository_rejects_calibration_case_in_the_wrong_split(tmp_path: Path) 
 
     with pytest.raises(DatasetLoadError, match="non-calibration"):
         repository.load_calibration_cases()
+
+
+def test_repository_rejects_heldout_case_in_the_wrong_split(tmp_path: Path) -> None:
+    fixture = json.loads((ROOT / "data" / "evals" / "heldout" / "EVAL-101.json").read_text())
+    fixture["split"] = "calibration"
+    heldout_directory = tmp_path / "data" / "evals" / "heldout"
+    heldout_directory.mkdir(parents=True)
+    (heldout_directory / "EVAL-101.json").write_text(json.dumps(fixture), encoding="utf-8")
+
+    repository = JsonDatasetRepository(tmp_path)
+
+    with pytest.raises(DatasetLoadError, match="non-heldout"):
+        repository.load_heldout_cases()

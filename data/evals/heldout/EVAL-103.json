@@ -1,0 +1,57 @@
+{
+  "eval_id": "EVAL-103",
+  "split": "heldout",
+  "input_summary": "Payment API requests are waiting for database checkout during sustained concurrency. Pool utilization, connection-acquire latency, active database connections, and component error rate are confirmed elevated. No migration lock waits or consumer-capacity loss are observed.",
+  "expected_decision_state": "evidence_found",
+  "acceptable_precedent_ids": [
+    "INC-009"
+  ],
+  "unsafe_precedent_ids": [
+    "INC-003",
+    "INC-005"
+  ],
+  "expected_candidate_procedure_ids": [
+    "RB-003"
+  ],
+  "expected_missing_facts": [],
+  "observed_facts": [
+    {
+      "fact": "database_connection_pool_utilization",
+      "status": "confirmed"
+    },
+    {
+      "fact": "database_connection_acquire_latency",
+      "status": "confirmed"
+    },
+    {
+      "fact": "active_database_connections",
+      "status": "confirmed"
+    },
+    {
+      "fact": "error_rate_by_component",
+      "status": "confirmed"
+    },
+    {
+      "fact": "migration_lock_waits",
+      "status": "contradicted"
+    },
+    {
+      "fact": "queue_depth",
+      "status": "contradicted"
+    },
+    {
+      "fact": "consumer_error_rate",
+      "status": "contradicted"
+    },
+    {
+      "fact": "worker_deployment_version",
+      "status": "contradicted"
+    }
+  ],
+  "provider_available": true,
+  "failure_label_intent": [
+    "correct_precedent_ranked_first",
+    "unsafe_procedure_surfaced"
+  ],
+  "acceptance_reason": "A held-out connection-acquisition pattern that must not be reclassified as migration contention or consumer capacity loss."
+}

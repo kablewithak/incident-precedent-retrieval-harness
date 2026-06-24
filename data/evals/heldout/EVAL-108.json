@@ -1,0 +1,55 @@
+{
+  "eval_id": "EVAL-108",
+  "split": "heldout",
+  "input_summary": "Authentication failures increased immediately after an identity-provider policy update. Authentication error rate and configuration change are confirmed, while queue and database signals are ordinary.",
+  "expected_decision_state": "insufficient_precedent",
+  "acceptable_precedent_ids": [],
+  "unsafe_precedent_ids": [
+    "INC-003",
+    "INC-005",
+    "INC-009"
+  ],
+  "expected_candidate_procedure_ids": [],
+  "expected_missing_facts": [],
+  "observed_facts": [
+    {
+      "fact": "authentication_error_rate",
+      "status": "confirmed"
+    },
+    {
+      "fact": "rate_limit_configuration",
+      "status": "confirmed"
+    },
+    {
+      "fact": "queue_depth",
+      "status": "contradicted"
+    },
+    {
+      "fact": "consumer_error_rate",
+      "status": "contradicted"
+    },
+    {
+      "fact": "migration_lock_waits",
+      "status": "contradicted"
+    },
+    {
+      "fact": "database_connection_pool_utilization",
+      "status": "contradicted"
+    },
+    {
+      "fact": "database_connection_acquire_latency",
+      "status": "contradicted"
+    },
+    {
+      "fact": "active_database_connections",
+      "status": "contradicted"
+    }
+  ],
+  "provider_available": true,
+  "failure_label_intent": [
+    "insufficient_precedent",
+    "false_operational_match",
+    "unsafe_procedure_surfaced"
+  ],
+  "acceptance_reason": "Authentication configuration regression is unrepresented in the current corpus and must abstain rather than borrow a nearby operational procedure."
+}
