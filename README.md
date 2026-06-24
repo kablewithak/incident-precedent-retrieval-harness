@@ -24,10 +24,13 @@ alerting product, or generic RAG chatbot.
 - **Local SIE `extract`:** blocked for the tested CPU/model path because the model
   did not become ready within the server's model-load budget
 - **Dataset contract:** implemented
-- **Batch 01 controlled variants:** four validated queue-backlog incident cards,
-  one bounded candidate investigation procedure, and four calibration cases
-- **Batch 01 source grounding:** source-linked and pending explicit human
-  verification before any record may be promoted to `source_grounded`
+- **Batch 01 controlled variants:** four queue-backlog cards, one bounded
+  investigation procedure, and four calibration cases
+- **Batch 02 controlled variants:** four migration-lock cards, one bounded
+  investigation procedure, and four calibration cases including reciprocal
+  false-operational-match tests
+- **Source grounding:** source-linked and pending explicit human verification
+  before any record may be promoted to `source_grounded`
 - **Retrieval baseline, held-out evaluation, and promotion gate:** not yet
   implemented
 
@@ -38,6 +41,7 @@ See:
 - `evidence_vault/reports/phase-0-local-sie-capability-spike.json`
 - `docs/handover/Incident_Precedent_Retrieval_Harness_Handover_001_Phase_0_Provider_Spike_Blocked.md`
 - `docs/data/batch-01-source-review.md`
+- `docs/data/batch-02-source-review.md`
 
 A healthy SIE server proves only that the local process can receive traffic. It
 does not prove every configured model can perform a useful inference operation.
@@ -77,12 +81,15 @@ inference-ready claim.
 
 ## Dataset posture
 
-The repository uses a fictional RelayOps archive. Batch 01 records are
-**controlled variants** built from a source-review ledger; they deliberately do
-not claim `source_grounded` status until a human reviewer confirms the source,
-transformation note, and absence of copied narrative. This keeps the provenance
-contract honest while still giving the retrieval baseline a validated starter
-corpus.
+The repository uses a fictional RelayOps archive. Batches 01 and 02 are
+**controlled variants** built from source-review ledgers; they deliberately do
+not claim `source_grounded` status until a human reviewer confirms each source,
+transformation note, and absence of copied narrative.
+
+Batch 02 introduces the project’s first hard anti-anchoring boundary: a queue
+backlog after a change can be operationally incompatible with a queue-consumer
+failure when verified database migration lock waits and healthy consumers point
+to a database-side throughput constraint.
 
 ## Architecture boundary
 

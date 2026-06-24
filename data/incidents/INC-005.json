@@ -1,0 +1,42 @@
+{
+  "incident_id": "INC-005",
+  "title": "Schema migration lock waits stalled workflow writes",
+  "record_origin": "controlled_variant",
+  "incident_family": "database_migration_lock_contention",
+  "service": "workflow-service",
+  "component": "postgres-primary",
+  "region": "us-east",
+  "severity": "sev_1",
+  "started_after_change": true,
+  "change_context": "migration",
+  "symptoms": [
+    "workflow processing delay",
+    "queue backlog growth",
+    "elevated write timeout rate"
+  ],
+  "observability_signals": [
+    "migration lock waits increased",
+    "database write latency increased",
+    "queue depth increased"
+  ],
+  "failure_mechanism": "A schema migration waited on incompatible database locks while workflow writes accumulated behind the blocked path, reducing event-consumer throughput without removing consumer capacity.",
+  "mitigation_summary": "The backlog began to drain only after lock waits cleared and normal write throughput was observed; this record does not prescribe how to change a migration during a new incident.",
+  "recovery_state": "recovered",
+  "timeline_summary": "Write latency and lock waits rose after a migration started. Consumers remained available but could not complete dependent database writes quickly enough to keep up with incoming events.",
+  "linked_procedure_ids": [
+    "RB-002"
+  ],
+  "safe_procedure_ids": [
+    "RB-002"
+  ],
+  "unsafe_procedure_ids": [
+    "RB-001"
+  ],
+  "required_verification_facts": [
+    "migration_lock_waits",
+    "active_database_connections",
+    "queue_depth",
+    "error_rate_by_component"
+  ],
+  "narrative_safe": "RelayOps workflow events backed up after a schema migration began. Consumers stayed healthy, but database write latency and migration lock waits increased. This is not equivalent to a consumer crash-loop incident unless capacity loss is independently confirmed."
+}

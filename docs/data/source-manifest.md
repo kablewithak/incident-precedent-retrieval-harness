@@ -24,6 +24,8 @@ file.
 | SRC-007 | PostHog Feature Flags Service Multiple Outages | 2025-10-21 | licensed_source | consumer capacity loss, retry amplification, connection-pool pressure | approved |
 | SRC-008 | PostHog Feature Flags Cache Degradation | 2026-02-06 | licensed_source | worker OOM pattern, task backlog, cache-staleness impact | approved |
 | SRC-009 | PostHog Data Processing Delays — Events & Persons Ingestion | 2025-11-15 | licensed_source | database-driven processing delay and backlog recovery pattern | approved |
+| SRC-010 | PostgreSQL documentation: Explicit Locking | rolling | cited_reference | general lock conflict, transaction-bound lock lifetime, and lock-wait concepts | approved |
+| SRC-011 | PostgreSQL documentation: `pg_locks` view | rolling | cited_reference | lock-observation vocabulary and verification-fact design only | approved |
 
 ## Licence and transformation controls
 
@@ -100,11 +102,29 @@ file.
 - Transformation: retain no source database identifiers, exact metrics, or
   remediation instructions.
 
-## Batch 01 review status
+### SRC-010 — PostgreSQL Explicit Locking
 
-Batch 01 uses `SRC-006` through `SRC-009` as proposed source linkage for four
-**controlled variants**. It is deliberately not a validated source-grounded
-corpus yet. See `docs/data/batch-01-source-review.md`.
+- URL: `https://www.postgresql.org/docs/current/explicit-locking.html`
+- Usage: cited reference only.
+- Transformation: use only generalized lock conflict and transaction-bound
+  waiting concepts. Do not copy SQL snippets, lock-mode tables, or procedures.
+
+### SRC-011 — PostgreSQL `pg_locks` view
+
+- URL: `https://www.postgresql.org/docs/current/view-pg-locks.html`
+- Usage: cited reference only.
+- Transformation: use only safe verification-fact vocabulary. Do not copy source
+  queries, production schema names, or operational commands.
+
+## Batch review status
+
+- Batch 01 uses `SRC-006` through `SRC-009` as proposed linkage for four
+  controlled queue-backlog variants. See `docs/data/batch-01-source-review.md`.
+- Batch 02 uses `SRC-009` through `SRC-011` as proposed linkage for four
+  controlled migration-lock variants. See `docs/data/batch-02-source-review.md`.
+
+No controlled variant is source-grounded until the source-review checklist below
+is completed.
 
 ## Source-review checklist
 

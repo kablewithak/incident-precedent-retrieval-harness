@@ -1,0 +1,41 @@
+{
+  "incident_id": "INC-006",
+  "title": "Long-running transaction delayed migration cutover",
+  "record_origin": "controlled_variant",
+  "incident_family": "database_migration_lock_contention",
+  "service": "auth-service",
+  "component": "postgres-primary",
+  "region": "eu-west",
+  "severity": "sev_2",
+  "started_after_change": true,
+  "change_context": "migration",
+  "symptoms": [
+    "authentication request latency",
+    "elevated database timeout rate",
+    "delayed audit-event processing"
+  ],
+  "observability_signals": [
+    "migration lock waits increased",
+    "active database connections increased",
+    "database write latency increased"
+  ],
+  "failure_mechanism": "A long-running transaction held a conflicting lock while a migration attempted cutover, causing dependent authentication writes and audit-event processing to wait rather than fail as a consumer-capacity problem.",
+  "mitigation_summary": "Service behavior normalized after the lock conflict was no longer present and database write latency returned to its ordinary range; no action is implied for a new incident.",
+  "recovery_state": "recovered",
+  "timeline_summary": "The migration began before authentication write latency rose. Database wait evidence appeared while worker health remained stable and audit-event delay followed the write-path slowdown.",
+  "linked_procedure_ids": [
+    "RB-002"
+  ],
+  "safe_procedure_ids": [
+    "RB-002"
+  ],
+  "unsafe_procedure_ids": [
+    "RB-001"
+  ],
+  "required_verification_facts": [
+    "migration_lock_waits",
+    "active_database_connections",
+    "error_rate_by_component"
+  ],
+  "narrative_safe": "RelayOps authentication writes slowed after a migration entered cutover while a long-running transaction remained active. The resulting audit-event delay may resemble a queue-consumer issue, but no consumer error pattern was observed."
+}

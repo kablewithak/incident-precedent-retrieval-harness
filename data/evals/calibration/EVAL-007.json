@@ -1,0 +1,25 @@
+{
+  "eval_id": "EVAL-007",
+  "split": "calibration",
+  "input_summary": "Webhook delivery backlog began immediately after a consumer deployment. New workers fail readiness with dependency connection errors. No migration is in progress and migration lock waits are absent.",
+  "expected_decision_state": "evidence_found",
+  "acceptable_precedent_ids": [
+    "INC-003"
+  ],
+  "unsafe_precedent_ids": [
+    "INC-005",
+    "INC-006",
+    "INC-007",
+    "INC-008"
+  ],
+  "expected_candidate_procedure_ids": [
+    "RB-001"
+  ],
+  "expected_missing_facts": [],
+  "failure_label_intent": [
+    "false_operational_match",
+    "wrong_precedent_ranked_first",
+    "wrong_procedure_linked"
+  ],
+  "acceptance_reason": "Tests the reverse anti-anchoring error: database migration vocabulary must not displace a confirmed deployment-linked consumer-capacity failure."
+}
