@@ -6,6 +6,12 @@ from incident_precedent_harness.evaluation.autopsy import (
     build_heldout_failure_autopsy,
     write_heldout_failure_autopsy,
 )
+from incident_precedent_harness.evaluation.comparison import (
+    HeldoutComparisonIntegrityError,
+    HeldoutComparisonReport,
+    build_heldout_direct_signal_comparison,
+    write_heldout_direct_signal_comparison,
+)
 from incident_precedent_harness.evaluation.heldout import (
     HeldoutEvaluationReport,
     HeldoutManifestIntegrityError,
@@ -16,12 +22,16 @@ from incident_precedent_harness.evaluation.heldout import (
 
 __all__ = [
     "HeldoutBaselineIntegrityError",
+    "HeldoutComparisonIntegrityError",
+    "HeldoutComparisonReport",
     "HeldoutEvaluationReport",
     "HeldoutFailureAutopsyReport",
     "HeldoutManifestIntegrityError",
+    "build_heldout_direct_signal_comparison",
     "build_heldout_failure_autopsy",
     "run_frozen_heldout_evaluation",
     "verify_heldout_freeze",
+    "write_heldout_direct_signal_comparison",
     "write_heldout_failure_autopsy",
     "write_heldout_report",
 ]
