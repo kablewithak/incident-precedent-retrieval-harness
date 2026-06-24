@@ -1,0 +1,25 @@
+{
+  "eval_id": "EVAL-002",
+  "split": "calibration",
+  "input_summary": "Notification queue depth is rising and consumers are reporting errors. A deployment occurred earlier today, but the worker version, readiness failures, and dependency-latency pattern are not yet confirmed.",
+  "expected_decision_state": "missing_critical_facts",
+  "acceptable_precedent_ids": [
+    "INC-003",
+    "INC-004"
+  ],
+  "unsafe_precedent_ids": [
+    "INC-001",
+    "INC-002"
+  ],
+  "expected_candidate_procedure_ids": [],
+  "expected_missing_facts": [
+    "worker_deployment_version",
+    "consumer_error_rate",
+    "error_rate_by_component"
+  ],
+  "failure_label_intent": [
+    "missing_critical_incident_fact",
+    "false_operational_match"
+  ],
+  "acceptance_reason": "Tests whether a plausible deployment-and-backlog pattern avoids surfacing a procedure before the smallest discriminating facts are known."
+}

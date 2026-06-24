@@ -6,8 +6,10 @@ This manifest approves sources for controlled, attributed adaptation into a
 fictional RelayOps corpus. It does **not** authorize copying articles wholesale,
 using real customer data, or presenting source events as RelayOps events.
 
-Each authored record must link to exactly one source record here when
-`record_origin: source_grounded`.
+A record may be marked `source_grounded` only after a human confirms the exact
+source, the transformation note, and the absence of copied narrative. Until then,
+use `controlled_variant` and record the proposed source linkage in a batch review
+file.
 
 ## Approved source records
 
@@ -18,6 +20,10 @@ Each authored record must link to exactly one source record here when
 | SRC-003 | Cloudflare: 1.1.1.1 incident | 2025-07-15 | cited_reference | configuration/topology change and globally visible failure timeline | approved |
 | SRC-004 | Cloudflare: service-token code release outage | 2023-01-25 | cited_reference | authorization/configuration regression mechanism and response uncertainty | approved |
 | SRC-005 | GitHub availability reports | rolling | cited_reference | incident-report cadence and concise impact framing only | review_required |
+| SRC-006 | PostHog Feature Flags Service Outage | 2025-09-29 | licensed_source | deployment-adjacent connection failure, retry amplification, crash-loop pattern | approved |
+| SRC-007 | PostHog Feature Flags Service Multiple Outages | 2025-10-21 | licensed_source | consumer capacity loss, retry amplification, connection-pool pressure | approved |
+| SRC-008 | PostHog Feature Flags Cache Degradation | 2026-02-06 | licensed_source | worker OOM pattern, task backlog, cache-staleness impact | approved |
+| SRC-009 | PostHog Data Processing Delays — Events & Persons Ingestion | 2025-11-15 | licensed_source | database-driven processing delay and backlog recovery pattern | approved |
 
 ## Licence and transformation controls
 
@@ -58,13 +64,56 @@ Each authored record must link to exactly one source record here when
 - Restriction: do not use a monthly report as evidence for a specific failure
   mechanism unless its linked incident analysis provides that detail.
 
+### SRC-006 — PostHog Feature Flags Service Outage
+
+- URL: `https://github.com/PostHog/post-mortems/blob/main/2025-09-29-flags-is-down.md`
+- Licence: MIT; retain notices where applicable.
+- Usage: source review for connection timeout, retry amplification, and
+  crash-loop mechanisms only.
+- Transformation: remove organization-specific services, exact chronology,
+  direct operational remediation, and implementation identifiers.
+
+### SRC-007 — PostHog Feature Flags Service Multiple Outages
+
+- URL: `https://github.com/PostHog/post-mortems/blob/main/2025-10-21-feature-flags-recurring-outages.md`
+- Licence: MIT; retain notices where applicable.
+- Usage: source review for worker-capacity loss, retry amplification, and
+  connection-pool pressure only.
+- Transformation: map to fictional RelayOps components; do not copy incident
+  narrative, source infrastructure names, or production details.
+
+### SRC-008 — PostHog Feature Flags Cache Degradation
+
+- URL: `https://github.com/PostHog/post-mortems/blob/main/2026-02-06-feature-flags-cache-degradation.md`
+- Licence: MIT; retain notices where applicable.
+- Usage: source review for worker OOM, backlogged tasks, and stale-cache
+  consequences only.
+- Transformation: remove source organization names, counts, dates, and direct
+  remediation steps; use only the generalized failure mechanism.
+
+### SRC-009 — PostHog Data Processing Delays — Events & Persons Ingestion
+
+- URL: `https://github.com/PostHog/post-mortems/blob/main/2025-11-15-persons-db-migration.md`
+- Licence: MIT; retain notices where applicable.
+- Usage: source review for database-write delay, pipeline backlog, and recovery
+  sequencing only.
+- Transformation: retain no source database identifiers, exact metrics, or
+  remediation instructions.
+
+## Batch 01 review status
+
+Batch 01 uses `SRC-006` through `SRC-009` as proposed source linkage for four
+**controlled variants**. It is deliberately not a validated source-grounded
+corpus yet. See `docs/data/batch-01-source-review.md`.
+
 ## Source-review checklist
 
-Before authoring a card:
+Before promoting any controlled variant to `source_grounded`:
 
 1. Confirm the source is public and the individual URL works.
-2. Record the date, usage mode, and source identifier.
-3. Write a transformation note explaining what general mechanism was retained.
-4. Remove organization names, account identifiers, infrastructure names,
-   internal URLs, IP addresses, exact copied timelines, and remediation detail.
-5. Set `human_verified: true` only after a human has checked the result.
+2. Confirm the source date, usage mode, and source identifier.
+3. Confirm the transformation note describes only retained general mechanisms.
+4. Confirm organization names, account identifiers, infrastructure names,
+   internal URLs, IP addresses, copied timelines, and remediation detail are
+   absent from the RelayOps card.
+5. Set `human_verified: true` only after this review is complete.

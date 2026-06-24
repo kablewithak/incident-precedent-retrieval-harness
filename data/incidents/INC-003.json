@@ -1,0 +1,40 @@
+{
+  "incident_id": "INC-003",
+  "title": "Worker deployment exposed connection startup failure",
+  "record_origin": "controlled_variant",
+  "incident_family": "queue_backlog_consumer_failure",
+  "service": "webhook-delivery-service",
+  "component": "delivery-consumer",
+  "region": "us-east",
+  "severity": "sev_1",
+  "started_after_change": true,
+  "change_context": "deployment",
+  "symptoms": [
+    "webhook delivery delay",
+    "queue backlog growth",
+    "consumer startup failures"
+  ],
+  "observability_signals": [
+    "queue depth increased",
+    "consumer error rate increased",
+    "new worker version failed readiness"
+  ],
+  "failure_mechanism": "A new consumer version could not establish required dependency connections during startup under existing load, reducing healthy consumer capacity and amplifying retry traffic.",
+  "mitigation_summary": "The queue declined after healthy consumer capacity returned and retry pressure subsided; the historical record does not prescribe an action for a new incident.",
+  "recovery_state": "recovered",
+  "timeline_summary": "The backlog began shortly after a worker deployment. New consumers failed readiness, leaving fewer healthy consumers to process delivery events.",
+  "linked_procedure_ids": [
+    "RB-001"
+  ],
+  "safe_procedure_ids": [
+    "RB-001"
+  ],
+  "unsafe_procedure_ids": [],
+  "required_verification_facts": [
+    "worker_deployment_version",
+    "consumer_error_rate",
+    "queue_depth",
+    "error_rate_by_component"
+  ],
+  "narrative_safe": "RelayOps webhook delivery consumers began failing shortly after a deployment. Queue depth increased while new worker instances failed readiness. This is a candidate precedent only when the deployed version and consumer-error pattern are confirmed."
+}

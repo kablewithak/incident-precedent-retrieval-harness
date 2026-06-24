@@ -1,0 +1,40 @@
+{
+  "incident_id": "INC-004",
+  "title": "Consumer rollout amplified retry pressure and backlog",
+  "record_origin": "controlled_variant",
+  "incident_family": "queue_backlog_consumer_failure",
+  "service": "notification-service",
+  "component": "notification-worker",
+  "region": "us-east",
+  "severity": "sev_2",
+  "started_after_change": true,
+  "change_context": "deployment",
+  "symptoms": [
+    "notification delay",
+    "queue backlog growth",
+    "cache dependency saturation"
+  ],
+  "observability_signals": [
+    "queue depth increased",
+    "consumer error rate increased",
+    "dependency latency increased"
+  ],
+  "failure_mechanism": "A consumer rollout during resource pressure triggered retry amplification and dependency contention, reducing effective consumer throughput and growing the notification queue.",
+  "mitigation_summary": "The incident stabilized after concurrent retry pressure fell and consumer throughput returned; a historical match does not establish the same dependency is at fault now.",
+  "recovery_state": "recovered",
+  "timeline_summary": "An unrelated rollout coincided with declining consumer throughput. Increased retries and dependency latency appeared alongside a growing notification queue.",
+  "linked_procedure_ids": [
+    "RB-001"
+  ],
+  "safe_procedure_ids": [
+    "RB-001"
+  ],
+  "unsafe_procedure_ids": [],
+  "required_verification_facts": [
+    "worker_deployment_version",
+    "consumer_error_rate",
+    "queue_depth",
+    "error_rate_by_component"
+  ],
+  "narrative_safe": "RelayOps notification workers lost effective throughput after a rollout while dependency latency increased. The queue backlog may resemble a pure database-delay incident, but the deployment and retry pattern make that an unsafe assumption without verification."
+}

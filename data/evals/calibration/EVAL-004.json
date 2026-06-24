@@ -1,0 +1,15 @@
+{
+  "eval_id": "EVAL-004",
+  "split": "calibration",
+  "input_summary": "Synthetic intake for a known queue-backlog pattern while the semantic provider reports a terminal provisioning failure.",
+  "expected_decision_state": "provider_degraded",
+  "acceptable_precedent_ids": [],
+  "unsafe_precedent_ids": [],
+  "expected_candidate_procedure_ids": [],
+  "expected_missing_facts": [],
+  "failure_label_intent": [
+    "provider_unavailable",
+    "provider_degraded"
+  ],
+  "acceptance_reason": "Tests that the evidence service does not present ordinary semantic evidence when the required provider capability is unavailable."
+}

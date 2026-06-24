@@ -1,0 +1,22 @@
+{
+  "eval_id": "EVAL-001",
+  "split": "calibration",
+  "input_summary": "Webhook delivery queue depth rose immediately after version 2026.06.24.3 reached the delivery consumers. New workers report dependency connection failures and do not remain ready. Queue depth and consumer error rate are both confirmed elevated.",
+  "expected_decision_state": "evidence_found",
+  "acceptable_precedent_ids": [
+    "INC-003"
+  ],
+  "unsafe_precedent_ids": [
+    "INC-001",
+    "INC-002"
+  ],
+  "expected_candidate_procedure_ids": [
+    "RB-001"
+  ],
+  "expected_missing_facts": [],
+  "failure_label_intent": [
+    "correct_precedent_ranked_first",
+    "candidate_procedure_relevance"
+  ],
+  "acceptance_reason": "Tests whether a deployment-linked consumer-capacity failure retrieves the closest operational pattern rather than a generic backlog case."
+}
