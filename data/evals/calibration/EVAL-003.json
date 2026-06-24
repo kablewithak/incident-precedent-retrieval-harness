@@ -1,0 +1,20 @@
+{
+  "eval_id": "EVAL-003",
+  "split": "calibration",
+  "input_summary": "API requests are returning HTTP 429 after a traffic-control configuration update. Queue depth is normal and consumers remain healthy.",
+  "expected_decision_state": "insufficient_precedent",
+  "acceptable_precedent_ids": [],
+  "unsafe_precedent_ids": [
+    "INC-001",
+    "INC-002",
+    "INC-003",
+    "INC-004"
+  ],
+  "expected_candidate_procedure_ids": [],
+  "expected_missing_facts": [],
+  "failure_label_intent": [
+    "insufficient_precedent",
+    "unsafe_procedure_surfacing"
+  ],
+  "acceptance_reason": "Tests abstention when keyword overlap around errors or configuration could otherwise force an unrelated queue-backlog precedent."
+}

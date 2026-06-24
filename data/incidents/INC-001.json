@@ -1,0 +1,39 @@
+{
+  "incident_id": "INC-001",
+  "title": "Cache update consumers exhausted memory and fell behind",
+  "record_origin": "controlled_variant",
+  "incident_family": "queue_backlog_consumer_failure",
+  "service": "feature-flag-service",
+  "component": "cache-update-worker",
+  "region": "eu-west",
+  "severity": "sev_2",
+  "started_after_change": false,
+  "change_context": "none",
+  "symptoms": [
+    "stale configuration evaluations",
+    "task backlog growth",
+    "intermittent worker restarts"
+  ],
+  "observability_signals": [
+    "queue depth increased",
+    "worker restart count increased",
+    "cache update age increased"
+  ],
+  "failure_mechanism": "An oversized update workload exceeded consumer memory limits, repeatedly removing worker capacity and allowing cache-update tasks to accumulate.",
+  "mitigation_summary": "The backlog began clearing only after the abnormal workload was isolated and consumer capacity remained stable.",
+  "recovery_state": "recovered",
+  "timeline_summary": "Worker restarts accumulated before queue depth and cache update age made the capacity loss visible.",
+  "linked_procedure_ids": [
+    "RB-001"
+  ],
+  "safe_procedure_ids": [
+    "RB-001"
+  ],
+  "unsafe_procedure_ids": [],
+  "required_verification_facts": [
+    "queue_depth",
+    "consumer_error_rate",
+    "error_rate_by_component"
+  ],
+  "narrative_safe": "RelayOps cache-update consumers repeatedly left service while processing an unusually large configuration update. The task queue grew and configuration freshness degraded. Historical evidence is relevant only after confirming that consumer capacity loss, rather than a cache-read failure, is present."
+}

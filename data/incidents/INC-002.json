@@ -1,0 +1,39 @@
+{
+  "incident_id": "INC-002",
+  "title": "Database write latency delayed event consumers",
+  "record_origin": "controlled_variant",
+  "incident_family": "queue_backlog_consumer_failure",
+  "service": "workflow-service",
+  "component": "event-consumer",
+  "region": "us-east",
+  "severity": "sev_2",
+  "started_after_change": false,
+  "change_context": "none",
+  "symptoms": [
+    "delayed workflow events",
+    "queue backlog growth",
+    "elevated consumer processing latency"
+  ],
+  "observability_signals": [
+    "queue depth increased",
+    "database write latency increased",
+    "consumer throughput decreased"
+  ],
+  "failure_mechanism": "Sustained database write latency reduced consumer throughput below incoming event volume, producing a growing but recoverable event backlog.",
+  "mitigation_summary": "Processing recovered after database write latency returned to a stable range and consumers could drain the accumulated queue.",
+  "recovery_state": "recovered",
+  "timeline_summary": "Event processing slowed before the backlog became operationally visible; recovery required confirming write latency had stabilized before treating queue decline as meaningful.",
+  "linked_procedure_ids": [
+    "RB-001"
+  ],
+  "safe_procedure_ids": [
+    "RB-001"
+  ],
+  "unsafe_procedure_ids": [],
+  "required_verification_facts": [
+    "queue_depth",
+    "consumer_error_rate",
+    "error_rate_by_component"
+  ],
+  "narrative_safe": "RelayOps event consumers remained available but processed work too slowly while a database write path degraded. The queue grew without a deployment trigger. The historical pattern is not equivalent to a consumer crash loop unless worker health is also degraded."
+}

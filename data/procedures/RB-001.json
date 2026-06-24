@@ -1,0 +1,32 @@
+{
+  "procedure_id": "RB-001",
+  "title": "Inspect consumer capacity loss behind queue backlog",
+  "version": "1.0",
+  "status": "current",
+  "applicable_incident_families": [
+    "queue_backlog_consumer_failure"
+  ],
+  "not_applicable_when": [
+    "cache_stampede_invalidation_failure",
+    "database_migration_lock_contention"
+  ],
+  "verification_prerequisites": [
+    "queue_depth",
+    "consumer_error_rate",
+    "error_rate_by_component"
+  ],
+  "safe_investigation_steps": [
+    "Inspect queue depth and the rate at which it is changing.",
+    "Compare consumer error rate with consumer throughput over the same interval.",
+    "Confirm whether a worker deployment version changed before capacity declined.",
+    "Review component-level dependency latency without assuming it is the root cause.",
+    "Record which verification facts remain unknown before treating a precedent as applicable."
+  ],
+  "unsafe_or_out_of_scope_actions": [
+    "Do not restart consumers or alter queue configuration from this evidence packet.",
+    "Do not treat a historical match as proof of current root cause.",
+    "Do not select a remediation path when required verification facts are missing."
+  ],
+  "last_reviewed_at": "2026-06-24",
+  "owner_role": "platform_engineering"
+}
