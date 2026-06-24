@@ -77,3 +77,7 @@ evaluation rerun.
 The corpus is a controlled evaluation asset. It does not represent actual
 RelayOps history, production incident recall, safe remediation, or customer-data
 validation.
+
+## Held-out tranche 01
+
+The repository now contains `heldout_tranche_01`: 12 frozen cases with IDs `EVAL-101` through `EVAL-112`. The tranche is hash-locked by `data/evals/heldout/HELDOUT_FREEZE_MANIFEST.json`. It is distinct from the 12 calibration cases and cannot be used for tuning. See `docs/data/heldout-evaluation-constitution.md` for its case groups, change policy, and non-claims.

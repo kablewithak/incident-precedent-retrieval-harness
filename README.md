@@ -174,3 +174,9 @@ It writes:
 
 The policy supports only the three authored families. It does not extract facts
 from free text, call SIE, diagnose a current incident, or authorize a procedure.
+
+## Held-out evaluation boundary
+
+`heldout_tranche_01` is frozen under `data/evals/heldout` and is intentionally separate from calibration. It contains 12 diagnostic cases across positive, false-operational-match, no-precedent, conflict, and provider-degraded behavior. The tranche is hash-locked by `HELDOUT_FREEZE_MANIFEST.json` and must not be used to tune retrieval, policy, procedure eligibility, or prompts.
+
+The current tranche is not the final planned 36-case holdout and has not yet been used to make a promotion decision.

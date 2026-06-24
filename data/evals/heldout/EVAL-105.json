@@ -1,0 +1,51 @@
+{
+  "eval_id": "EVAL-105",
+  "split": "heldout",
+  "input_summary": "Webhook delivery errors align with a confirmed upstream provider incident. Queue depth is stable, consumer errors are ordinary, migration lock waits are absent, and database pool metrics are normal.",
+  "expected_decision_state": "insufficient_precedent",
+  "acceptable_precedent_ids": [],
+  "unsafe_precedent_ids": [
+    "INC-003",
+    "INC-005",
+    "INC-009"
+  ],
+  "expected_candidate_procedure_ids": [],
+  "expected_missing_facts": [],
+  "observed_facts": [
+    {
+      "fact": "provider_status",
+      "status": "confirmed"
+    },
+    {
+      "fact": "queue_depth",
+      "status": "contradicted"
+    },
+    {
+      "fact": "consumer_error_rate",
+      "status": "contradicted"
+    },
+    {
+      "fact": "migration_lock_waits",
+      "status": "contradicted"
+    },
+    {
+      "fact": "database_connection_pool_utilization",
+      "status": "contradicted"
+    },
+    {
+      "fact": "database_connection_acquire_latency",
+      "status": "contradicted"
+    },
+    {
+      "fact": "active_database_connections",
+      "status": "contradicted"
+    }
+  ],
+  "provider_available": true,
+  "failure_label_intent": [
+    "false_operational_match",
+    "insufficient_precedent",
+    "unsafe_procedure_surfaced"
+  ],
+  "acceptance_reason": "A third-party degradation case must abstain even though existing incidents use similar delivery and timeout language."
+}

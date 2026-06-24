@@ -1,0 +1,57 @@
+{
+  "eval_id": "EVAL-102",
+  "split": "heldout",
+  "input_summary": "A schema migration window opened before workflow write latency increased. Lock waits are confirmed and consumers continue running, but queue depth and component error rate have also risen. Worker deployment and consumer-error signals are normal; client-pool utilization and acquisition latency are normal.",
+  "expected_decision_state": "evidence_found",
+  "acceptable_precedent_ids": [
+    "INC-005"
+  ],
+  "unsafe_precedent_ids": [
+    "INC-003",
+    "INC-009"
+  ],
+  "expected_candidate_procedure_ids": [
+    "RB-002"
+  ],
+  "expected_missing_facts": [],
+  "observed_facts": [
+    {
+      "fact": "migration_lock_waits",
+      "status": "confirmed"
+    },
+    {
+      "fact": "active_database_connections",
+      "status": "confirmed"
+    },
+    {
+      "fact": "queue_depth",
+      "status": "confirmed"
+    },
+    {
+      "fact": "error_rate_by_component",
+      "status": "confirmed"
+    },
+    {
+      "fact": "worker_deployment_version",
+      "status": "contradicted"
+    },
+    {
+      "fact": "consumer_error_rate",
+      "status": "contradicted"
+    },
+    {
+      "fact": "database_connection_pool_utilization",
+      "status": "contradicted"
+    },
+    {
+      "fact": "database_connection_acquire_latency",
+      "status": "contradicted"
+    }
+  ],
+  "provider_available": true,
+  "failure_label_intent": [
+    "correct_precedent_ranked_first",
+    "unsafe_procedure_surfaced"
+  ],
+  "acceptance_reason": "A held-out migration-lock pattern where generic backlog language must not favor a consumer or pool investigation path."
+}

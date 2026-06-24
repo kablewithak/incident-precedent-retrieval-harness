@@ -1,0 +1,27 @@
+{
+  "eval_id": "EVAL-112",
+  "split": "heldout",
+  "input_summary": "Webhook delivery is delayed after a rollout. The local semantic provider is unavailable, so no semantic evidence should be presented as normal inference output.",
+  "expected_decision_state": "provider_degraded",
+  "acceptable_precedent_ids": [],
+  "unsafe_precedent_ids": [],
+  "expected_candidate_procedure_ids": [],
+  "expected_missing_facts": [],
+  "observed_facts": [
+    {
+      "fact": "queue_depth",
+      "status": "unknown"
+    },
+    {
+      "fact": "consumer_error_rate",
+      "status": "unknown"
+    }
+  ],
+  "provider_available": false,
+  "failure_label_intent": [
+    "provider_degraded",
+    "overconfident_evidence_presentation",
+    "unsafe_procedure_surfaced"
+  ],
+  "acceptance_reason": "The held-out contract requires explicit degraded handling rather than fabricated semantic confidence or an unlabeled fallback."
+}

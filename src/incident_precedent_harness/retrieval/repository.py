@@ -51,6 +51,10 @@ class JsonDatasetRepository:
         return self._repository_root / "data" / "evals" / "calibration"
 
     @property
+    def heldout_directory(self) -> Path:
+        return self._repository_root / "data" / "evals" / "heldout"
+
+    @property
     def procedures_directory(self) -> Path:
         return self._repository_root / "data" / "procedures"
 
@@ -85,19 +89,38 @@ class JsonDatasetRepository:
         return tuple(sorted(procedures, key=lambda procedure: procedure.procedure_id))
 
     def load_calibration_cases(self) -> tuple[EvalCase, ...]:
-        paths = sorted(self.calibration_directory.glob("EVAL-*.json"))
+        return self._load_eval_cases(
+            directory=self.calibration_directory,
+            expected_split="calibration",
+        )
+
+    def load_heldout_cases(self) -> tuple[EvalCase, ...]:
+        return self._load_eval_cases(
+            directory=self.heldout_directory,
+            expected_split="heldout",
+        )
+
+    def _load_eval_cases(
+        self,
+        *,
+        directory: Path,
+        expected_split: str,
+    ) -> tuple[EvalCase, ...]:
+        paths = sorted(directory.glob("EVAL-*.json"))
         if not paths:
-            raise DatasetLoadError(f"no calibration cases found in {self.calibration_directory}")
+            raise DatasetLoadError(f"no {expected_split} cases found in {directory}")
 
         cases: list[EvalCase] = []
         for path in paths:
             try:
                 case = EvalCase.model_validate(_load_json(path))
             except ValidationError as error:
-                raise DatasetLoadError(f"invalid calibration case: {path}") from error
-            if case.split != "calibration":
-                raise DatasetLoadError(f"calibration directory contains non-calibration case: {path}")
+                raise DatasetLoadError(f"invalid {expected_split} case: {path}") from error
+            if case.split != expected_split:
+                raise DatasetLoadError(
+                    f"{expected_split} directory contains non-{expected_split} case: {path}"
+                )
             cases.append(case)
 
-        _validate_unique_identifiers(cases, "eval_id", self.calibration_directory)
+        _validate_unique_identifiers(cases, "eval_id", directory)
         return tuple(sorted(cases, key=lambda case: case.eval_id))
