@@ -20,5 +20,27 @@
     "correct_precedent_ranked_first",
     "candidate_procedure_relevance"
   ],
-  "acceptance_reason": "Tests the first deliberate anti-anchoring boundary: queue growth after change must not select a deployment-linked consumer failure when verified migration lock waits explain the throughput loss."
+  "acceptance_reason": "Tests the first deliberate anti-anchoring boundary: queue growth after change must not select a deployment-linked consumer failure when verified migration lock waits explain the throughput loss.",
+  "observed_facts": [
+    {
+      "fact": "migration_lock_waits",
+      "status": "confirmed"
+    },
+    {
+      "fact": "active_database_connections",
+      "status": "confirmed"
+    },
+    {
+      "fact": "queue_depth",
+      "status": "confirmed"
+    },
+    {
+      "fact": "error_rate_by_component",
+      "status": "confirmed"
+    },
+    {
+      "fact": "consumer_error_rate",
+      "status": "contradicted"
+    }
+  ]
 }

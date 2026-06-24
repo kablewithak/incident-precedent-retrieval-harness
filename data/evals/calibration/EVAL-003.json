@@ -16,5 +16,19 @@
     "insufficient_precedent",
     "unsafe_procedure_surfacing"
   ],
-  "acceptance_reason": "Tests abstention when keyword overlap around errors or configuration could otherwise force an unrelated queue-backlog precedent."
+  "acceptance_reason": "Tests abstention when keyword overlap around errors or configuration could otherwise force an unrelated queue-backlog precedent.",
+  "observed_facts": [
+    {
+      "fact": "queue_depth",
+      "status": "contradicted"
+    },
+    {
+      "fact": "consumer_error_rate",
+      "status": "contradicted"
+    },
+    {
+      "fact": "rate_limit_configuration",
+      "status": "confirmed"
+    }
+  ]
 }

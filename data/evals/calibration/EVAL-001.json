@@ -18,5 +18,27 @@
     "correct_precedent_ranked_first",
     "candidate_procedure_relevance"
   ],
-  "acceptance_reason": "Tests whether a deployment-linked consumer-capacity failure retrieves the closest operational pattern rather than a generic backlog case."
+  "acceptance_reason": "Tests whether a deployment-linked consumer-capacity failure retrieves the closest operational pattern rather than a generic backlog case.",
+  "observed_facts": [
+    {
+      "fact": "worker_deployment_version",
+      "status": "confirmed"
+    },
+    {
+      "fact": "consumer_error_rate",
+      "status": "confirmed"
+    },
+    {
+      "fact": "queue_depth",
+      "status": "confirmed"
+    },
+    {
+      "fact": "error_rate_by_component",
+      "status": "confirmed"
+    },
+    {
+      "fact": "migration_lock_waits",
+      "status": "contradicted"
+    }
+  ]
 }

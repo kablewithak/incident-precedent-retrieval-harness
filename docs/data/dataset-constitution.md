@@ -65,7 +65,10 @@ evaluation rerun.
 4. Every eval case names an expected decision state, acceptable precedent IDs,
    unsafe precedent IDs, expected missing facts where relevant, and an
    acceptance reason.
-5. No corpus/eval asset may contain private incident records, raw production
+5. Calibration policy fixtures may carry `observed_facts` with explicit
+   `confirmed`, `contradicted`, or `unknown` state. They simulate structured
+   intake fields and must not be inferred from expected labels at runtime.
+6. No corpus/eval asset may contain private incident records, raw production
    logs, internal hostnames, customer identifiers, credentials, tokens, signed
    URLs, or copied public articles.
 

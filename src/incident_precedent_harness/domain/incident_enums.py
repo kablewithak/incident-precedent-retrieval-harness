@@ -82,6 +82,14 @@ class RecoveryState(str, Enum):
     UNKNOWN = "unknown"
 
 
+class VerificationFactStatus(str, Enum):
+    """Observed state for one structured verification fact at intake time."""
+
+    CONFIRMED = "confirmed"
+    CONTRADICTED = "contradicted"
+    UNKNOWN = "unknown"
+
+
 class RequiredVerificationFact(str, Enum):
     """Facts a responder may need before treating precedent as applicable."""
 

@@ -8,7 +8,11 @@ from pathlib import Path
 
 from pydantic import ValidationError
 
-from incident_precedent_harness.domain.incident_data import EvalCase, HistoricalIncidentCard
+from incident_precedent_harness.domain.incident_data import (
+    CandidateInvestigationProcedure,
+    EvalCase,
+    HistoricalIncidentCard,
+)
 
 
 class DatasetLoadError(ValueError):
@@ -46,6 +50,10 @@ class JsonDatasetRepository:
     def calibration_directory(self) -> Path:
         return self._repository_root / "data" / "evals" / "calibration"
 
+    @property
+    def procedures_directory(self) -> Path:
+        return self._repository_root / "data" / "procedures"
+
     def load_incidents(self) -> tuple[HistoricalIncidentCard, ...]:
         paths = sorted(self.incidents_directory.glob("INC-*.json"))
         if not paths:
@@ -60,6 +68,21 @@ class JsonDatasetRepository:
 
         _validate_unique_identifiers(cards, "incident_id", self.incidents_directory)
         return tuple(sorted(cards, key=lambda card: card.incident_id))
+
+    def load_procedures(self) -> tuple[CandidateInvestigationProcedure, ...]:
+        paths = sorted(self.procedures_directory.glob("RB-*.json"))
+        if not paths:
+            raise DatasetLoadError(f"no procedures found in {self.procedures_directory}")
+
+        procedures: list[CandidateInvestigationProcedure] = []
+        for path in paths:
+            try:
+                procedures.append(CandidateInvestigationProcedure.model_validate(_load_json(path)))
+            except ValidationError as error:
+                raise DatasetLoadError(f"invalid candidate procedure: {path}") from error
+
+        _validate_unique_identifiers(procedures, "procedure_id", self.procedures_directory)
+        return tuple(sorted(procedures, key=lambda procedure: procedure.procedure_id))
 
     def load_calibration_cases(self) -> tuple[EvalCase, ...]:
         paths = sorted(self.calibration_directory.glob("EVAL-*.json"))

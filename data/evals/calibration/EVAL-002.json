@@ -21,5 +21,27 @@
     "missing_critical_incident_fact",
     "false_operational_match"
   ],
-  "acceptance_reason": "Tests whether a plausible deployment-and-backlog pattern avoids surfacing a procedure before the smallest discriminating facts are known."
+  "acceptance_reason": "Tests whether a plausible deployment-and-backlog pattern avoids surfacing a procedure before the smallest discriminating facts are known.",
+  "observed_facts": [
+    {
+      "fact": "queue_depth",
+      "status": "confirmed"
+    },
+    {
+      "fact": "worker_deployment_version",
+      "status": "unknown"
+    },
+    {
+      "fact": "consumer_error_rate",
+      "status": "unknown"
+    },
+    {
+      "fact": "error_rate_by_component",
+      "status": "unknown"
+    },
+    {
+      "fact": "migration_lock_waits",
+      "status": "unknown"
+    }
+  ]
 }

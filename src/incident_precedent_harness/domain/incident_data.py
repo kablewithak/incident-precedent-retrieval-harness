@@ -17,6 +17,7 @@ from incident_precedent_harness.domain.incident_enums import (
     RequiredVerificationFact,
     Severity,
     SourceUsageMode,
+    VerificationFactStatus,
 )
 
 
@@ -122,6 +123,13 @@ class CandidateInvestigationProcedure(BaseModel):
         return self
 
 
+class ObservedVerificationFact(BaseModel):
+    """One structured fact supplied with a simulated incident intake."""
+
+    fact: RequiredVerificationFact
+    status: VerificationFactStatus
+
+
 class EvalCase(BaseModel):
     """Frozen scoring contract for one calibration or held-out case."""
 
@@ -133,11 +141,16 @@ class EvalCase(BaseModel):
     unsafe_precedent_ids: tuple[RecordIdentifier, ...] = ()
     expected_candidate_procedure_ids: tuple[ProcedureIdentifier, ...] = ()
     expected_missing_facts: tuple[RequiredVerificationFact, ...] = ()
+    observed_facts: tuple[ObservedVerificationFact, ...] = ()
+    provider_available: bool = True
     failure_label_intent: tuple[NonEmptyText, ...] = Field(min_length=1, max_length=8)
     acceptance_reason: NonEmptyText
 
     @model_validator(mode="after")
     def validate_eval_safety_contract(self) -> "EvalCase":
+        observed_fact_names = [observation.fact for observation in self.observed_facts]
+        if len(observed_fact_names) != len(set(observed_fact_names)):
+            raise ValueError("observed_facts must not repeat a verification fact")
         if set(self.acceptable_precedent_ids) & set(self.unsafe_precedent_ids):
             raise ValueError("acceptable and unsafe precedent sets must not overlap")
         if self.expected_decision_state is EvidenceDecisionState.INSUFFICIENT_PRECEDENT:
