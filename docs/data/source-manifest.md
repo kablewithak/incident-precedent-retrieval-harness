@@ -1,38 +1,70 @@
-# Source Manifest
+# Source Manifest — Related Incident Evidence
 
-## Purpose
+## Use rule
 
-This manifest records the public material used to inform source-grounded synthetic RelayOps incident cards. It is not an incident corpus. Do not paste full articles, private incident records, customer data, production logs, credentials, or internal identifiers into this repository.
+This manifest approves sources for controlled, attributed adaptation into a
+fictional RelayOps corpus. It does **not** authorize copying articles wholesale,
+using real customer data, or presenting source events as RelayOps events.
 
-## Current status
+Each authored record must link to exactly one source record here when
+`record_origin: source_grounded`.
 
-- **Source review:** not started
-- **Corpus cards authored:** 0 / 32
-- **Candidate investigation procedures authored:** 0 / 8–10
-- **Held-out cases frozen:** no
+## Approved source records
 
-## Required fields for every reviewed source
+| ID | Source | Date | Usage mode | Approved use | Status |
+|---|---|---|---|---|---|
+| SRC-001 | PostHog public post-mortems repository | n/a | licensed_source | incident structure, engineering terminology, manually authored variants | approved |
+| SRC-002 | Cloudflare: Tenant Service API / dashboard outage | 2025-09-13 | cited_reference | overload after software change, dependency amplification, timeline structure | approved |
+| SRC-003 | Cloudflare: 1.1.1.1 incident | 2025-07-15 | cited_reference | configuration/topology change and globally visible failure timeline | approved |
+| SRC-004 | Cloudflare: service-token code release outage | 2023-01-25 | cited_reference | authorization/configuration regression mechanism and response uncertainty | approved |
+| SRC-005 | GitHub availability reports | rolling | cited_reference | incident-report cadence and concise impact framing only | review_required |
 
-| Field | Requirement |
-|---|---|
-| `source_record_id` | Stable manifest identifier, for example `SRC-001`. |
-| `source_name` | Publisher or repository name. |
-| `source_url` | Canonical public URL. |
-| `source_date` | Publication date, or `unknown` when unavailable. |
-| `usage_mode` | `licensed_source`, `cited_reference`, or `manually_authored_variant`. |
-| `license_or_terms_note` | Short note on why the planned use is permitted. |
-| `mechanisms_observed` | Brief, original-language summary of operational mechanisms. |
-| `transformation_note` | How it becomes a fictional RelayOps record without copying prose. |
-| `human_verified` | `true` only after manual review. |
+## Licence and transformation controls
 
-## Approved source categories
+### SRC-001 — PostHog post-mortems
 
-1. PostHog public postmortems, with licence/attribution handling verified per source.
-2. Official public incident analyses from Cloudflare, GitHub, and OpenAI, used as cited references for mechanisms and terminology.
-3. Optional, carefully reviewed Rootly AI Labs public log excerpts as noisy evidence examples only, never as the core incident corpus.
-4. Rootly SRE Skills Bench as a methodology reference only.
+- URL: `https://github.com/PostHog/post-mortems`
+- Licence: MIT; retain copyright and licence notices where applicable.
+- Transformation: never copy postmortem narrative wholesale. Derive a distinct,
+  fictional RelayOps record with a written transformation note.
 
-## Records
+### SRC-002 — Cloudflare Tenant Service API / dashboard outage
 
-| source_record_id | source_name | source_url | source_date | usage_mode | license_or_terms_note | mechanisms_observed | transformation_note | human_verified |
-|---|---|---|---|---|---|---|---|---|
+- URL: `https://blog.cloudflare.com/deep-dive-into-cloudflares-sept-12-dashboard-and-api-outage/`
+- Usage: cited reference only.
+- Transformation: extract only general mechanisms such as a software change,
+  increased request load, dependency sensitivity, and recovery uncertainty.
+  Do not copy narrative, service names, timelines, or remediation instructions.
+
+### SRC-003 — Cloudflare 1.1.1.1 incident
+
+- URL: `https://blog.cloudflare.com/cloudflare-1-1-1-1-incident-on-july-14-2025/`
+- Usage: cited reference only.
+- Transformation: use only general configuration-change and impact-pattern
+  concepts; adapt into RelayOps without source infrastructure identifiers.
+
+### SRC-004 — Cloudflare service-token code release outage
+
+- URL: `https://blog.cloudflare.com/tag/post-mortem/page/2/`
+- Usage: cited reference only. Locate the individual January 25, 2023 postmortem
+  before authoring a record.
+- Transformation: record the exact individual source URL and date in the
+  authored incident provenance record.
+
+### SRC-005 — GitHub availability reports
+
+- URL: `https://github.blog/category/company-news/`
+- Status: review required before any record is authored.
+- Restriction: do not use a monthly report as evidence for a specific failure
+  mechanism unless its linked incident analysis provides that detail.
+
+## Source-review checklist
+
+Before authoring a card:
+
+1. Confirm the source is public and the individual URL works.
+2. Record the date, usage mode, and source identifier.
+3. Write a transformation note explaining what general mechanism was retained.
+4. Remove organization names, account identifiers, infrastructure names,
+   internal URLs, IP addresses, exact copied timelines, and remediation detail.
+5. Set `human_verified: true` only after a human has checked the result.
