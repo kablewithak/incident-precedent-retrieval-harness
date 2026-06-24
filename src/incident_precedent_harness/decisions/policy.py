@@ -285,18 +285,34 @@ def _family_compatibility(
         )
 
     if incident_family is IncidentFamily.CONNECTION_POOL_EXHAUSTION:
-        relevant = (
+        direct_pool_signals = (
             RequiredVerificationFact.DATABASE_CONNECTION_POOL_UTILIZATION,
             RequiredVerificationFact.DATABASE_CONNECTION_ACQUIRE_LATENCY,
-            RequiredVerificationFact.ACTIVE_DATABASE_CONNECTIONS,
         )
-        supported = any(status(fact) is VerificationFactStatus.CONFIRMED for fact in relevant)
-        contradictions = relevant if all(
-            status(fact) is VerificationFactStatus.CONTRADICTED for fact in relevant
-        ) else ()
+        active_connections = RequiredVerificationFact.ACTIVE_DATABASE_CONNECTIONS
+        confirmed_direct_signal = any(
+            status(fact) is VerificationFactStatus.CONFIRMED for fact in direct_pool_signals
+        )
+        direct_signals_unknown = all(
+            status(fact) is VerificationFactStatus.UNKNOWN for fact in direct_pool_signals
+        )
+        direct_signals_contradicted = all(
+            status(fact) is VerificationFactStatus.CONTRADICTED for fact in direct_pool_signals
+        )
+
+        # Active database connections are contextual. They can preserve an
+        # explicitly incomplete pool hypothesis when both direct signals remain
+        # unknown, but they cannot override two direct contradictions.
+        supported = confirmed_direct_signal or (
+            direct_signals_unknown
+            and status(active_connections) is VerificationFactStatus.CONFIRMED
+        )
+        contradictions = direct_pool_signals if direct_signals_contradicted else ()
         return (
             supported and not contradictions,
-            "Connection-pool compatibility checked from pool, acquisition, and active-connection facts.",
+            "Connection-pool compatibility requires a confirmed direct pool signal, "
+            "or explicitly unknown direct signals plus confirmed active-connection context; "
+            "active connections alone cannot override contradicted pool signals.",
             contradictions,
         )
 

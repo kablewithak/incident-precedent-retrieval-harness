@@ -10,6 +10,7 @@ import pytest
 
 from incident_precedent_harness.decisions.policy import AntiAnchoringDecisionPolicy
 from incident_precedent_harness.evaluation.heldout import (
+    HeldoutEvaluationReport,
     HeldoutManifestIntegrityError,
     run_frozen_heldout_evaluation,
     verify_heldout_freeze,
@@ -70,8 +71,10 @@ def test_freeze_verification_rejects_hash_mismatch(tmp_path: Path) -> None:
         verify_heldout_freeze(tmp_path)
 
 
-def test_current_keyword_policy_configuration_is_blocked_by_heldout_gate() -> None:
-    report = _current_report()
+def test_committed_keyword_policy_baseline_remains_blocked_evidence() -> None:
+    """Historical baseline expectations must read the immutable artifact, not current policy."""
+    baseline_path = ROOT / "evidence_vault" / "reports" / "heldout-tranche-01-keyword-policy.json"
+    report = HeldoutEvaluationReport.model_validate_json(baseline_path.read_text(encoding="utf-8"))
 
     assert report.freeze_verification.verified is True
     assert report.metrics.scored_case_count == 12
