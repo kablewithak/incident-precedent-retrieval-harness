@@ -1,0 +1,50 @@
+{
+  "spike_kind": "local_sie_operation_contract",
+  "evidence_date": "2026-06-24",
+  "sie_base_url": "http://localhost:8080",
+  "sie_sdk_version": "0.6.12",
+  "operation_count": 3,
+  "operations": [
+    {
+      "operation": "encode",
+      "status": "passed",
+      "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+      "latency_ms": 80756,
+      "dense_vector_dimension": 384,
+      "measurement_kind": "cold_start_or_provisioning_observation"
+    },
+    {
+      "operation": "score",
+      "status": "passed",
+      "model_id": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+      "latency_ms": 70687,
+      "score_entry_count": 2,
+      "returned_ranks": [0, 1],
+      "measurement_kind": "cold_start_or_provisioning_observation"
+    },
+    {
+      "operation": "extract",
+      "status": "blocked",
+      "model_id": "urchade/gliner_multi-v2.1",
+      "client_observation": {
+        "error_type": "ProvisioningError",
+        "latency_ms": 900004,
+        "normalized_failure_code": "retry_exhausted",
+        "safe_failure_summary": "Local SIE model did not become ready within the configured provisioning budget."
+      },
+      "server_observation": {
+        "error_type": "ModelLoadTimeoutError",
+        "load_timeout_seconds": 600,
+        "oom_killed": false,
+        "container_health": "healthy"
+      }
+    }
+  ],
+  "non_claims": [
+    "Does not prove retrieval quality.",
+    "Does not prove project-profile suitability.",
+    "Does not prove extraction-label usefulness.",
+    "Does not prove production readiness.",
+    "Does not prove full local SIE extract/encode/score capability."
+  ]
+}
