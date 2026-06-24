@@ -1,0 +1,24 @@
+{
+  "eval_id": "EVAL-009",
+  "split": "calibration",
+  "input_summary": "Payment API request timeouts increased without a migration. Database client-pool utilization and acquisition latency are elevated, active connections are near the configured limit, and migration lock waits are confirmed absent.",
+  "expected_decision_state": "evidence_found",
+  "acceptable_precedent_ids": [
+    "INC-009",
+    "INC-012"
+  ],
+  "unsafe_precedent_ids": [
+    "INC-005",
+    "INC-008"
+  ],
+  "expected_candidate_procedure_ids": [
+    "RB-003"
+  ],
+  "expected_missing_facts": [],
+  "failure_label_intent": [
+    "false_operational_match",
+    "correct_precedent_ranked_first",
+    "candidate_procedure_relevance"
+  ],
+  "acceptance_reason": "Tests that active connections and queue-like slowdown do not select a migration-lock procedure when connection acquisition pressure is confirmed and lock waits are absent."
+}

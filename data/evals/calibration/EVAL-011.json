@@ -1,0 +1,24 @@
+{
+  "eval_id": "EVAL-011",
+  "split": "calibration",
+  "input_summary": "Webhook delivery backlog and API errors began after a worker rollout. New workers failed readiness, while database client-pool acquisition latency and active connections also increased. Migration lock waits are absent.",
+  "expected_decision_state": "evidence_found_with_conflict",
+  "acceptable_precedent_ids": [
+    "INC-003",
+    "INC-011"
+  ],
+  "unsafe_precedent_ids": [
+    "INC-005"
+  ],
+  "expected_candidate_procedure_ids": [],
+  "expected_missing_facts": [
+    "consumer_error_rate",
+    "database_connection_pool_utilization"
+  ],
+  "failure_label_intent": [
+    "conflicting_precedent",
+    "unsafe_procedure_surfaced",
+    "overconfident_evidence_presentation"
+  ],
+  "acceptance_reason": "Creates a genuine conflict: deployment-linked consumer capacity loss and connection-pool initialization pressure are both plausible but imply divergent investigation paths, so no procedure may be preferred."
+}

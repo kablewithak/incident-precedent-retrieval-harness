@@ -1,0 +1,43 @@
+{
+  "incident_id": "INC-012",
+  "title": "Webhook retries saturated delivery connection pool",
+  "record_origin": "controlled_variant",
+  "incident_family": "connection_pool_exhaustion",
+  "service": "webhook-delivery-service",
+  "component": "delivery-store-client",
+  "region": "eu-west",
+  "severity": "sev_2",
+  "started_after_change": false,
+  "change_context": "none",
+  "symptoms": [
+    "webhook persistence delay",
+    "database connection timeout",
+    "retry volume increased"
+  ],
+  "observability_signals": [
+    "database connection pool utilization increased",
+    "database connection acquire latency increased",
+    "queue depth increased"
+  ],
+  "failure_mechanism": "Repeated persistence retries consumed delivery-service database client-pool capacity, delaying webhook storage and creating a backlog without evidence of a migration lock conflict.",
+  "mitigation_summary": "Delivery recovered after retry pressure and pool acquisition delay reduced; this record does not prescribe retry, queue, or database configuration changes.",
+  "recovery_state": "recovered",
+  "timeline_summary": "Connection acquisition delay rose before webhook persistence slowed. Queue growth followed sustained retry pressure while no migration activity was reported.",
+  "linked_procedure_ids": [
+    "RB-003"
+  ],
+  "safe_procedure_ids": [
+    "RB-003"
+  ],
+  "unsafe_procedure_ids": [
+    "RB-002"
+  ],
+  "required_verification_facts": [
+    "database_connection_pool_utilization",
+    "database_connection_acquire_latency",
+    "queue_depth",
+    "migration_lock_waits",
+    "error_rate_by_component"
+  ],
+  "narrative_safe": "RelayOps webhook persistence fell behind while retry volume and database client-pool acquisition delay increased. A queue-consumer procedure is not automatically applicable because the immediate constraint may be connection-pool capacity."
+}

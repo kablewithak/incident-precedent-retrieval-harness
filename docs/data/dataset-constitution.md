@@ -14,11 +14,11 @@ webhooks, and third-party provider dependencies.
 
 | Asset | Target | Current status |
 |---|---:|---|
-| Historical incident cards | 32 | schema ready; authoring not started |
+| Historical incident cards | 32 | 12 controlled variants authored; source review pending |
 | Incident families | 8 | frozen |
-| Candidate investigation procedures | 8–10 | schema ready; authoring not started |
-| Calibration cases | 12 | schema ready; authoring not started |
-| Held-out cases | 36 | schema ready; authoring not started |
+| Candidate investigation procedures | 8–10 | 3 bounded procedures authored |
+| Calibration cases | 12 | 12 cases authored; calibration only |
+| Held-out cases | 36 | not started; must remain separate from calibration |
 
 The eight incident families are frozen in
 `src/incident_precedent_harness/domain/incident_enums.py`.

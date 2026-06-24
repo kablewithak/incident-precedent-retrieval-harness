@@ -1,0 +1,21 @@
+{
+  "eval_id": "EVAL-012",
+  "split": "calibration",
+  "input_summary": "Event delivery failures align with a confirmed third-party provider status incident. Database connection acquisition latency, active connections, migration lock waits, and consumer error rate remain ordinary.",
+  "expected_decision_state": "insufficient_precedent",
+  "acceptable_precedent_ids": [],
+  "unsafe_precedent_ids": [
+    "INC-009",
+    "INC-012",
+    "INC-005",
+    "INC-003"
+  ],
+  "expected_candidate_procedure_ids": [],
+  "expected_missing_facts": [],
+  "failure_label_intent": [
+    "insufficient_precedent",
+    "false_operational_match",
+    "unsafe_procedure_surfaced"
+  ],
+  "acceptance_reason": "Tests abstention when a plausible third-party dependency failure is outside the authored corpus, despite existing records sharing generic delivery-delay vocabulary."
+}

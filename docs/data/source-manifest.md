@@ -26,6 +26,7 @@ file.
 | SRC-009 | PostHog Data Processing Delays — Events & Persons Ingestion | 2025-11-15 | licensed_source | database-driven processing delay and backlog recovery pattern | approved |
 | SRC-010 | PostgreSQL documentation: Explicit Locking | rolling | cited_reference | general lock conflict, transaction-bound lock lifetime, and lock-wait concepts | approved |
 | SRC-011 | PostgreSQL documentation: `pg_locks` view | rolling | cited_reference | lock-observation vocabulary and verification-fact design only | approved |
+| SRC-012 | PostgreSQL documentation: Connections and Authentication | rolling | cited_reference | connection-limit and reserved-slot vocabulary for verification-fact design only | approved |
 
 ## Licence and transformation controls
 
@@ -116,12 +117,23 @@ file.
 - Transformation: use only safe verification-fact vocabulary. Do not copy source
   queries, production schema names, or operational commands.
 
+### SRC-012 — PostgreSQL Connections and Authentication
+
+- URL: `https://www.postgresql.org/docs/current/runtime-config-connection.html`
+- Usage: cited reference only.
+- Transformation: use only general connection-limit and reserved-slot concepts to
+  define safe verification facts. Do not copy configuration snippets, recommend
+  increasing limits, or infer a production database configuration.
+
 ## Batch review status
 
 - Batch 01 uses `SRC-006` through `SRC-009` as proposed linkage for four
   controlled queue-backlog variants. See `docs/data/batch-01-source-review.md`.
 - Batch 02 uses `SRC-009` through `SRC-011` as proposed linkage for four
   controlled migration-lock variants. See `docs/data/batch-02-source-review.md`.
+- Batch 03 uses `SRC-006`, `SRC-007`, and `SRC-012` as proposed linkage for four
+  controlled connection-pool variants. See
+  `docs/data/batch-03-source-review.md`.
 
 No controlled variant is source-grounded until the source-review checklist below
 is completed.
