@@ -1,0 +1,452 @@
+{
+  "configuration": {
+    "corpus_incident_count": 12,
+    "decision_policy": "deterministic_anti_anchoring_policy_v1",
+    "procedure_count": 3,
+    "repository_revision": "edcf8c8e7f2a79559858e07607fd8c5104a30d31",
+    "retriever": "keyword_bm25_style_v1",
+    "top_k": 5
+  },
+  "freeze_verification": {
+    "case_count": 12,
+    "manifest_path": "data/evals/heldout/HELDOUT_FREEZE_MANIFEST.json",
+    "manifest_sha256": "5fbb4372582db66a96e9718394776a3dcbde8f6c7447cefc0c1e5beaf2f63535",
+    "scope": "heldout_tranche_01",
+    "verified": true,
+    "verified_case_ids": [
+      "EVAL-101",
+      "EVAL-102",
+      "EVAL-103",
+      "EVAL-104",
+      "EVAL-105",
+      "EVAL-106",
+      "EVAL-107",
+      "EVAL-108",
+      "EVAL-109",
+      "EVAL-110",
+      "EVAL-111",
+      "EVAL-112"
+    ]
+  },
+  "generated_at": "2026-06-24T21:39:52.335599Z",
+  "metrics": {
+    "abstention_contract_accuracy": 1.0,
+    "acceptable_precedent_coverage": 0.8571,
+    "blocked_case_ids": [
+      "EVAL-102",
+      "EVAL-110"
+    ],
+    "candidate_procedure_contract_accuracy": 0.9167,
+    "case_contract_pass_rate": 0.8333,
+    "decision_state_accuracy": 0.9167,
+    "false_operational_match_count": 0,
+    "missing_fact_contract_accuracy": 1.0,
+    "scored_case_count": 12,
+    "unexpected_retained_precedent_count": 2,
+    "unsafe_procedure_surfacing_count": 0
+  },
+  "non_claims": [
+    "This is a 12-case held-out tranche, not the final planned 36-case evaluation set.",
+    "A passed or blocked result applies only to the recorded keyword-plus-policy configuration.",
+    "This report does not prove semantic retrieval quality, live SIE extraction readiness, customer-data readiness, or production incident-response safety.",
+    "A blocked result is diagnostic evidence and must not be converted into a tuning loop by modifying frozen cases or their labels."
+  ],
+  "outcomes": [
+    {
+      "abstention_contract_matches": true,
+      "actual_decision_state": "evidence_found",
+      "actual_missing_facts": [],
+      "candidate_procedure_contract_matches": true,
+      "candidate_procedure_ids": [
+        "RB-001"
+      ],
+      "case_contract_passed": true,
+      "eval_id": "EVAL-101",
+      "expected_acceptable_precedent_ids": [
+        "INC-003"
+      ],
+      "expected_candidate_procedure_ids": [
+        "RB-001"
+      ],
+      "expected_decision_state": "evidence_found",
+      "expected_missing_facts": [],
+      "failure_labels": [],
+      "missing_fact_contract_matches": true,
+      "ranked_candidate_ids": [
+        "INC-003",
+        "INC-007",
+        "INC-012",
+        "INC-011",
+        "INC-010"
+      ],
+      "required_acceptable_precedents_present": true,
+      "retained_precedent_ids": [
+        "INC-003"
+      ],
+      "state_matches_expected": true,
+      "unexpected_retained_precedent_ids": [],
+      "unsafe_precedent_ids": [],
+      "unsafe_precedent_surfaced": false
+    },
+    {
+      "abstention_contract_matches": true,
+      "actual_decision_state": "evidence_found_with_conflict",
+      "actual_missing_facts": [],
+      "candidate_procedure_contract_matches": false,
+      "candidate_procedure_ids": [],
+      "case_contract_passed": false,
+      "eval_id": "EVAL-102",
+      "expected_acceptable_precedent_ids": [
+        "INC-005"
+      ],
+      "expected_candidate_procedure_ids": [
+        "RB-002"
+      ],
+      "expected_decision_state": "evidence_found",
+      "expected_missing_facts": [],
+      "failure_labels": [
+        "decision_state_mismatch",
+        "unexpected_retained_precedent",
+        "candidate_procedure_contract_mismatch"
+      ],
+      "missing_fact_contract_matches": true,
+      "ranked_candidate_ids": [
+        "INC-005",
+        "INC-002",
+        "INC-011",
+        "INC-009",
+        "INC-012"
+      ],
+      "required_acceptable_precedents_present": true,
+      "retained_precedent_ids": [
+        "INC-005",
+        "INC-011"
+      ],
+      "state_matches_expected": false,
+      "unexpected_retained_precedent_ids": [
+        "INC-011"
+      ],
+      "unsafe_precedent_ids": [],
+      "unsafe_precedent_surfaced": false
+    },
+    {
+      "abstention_contract_matches": true,
+      "actual_decision_state": "evidence_found",
+      "actual_missing_facts": [],
+      "candidate_procedure_contract_matches": true,
+      "candidate_procedure_ids": [
+        "RB-003"
+      ],
+      "case_contract_passed": true,
+      "eval_id": "EVAL-103",
+      "expected_acceptable_precedent_ids": [
+        "INC-009"
+      ],
+      "expected_candidate_procedure_ids": [
+        "RB-003"
+      ],
+      "expected_decision_state": "evidence_found",
+      "expected_missing_facts": [],
+      "failure_labels": [],
+      "missing_fact_contract_matches": true,
+      "ranked_candidate_ids": [
+        "INC-009",
+        "INC-008",
+        "INC-010",
+        "INC-012",
+        "INC-005"
+      ],
+      "required_acceptable_precedents_present": true,
+      "retained_precedent_ids": [
+        "INC-009"
+      ],
+      "state_matches_expected": true,
+      "unexpected_retained_precedent_ids": [],
+      "unsafe_precedent_ids": [],
+      "unsafe_precedent_surfaced": false
+    },
+    {
+      "abstention_contract_matches": true,
+      "actual_decision_state": "insufficient_precedent",
+      "actual_missing_facts": [],
+      "candidate_procedure_contract_matches": true,
+      "candidate_procedure_ids": [],
+      "case_contract_passed": true,
+      "eval_id": "EVAL-104",
+      "expected_acceptable_precedent_ids": [],
+      "expected_candidate_procedure_ids": [],
+      "expected_decision_state": "insufficient_precedent",
+      "expected_missing_facts": [],
+      "failure_labels": [],
+      "missing_fact_contract_matches": true,
+      "ranked_candidate_ids": [
+        "INC-009",
+        "INC-006",
+        "INC-005",
+        "INC-012",
+        "INC-003"
+      ],
+      "required_acceptable_precedents_present": true,
+      "retained_precedent_ids": [],
+      "state_matches_expected": true,
+      "unexpected_retained_precedent_ids": [],
+      "unsafe_precedent_ids": [],
+      "unsafe_precedent_surfaced": false
+    },
+    {
+      "abstention_contract_matches": true,
+      "actual_decision_state": "insufficient_precedent",
+      "actual_missing_facts": [],
+      "candidate_procedure_contract_matches": true,
+      "candidate_procedure_ids": [],
+      "case_contract_passed": true,
+      "eval_id": "EVAL-105",
+      "expected_acceptable_precedent_ids": [],
+      "expected_candidate_procedure_ids": [],
+      "expected_decision_state": "insufficient_precedent",
+      "expected_missing_facts": [],
+      "failure_labels": [],
+      "missing_fact_contract_matches": true,
+      "ranked_candidate_ids": [
+        "INC-012",
+        "INC-007",
+        "INC-005",
+        "INC-003",
+        "INC-009"
+      ],
+      "required_acceptable_precedents_present": true,
+      "retained_precedent_ids": [],
+      "state_matches_expected": true,
+      "unexpected_retained_precedent_ids": [],
+      "unsafe_precedent_ids": [],
+      "unsafe_precedent_surfaced": false
+    },
+    {
+      "abstention_contract_matches": true,
+      "actual_decision_state": "insufficient_precedent",
+      "actual_missing_facts": [],
+      "candidate_procedure_contract_matches": true,
+      "candidate_procedure_ids": [],
+      "case_contract_passed": true,
+      "eval_id": "EVAL-106",
+      "expected_acceptable_precedent_ids": [],
+      "expected_candidate_procedure_ids": [],
+      "expected_decision_state": "insufficient_precedent",
+      "expected_missing_facts": [],
+      "failure_labels": [],
+      "missing_fact_contract_matches": true,
+      "ranked_candidate_ids": [
+        "INC-009",
+        "INC-004",
+        "INC-006",
+        "INC-005",
+        "INC-012"
+      ],
+      "required_acceptable_precedents_present": true,
+      "retained_precedent_ids": [],
+      "state_matches_expected": true,
+      "unexpected_retained_precedent_ids": [],
+      "unsafe_precedent_ids": [],
+      "unsafe_precedent_surfaced": false
+    },
+    {
+      "abstention_contract_matches": true,
+      "actual_decision_state": "insufficient_precedent",
+      "actual_missing_facts": [],
+      "candidate_procedure_contract_matches": true,
+      "candidate_procedure_ids": [],
+      "case_contract_passed": true,
+      "eval_id": "EVAL-107",
+      "expected_acceptable_precedent_ids": [],
+      "expected_candidate_procedure_ids": [],
+      "expected_decision_state": "insufficient_precedent",
+      "expected_missing_facts": [],
+      "failure_labels": [],
+      "missing_fact_contract_matches": true,
+      "ranked_candidate_ids": [
+        "INC-005",
+        "INC-011",
+        "INC-001",
+        "INC-002",
+        "INC-008"
+      ],
+      "required_acceptable_precedents_present": true,
+      "retained_precedent_ids": [],
+      "state_matches_expected": true,
+      "unexpected_retained_precedent_ids": [],
+      "unsafe_precedent_ids": [],
+      "unsafe_precedent_surfaced": false
+    },
+    {
+      "abstention_contract_matches": true,
+      "actual_decision_state": "insufficient_precedent",
+      "actual_missing_facts": [],
+      "candidate_procedure_contract_matches": true,
+      "candidate_procedure_ids": [],
+      "case_contract_passed": true,
+      "eval_id": "EVAL-108",
+      "expected_acceptable_precedent_ids": [],
+      "expected_candidate_procedure_ids": [],
+      "expected_decision_state": "insufficient_precedent",
+      "expected_missing_facts": [],
+      "failure_labels": [],
+      "missing_fact_contract_matches": true,
+      "ranked_candidate_ids": [
+        "INC-010",
+        "INC-001",
+        "INC-006",
+        "INC-009",
+        "INC-005"
+      ],
+      "required_acceptable_precedents_present": true,
+      "retained_precedent_ids": [],
+      "state_matches_expected": true,
+      "unexpected_retained_precedent_ids": [],
+      "unsafe_precedent_ids": [],
+      "unsafe_precedent_surfaced": false
+    },
+    {
+      "abstention_contract_matches": true,
+      "actual_decision_state": "insufficient_precedent",
+      "actual_missing_facts": [],
+      "candidate_procedure_contract_matches": true,
+      "candidate_procedure_ids": [],
+      "case_contract_passed": true,
+      "eval_id": "EVAL-109",
+      "expected_acceptable_precedent_ids": [],
+      "expected_candidate_procedure_ids": [],
+      "expected_decision_state": "insufficient_precedent",
+      "expected_missing_facts": [],
+      "failure_labels": [],
+      "missing_fact_contract_matches": true,
+      "ranked_candidate_ids": [
+        "INC-005",
+        "INC-006",
+        "INC-003",
+        "INC-009",
+        "INC-008"
+      ],
+      "required_acceptable_precedents_present": true,
+      "retained_precedent_ids": [],
+      "state_matches_expected": true,
+      "unexpected_retained_precedent_ids": [],
+      "unsafe_precedent_ids": [],
+      "unsafe_precedent_surfaced": false
+    },
+    {
+      "abstention_contract_matches": true,
+      "actual_decision_state": "evidence_found_with_conflict",
+      "actual_missing_facts": [],
+      "candidate_procedure_contract_matches": true,
+      "candidate_procedure_ids": [],
+      "case_contract_passed": false,
+      "eval_id": "EVAL-110",
+      "expected_acceptable_precedent_ids": [
+        "INC-003",
+        "INC-009"
+      ],
+      "expected_candidate_procedure_ids": [],
+      "expected_decision_state": "evidence_found_with_conflict",
+      "expected_missing_facts": [],
+      "failure_labels": [
+        "required_acceptable_precedent_missing",
+        "unexpected_retained_precedent"
+      ],
+      "missing_fact_contract_matches": true,
+      "ranked_candidate_ids": [
+        "INC-012",
+        "INC-011",
+        "INC-009",
+        "INC-003",
+        "INC-010"
+      ],
+      "required_acceptable_precedents_present": false,
+      "retained_precedent_ids": [
+        "INC-012",
+        "INC-003"
+      ],
+      "state_matches_expected": true,
+      "unexpected_retained_precedent_ids": [
+        "INC-012"
+      ],
+      "unsafe_precedent_ids": [],
+      "unsafe_precedent_surfaced": false
+    },
+    {
+      "abstention_contract_matches": true,
+      "actual_decision_state": "evidence_found_with_conflict",
+      "actual_missing_facts": [],
+      "candidate_procedure_contract_matches": true,
+      "candidate_procedure_ids": [],
+      "case_contract_passed": true,
+      "eval_id": "EVAL-111",
+      "expected_acceptable_precedent_ids": [
+        "INC-005",
+        "INC-009"
+      ],
+      "expected_candidate_procedure_ids": [],
+      "expected_decision_state": "evidence_found_with_conflict",
+      "expected_missing_facts": [],
+      "failure_labels": [],
+      "missing_fact_contract_matches": true,
+      "ranked_candidate_ids": [
+        "INC-005",
+        "INC-009",
+        "INC-010",
+        "INC-008",
+        "INC-007"
+      ],
+      "required_acceptable_precedents_present": true,
+      "retained_precedent_ids": [
+        "INC-005",
+        "INC-009"
+      ],
+      "state_matches_expected": true,
+      "unexpected_retained_precedent_ids": [],
+      "unsafe_precedent_ids": [],
+      "unsafe_precedent_surfaced": false
+    },
+    {
+      "abstention_contract_matches": true,
+      "actual_decision_state": "provider_degraded",
+      "actual_missing_facts": [],
+      "candidate_procedure_contract_matches": true,
+      "candidate_procedure_ids": [],
+      "case_contract_passed": true,
+      "eval_id": "EVAL-112",
+      "expected_acceptable_precedent_ids": [],
+      "expected_candidate_procedure_ids": [],
+      "expected_decision_state": "provider_degraded",
+      "expected_missing_facts": [],
+      "failure_labels": [],
+      "missing_fact_contract_matches": true,
+      "ranked_candidate_ids": [],
+      "required_acceptable_precedents_present": true,
+      "retained_precedent_ids": [],
+      "state_matches_expected": true,
+      "unexpected_retained_precedent_ids": [],
+      "unsafe_precedent_ids": [],
+      "unsafe_precedent_surfaced": false
+    }
+  ],
+  "promotion_gate": {
+    "blocking_reasons": [
+      "Decision-state accuracy is below the required 1.0 on the frozen tranche.",
+      "One or more held-out cases violate the full evidence/procedure contract.",
+      "Not every required acceptable precedent was retained by the configuration.",
+      "Candidate procedure output differs from the held-out contract.",
+      "Unexpected retained precedents require trace review before promotion."
+    ],
+    "maximum_false_operational_matches": 0,
+    "maximum_unexpected_retained_precedents": 0,
+    "maximum_unsafe_procedures": 0,
+    "required_abstention_contract_accuracy": 1.0,
+    "required_acceptable_precedent_coverage": 1.0,
+    "required_candidate_procedure_contract_accuracy": 1.0,
+    "required_case_contract_pass_rate": 1.0,
+    "required_decision_state_accuracy": 1.0,
+    "required_missing_fact_contract_accuracy": 1.0,
+    "status": "blocked"
+  },
+  "report_kind": "heldout_keyword_policy_evaluation"
+}
