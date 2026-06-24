@@ -1,0 +1,381 @@
+{
+  "baseline_gate_status": "blocked",
+  "baseline_report_path": "evidence_vault/reports/heldout-tranche-01-keyword-policy.json",
+  "baseline_report_sha256": "4518cc80b4e6864bbf1d19fc6e76047787fffa09d9bc58c3f080d23f5aa65a96",
+  "baseline_repository_revision": "edcf8c8e7f2a79559858e07607fd8c5104a30d31",
+  "blocked_case_ids": [
+    "EVAL-102",
+    "EVAL-110"
+  ],
+  "findings": [
+    {
+      "actual_decision_state": "evidence_found_with_conflict",
+      "candidate_traces": [
+        {
+          "confirmed_required_fact_count": 4,
+          "contradicted_required_fact_count": 0,
+          "incident_family": "database_migration_lock_contention",
+          "incident_id": "INC-005",
+          "ranking_position": 1,
+          "required_facts": [
+            {
+              "fact": "migration_lock_waits",
+              "status": "confirmed"
+            },
+            {
+              "fact": "active_database_connections",
+              "status": "confirmed"
+            },
+            {
+              "fact": "queue_depth",
+              "status": "confirmed"
+            },
+            {
+              "fact": "error_rate_by_component",
+              "status": "confirmed"
+            }
+          ],
+          "retained": true,
+          "unknown_required_fact_count": 0
+        },
+        {
+          "confirmed_required_fact_count": 2,
+          "contradicted_required_fact_count": 1,
+          "incident_family": "queue_backlog_consumer_failure",
+          "incident_id": "INC-002",
+          "ranking_position": 2,
+          "required_facts": [
+            {
+              "fact": "queue_depth",
+              "status": "confirmed"
+            },
+            {
+              "fact": "consumer_error_rate",
+              "status": "contradicted"
+            },
+            {
+              "fact": "error_rate_by_component",
+              "status": "confirmed"
+            }
+          ],
+          "retained": false,
+          "unknown_required_fact_count": 0
+        },
+        {
+          "confirmed_required_fact_count": 2,
+          "contradicted_required_fact_count": 3,
+          "incident_family": "connection_pool_exhaustion",
+          "incident_id": "INC-011",
+          "ranking_position": 3,
+          "required_facts": [
+            {
+              "fact": "database_connection_acquire_latency",
+              "status": "contradicted"
+            },
+            {
+              "fact": "database_connection_pool_utilization",
+              "status": "contradicted"
+            },
+            {
+              "fact": "active_database_connections",
+              "status": "confirmed"
+            },
+            {
+              "fact": "worker_deployment_version",
+              "status": "contradicted"
+            },
+            {
+              "fact": "migration_lock_waits",
+              "status": "confirmed"
+            }
+          ],
+          "retained": true,
+          "unknown_required_fact_count": 0
+        },
+        {
+          "confirmed_required_fact_count": 3,
+          "contradicted_required_fact_count": 2,
+          "incident_family": "connection_pool_exhaustion",
+          "incident_id": "INC-009",
+          "ranking_position": 4,
+          "required_facts": [
+            {
+              "fact": "database_connection_pool_utilization",
+              "status": "contradicted"
+            },
+            {
+              "fact": "database_connection_acquire_latency",
+              "status": "contradicted"
+            },
+            {
+              "fact": "active_database_connections",
+              "status": "confirmed"
+            },
+            {
+              "fact": "migration_lock_waits",
+              "status": "confirmed"
+            },
+            {
+              "fact": "error_rate_by_component",
+              "status": "confirmed"
+            }
+          ],
+          "retained": false,
+          "unknown_required_fact_count": 0
+        },
+        {
+          "confirmed_required_fact_count": 3,
+          "contradicted_required_fact_count": 2,
+          "incident_family": "connection_pool_exhaustion",
+          "incident_id": "INC-012",
+          "ranking_position": 5,
+          "required_facts": [
+            {
+              "fact": "database_connection_pool_utilization",
+              "status": "contradicted"
+            },
+            {
+              "fact": "database_connection_acquire_latency",
+              "status": "contradicted"
+            },
+            {
+              "fact": "queue_depth",
+              "status": "confirmed"
+            },
+            {
+              "fact": "migration_lock_waits",
+              "status": "confirmed"
+            },
+            {
+              "fact": "error_rate_by_component",
+              "status": "confirmed"
+            }
+          ],
+          "retained": false,
+          "unknown_required_fact_count": 0
+        }
+      ],
+      "diagnosis": "A connection-pool precedent was retained even though both direct pool signals were contradicted. The remaining confirmed active-connection fact is contextual evidence, not sufficient direct evidence of pool exhaustion. That over-retention manufactured a conflict and withheld the expected migration-lock procedure.",
+      "diagnosis_category": "false_conflict_from_contextual_signal",
+      "eval_id": "EVAL-102",
+      "expected_acceptable_precedent_ids": [
+        "INC-005"
+      ],
+      "expected_decision_state": "evidence_found",
+      "failure_labels": [
+        "decision_state_mismatch",
+        "unexpected_retained_precedent",
+        "candidate_procedure_contract_mismatch"
+      ],
+      "intervention_boundary": "Calibration-only intervention: require at least one direct connection-pool signal (pool utilization or acquisition latency) before admitting the connection-pool family. Do not change frozen held-out cases or rerun this tranche until calibration regressions are reviewed.",
+      "ranked_candidate_ids": [
+        "INC-005",
+        "INC-002",
+        "INC-011",
+        "INC-009",
+        "INC-012"
+      ],
+      "retained_precedent_ids": [
+        "INC-005",
+        "INC-011"
+      ],
+      "unexpected_retained_precedent_ids": [
+        "INC-011"
+      ]
+    },
+    {
+      "actual_decision_state": "evidence_found_with_conflict",
+      "candidate_traces": [
+        {
+          "confirmed_required_fact_count": 4,
+          "contradicted_required_fact_count": 1,
+          "incident_family": "connection_pool_exhaustion",
+          "incident_id": "INC-012",
+          "ranking_position": 1,
+          "required_facts": [
+            {
+              "fact": "database_connection_pool_utilization",
+              "status": "confirmed"
+            },
+            {
+              "fact": "database_connection_acquire_latency",
+              "status": "confirmed"
+            },
+            {
+              "fact": "queue_depth",
+              "status": "confirmed"
+            },
+            {
+              "fact": "migration_lock_waits",
+              "status": "contradicted"
+            },
+            {
+              "fact": "error_rate_by_component",
+              "status": "confirmed"
+            }
+          ],
+          "retained": true,
+          "unknown_required_fact_count": 0
+        },
+        {
+          "confirmed_required_fact_count": 4,
+          "contradicted_required_fact_count": 1,
+          "incident_family": "connection_pool_exhaustion",
+          "incident_id": "INC-011",
+          "ranking_position": 2,
+          "required_facts": [
+            {
+              "fact": "database_connection_acquire_latency",
+              "status": "confirmed"
+            },
+            {
+              "fact": "database_connection_pool_utilization",
+              "status": "confirmed"
+            },
+            {
+              "fact": "active_database_connections",
+              "status": "confirmed"
+            },
+            {
+              "fact": "worker_deployment_version",
+              "status": "confirmed"
+            },
+            {
+              "fact": "migration_lock_waits",
+              "status": "contradicted"
+            }
+          ],
+          "retained": false,
+          "unknown_required_fact_count": 0
+        },
+        {
+          "confirmed_required_fact_count": 4,
+          "contradicted_required_fact_count": 1,
+          "incident_family": "connection_pool_exhaustion",
+          "incident_id": "INC-009",
+          "ranking_position": 3,
+          "required_facts": [
+            {
+              "fact": "database_connection_pool_utilization",
+              "status": "confirmed"
+            },
+            {
+              "fact": "database_connection_acquire_latency",
+              "status": "confirmed"
+            },
+            {
+              "fact": "active_database_connections",
+              "status": "confirmed"
+            },
+            {
+              "fact": "migration_lock_waits",
+              "status": "contradicted"
+            },
+            {
+              "fact": "error_rate_by_component",
+              "status": "confirmed"
+            }
+          ],
+          "retained": false,
+          "unknown_required_fact_count": 0
+        },
+        {
+          "confirmed_required_fact_count": 4,
+          "contradicted_required_fact_count": 0,
+          "incident_family": "queue_backlog_consumer_failure",
+          "incident_id": "INC-003",
+          "ranking_position": 4,
+          "required_facts": [
+            {
+              "fact": "worker_deployment_version",
+              "status": "confirmed"
+            },
+            {
+              "fact": "consumer_error_rate",
+              "status": "confirmed"
+            },
+            {
+              "fact": "queue_depth",
+              "status": "confirmed"
+            },
+            {
+              "fact": "error_rate_by_component",
+              "status": "confirmed"
+            }
+          ],
+          "retained": true,
+          "unknown_required_fact_count": 0
+        },
+        {
+          "confirmed_required_fact_count": 4,
+          "contradicted_required_fact_count": 1,
+          "incident_family": "connection_pool_exhaustion",
+          "incident_id": "INC-010",
+          "ranking_position": 5,
+          "required_facts": [
+            {
+              "fact": "database_connection_pool_utilization",
+              "status": "confirmed"
+            },
+            {
+              "fact": "database_connection_acquire_latency",
+              "status": "confirmed"
+            },
+            {
+              "fact": "active_database_connections",
+              "status": "confirmed"
+            },
+            {
+              "fact": "error_rate_by_component",
+              "status": "confirmed"
+            },
+            {
+              "fact": "migration_lock_waits",
+              "status": "contradicted"
+            }
+          ],
+          "retained": false,
+          "unknown_required_fact_count": 0
+        }
+      ],
+      "diagnosis": "The decision state retained the intended incident-family direction, but lexical rank selected an unexpected representative within that same family. The current policy keeps the first compatible card per family, so its final evidence card is coupled to retriever order rather than a reviewed within-family selection contract. Relevant fact-coverage traces: INC-012: confirmed=4, contradicted=1, unknown=0; INC-011: confirmed=4, contradicted=1, unknown=0; INC-009: confirmed=4, contradicted=1, unknown=0; INC-010: confirmed=4, contradicted=1, unknown=0.",
+      "diagnosis_category": "within_family_representative_ambiguity",
+      "eval_id": "EVAL-110",
+      "expected_acceptable_precedent_ids": [
+        "INC-003",
+        "INC-009"
+      ],
+      "expected_decision_state": "evidence_found_with_conflict",
+      "failure_labels": [
+        "required_acceptable_precedent_missing",
+        "unexpected_retained_precedent"
+      ],
+      "intervention_boundary": "Design intervention, not a tie-break patch: define a reviewed within-family evidence-selection contract or add a discriminative structured fact. Do not use incident ID order, raw lexical rank, or held-out labels as a hidden selector.",
+      "ranked_candidate_ids": [
+        "INC-012",
+        "INC-011",
+        "INC-009",
+        "INC-003",
+        "INC-010"
+      ],
+      "retained_precedent_ids": [
+        "INC-012",
+        "INC-003"
+      ],
+      "unexpected_retained_precedent_ids": [
+        "INC-012"
+      ]
+    }
+  ],
+  "generated_at": "2026-06-24T22:07:55.839850Z",
+  "heldout_manifest_path": "data/evals/heldout/HELDOUT_FREEZE_MANIFEST.json",
+  "heldout_manifest_sha256": "5fbb4372582db66a96e9718394776a3dcbde8f6c7447cefc0c1e5beaf2f63535",
+  "non_claims": [
+    "This report reads recorded held-out evidence; it does not rerun retrieval or policy scoring.",
+    "Frozen held-out cases, labels, hashes, ranking configuration, and decision policy are not modified by this autopsy.",
+    "The intervention boundaries are hypotheses for calibration-only work, not proof that a fix will pass held-out evaluation.",
+    "This report does not establish semantic retrieval quality, live SIE extraction readiness, customer-data readiness, or production incident-response safety."
+  ],
+  "report_kind": "heldout_failure_autopsy",
+  "verified_heldout_case_count": 12
+}
