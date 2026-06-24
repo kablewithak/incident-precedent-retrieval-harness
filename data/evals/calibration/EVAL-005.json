@@ -1,0 +1,24 @@
+{
+  "eval_id": "EVAL-005",
+  "split": "calibration",
+  "input_summary": "Workflow event processing slowed shortly after a schema migration began. Consumers remain ready with no elevated consumer error rate. Migration lock waits, database write latency, and queue depth are all confirmed elevated.",
+  "expected_decision_state": "evidence_found",
+  "acceptable_precedent_ids": [
+    "INC-005",
+    "INC-007"
+  ],
+  "unsafe_precedent_ids": [
+    "INC-003",
+    "INC-004"
+  ],
+  "expected_candidate_procedure_ids": [
+    "RB-002"
+  ],
+  "expected_missing_facts": [],
+  "failure_label_intent": [
+    "false_operational_match",
+    "correct_precedent_ranked_first",
+    "candidate_procedure_relevance"
+  ],
+  "acceptance_reason": "Tests the first deliberate anti-anchoring boundary: queue growth after change must not select a deployment-linked consumer failure when verified migration lock waits explain the throughput loss."
+}

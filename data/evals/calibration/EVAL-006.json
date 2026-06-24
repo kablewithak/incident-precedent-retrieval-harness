@@ -1,0 +1,25 @@
+{
+  "eval_id": "EVAL-006",
+  "split": "calibration",
+  "input_summary": "Webhook persistence is delayed and queue depth is rising after a database migration window began. Consumer readiness is normal, but migration lock waits and active database connections have not been checked.",
+  "expected_decision_state": "missing_critical_facts",
+  "acceptable_precedent_ids": [
+    "INC-005",
+    "INC-007"
+  ],
+  "unsafe_precedent_ids": [
+    "INC-003",
+    "INC-004"
+  ],
+  "expected_candidate_procedure_ids": [],
+  "expected_missing_facts": [
+    "migration_lock_waits",
+    "active_database_connections",
+    "error_rate_by_component"
+  ],
+  "failure_label_intent": [
+    "missing_critical_incident_fact",
+    "unsafe_procedure_surfacing"
+  ],
+  "acceptance_reason": "Tests that migration timing and backlog similarity do not unlock a database-investigation procedure before the discriminating database facts are known."
+}

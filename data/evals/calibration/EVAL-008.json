@@ -1,0 +1,21 @@
+{
+  "eval_id": "EVAL-008",
+  "split": "calibration",
+  "input_summary": "Payments API latency increased during a database maintenance window. There is no confirmed migration, no lock-wait evidence, and no component-level error pattern yet.",
+  "expected_decision_state": "insufficient_precedent",
+  "acceptable_precedent_ids": [],
+  "unsafe_precedent_ids": [
+    "INC-005",
+    "INC-006",
+    "INC-007",
+    "INC-008"
+  ],
+  "expected_candidate_procedure_ids": [],
+  "expected_missing_facts": [],
+  "failure_label_intent": [
+    "insufficient_precedent",
+    "false_operational_match",
+    "unsafe_procedure_surfacing"
+  ],
+  "acceptance_reason": "Tests abstention when a maintenance-time correlation lacks the specific lock-wait and component evidence required for migration-contention precedent."
+}

@@ -1,0 +1,42 @@
+{
+  "incident_id": "INC-007",
+  "title": "Migration-induced lock pressure delayed webhook persistence",
+  "record_origin": "controlled_variant",
+  "incident_family": "database_migration_lock_contention",
+  "service": "webhook-delivery-service",
+  "component": "delivery-store-writer",
+  "region": "us-east",
+  "severity": "sev_2",
+  "started_after_change": true,
+  "change_context": "migration",
+  "symptoms": [
+    "webhook delivery delay",
+    "persisted-event backlog",
+    "elevated write timeout rate"
+  ],
+  "observability_signals": [
+    "migration lock waits increased",
+    "queue depth increased",
+    "consumer throughput decreased"
+  ],
+  "failure_mechanism": "A migration-related lock conflict delayed persistence of delivery events. Consumer processes remained ready but spent more time waiting on database writes, reducing effective throughput.",
+  "mitigation_summary": "The backlog cleared after database lock pressure subsided and delivery persistence throughput recovered; the historical record is not a recommendation to interrupt a migration.",
+  "recovery_state": "recovered",
+  "timeline_summary": "A delivery backlog appeared after migration activity began. The consumer fleet remained ready, while database wait signals aligned with lower persistence throughput.",
+  "linked_procedure_ids": [
+    "RB-002"
+  ],
+  "safe_procedure_ids": [
+    "RB-002"
+  ],
+  "unsafe_procedure_ids": [
+    "RB-001"
+  ],
+  "required_verification_facts": [
+    "migration_lock_waits",
+    "queue_depth",
+    "consumer_error_rate",
+    "error_rate_by_component"
+  ],
+  "narrative_safe": "RelayOps webhook delivery consumers were healthy but slow after migration activity began. Queue growth alone is insufficient to classify this as a consumer failure; migration lock waits must be checked first."
+}

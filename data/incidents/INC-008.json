@@ -1,0 +1,39 @@
+{
+  "incident_id": "INC-008",
+  "title": "Migration lock wait amplified connection pressure",
+  "record_origin": "controlled_variant",
+  "incident_family": "database_migration_lock_contention",
+  "service": "payments-api",
+  "component": "postgres-primary",
+  "region": "eu-west",
+  "severity": "sev_2",
+  "started_after_change": true,
+  "change_context": "migration",
+  "symptoms": [
+    "payment request latency",
+    "elevated database timeout rate",
+    "increased active connections"
+  ],
+  "observability_signals": [
+    "migration lock waits increased",
+    "active database connections increased",
+    "database write latency increased"
+  ],
+  "failure_mechanism": "Database sessions accumulated while writes waited on a migration-related lock conflict, increasing connection pressure and slowing payment persistence without establishing that the connection pool itself was the primary failure.",
+  "mitigation_summary": "Latency declined after the lock wait condition cleared and connection demand returned to baseline; this record does not establish a remediation path for current payment errors.",
+  "recovery_state": "recovered",
+  "timeline_summary": "The migration preceded a rise in lock waits, then write latency and active connections. Payment latency followed the database-side contention pattern.",
+  "linked_procedure_ids": [
+    "RB-002"
+  ],
+  "safe_procedure_ids": [
+    "RB-002"
+  ],
+  "unsafe_procedure_ids": [],
+  "required_verification_facts": [
+    "migration_lock_waits",
+    "active_database_connections",
+    "error_rate_by_component"
+  ],
+  "narrative_safe": "RelayOps payment writes slowed while a migration-related lock wait condition increased active database connections. A historical connection-pool precedent would be unsafe unless the lock-wait pattern is ruled out."
+}

@@ -20,6 +20,9 @@ INCIDENTS = ROOT / "data" / "incidents"
 PROCEDURES = ROOT / "data" / "procedures"
 CALIBRATION = ROOT / "data" / "evals" / "calibration"
 
+BATCH_01_INCIDENT_IDS = ("INC-001", "INC-002", "INC-003", "INC-004")
+BATCH_01_EVAL_IDS = ("EVAL-001", "EVAL-002", "EVAL-003", "EVAL-004")
+
 
 def load_json(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -27,16 +30,11 @@ def load_json(path: Path) -> dict[str, object]:
 
 def test_batch_01_incidents_validate_and_remain_controlled_variants() -> None:
     cards = [
-        HistoricalIncidentCard.model_validate(load_json(path))
-        for path in sorted(INCIDENTS.glob("INC-*.json"))
+        HistoricalIncidentCard.model_validate(load_json(INCIDENTS / f"{incident_id}.json"))
+        for incident_id in BATCH_01_INCIDENT_IDS
     ]
 
-    assert [card.incident_id for card in cards] == [
-        "INC-001",
-        "INC-002",
-        "INC-003",
-        "INC-004",
-    ]
+    assert [card.incident_id for card in cards] == list(BATCH_01_INCIDENT_IDS)
     assert {card.record_origin for card in cards} == {RecordOrigin.CONTROLLED_VARIANT}
     assert {card.incident_family for card in cards} == {
         IncidentFamily.QUEUE_BACKLOG_CONSUMER_FAILURE
@@ -58,16 +56,11 @@ def test_batch_01_procedure_is_a_bounded_investigation_artifact() -> None:
 
 def test_batch_01_calibration_cases_validate_against_known_ids() -> None:
     cases = [
-        EvalCase.model_validate(load_json(path))
-        for path in sorted(CALIBRATION.glob("EVAL-*.json"))
+        EvalCase.model_validate(load_json(CALIBRATION / f"{eval_id}.json"))
+        for eval_id in BATCH_01_EVAL_IDS
     ]
 
-    assert [case.eval_id for case in cases] == [
-        "EVAL-001",
-        "EVAL-002",
-        "EVAL-003",
-        "EVAL-004",
-    ]
+    assert [case.eval_id for case in cases] == list(BATCH_01_EVAL_IDS)
     assert all(case.split == "calibration" for case in cases)
     assert cases[0].expected_candidate_procedure_ids == ("RB-001",)
     assert cases[2].acceptable_precedent_ids == ()
