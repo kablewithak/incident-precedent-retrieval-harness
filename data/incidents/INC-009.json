@@ -1,0 +1,43 @@
+{
+  "incident_id": "INC-009",
+  "title": "Connection acquisition timeouts reduced API capacity",
+  "record_origin": "controlled_variant",
+  "incident_family": "connection_pool_exhaustion",
+  "service": "payments-api",
+  "component": "postgres-client-pool",
+  "region": "us-east",
+  "severity": "sev_1",
+  "started_after_change": false,
+  "change_context": "none",
+  "symptoms": [
+    "payment API timeout rate increased",
+    "connection acquisition timeout",
+    "request latency increased"
+  ],
+  "observability_signals": [
+    "database connection pool utilization increased",
+    "database connection acquire latency increased",
+    "active database connections approached configured limit"
+  ],
+  "failure_mechanism": "Concurrent payment requests exhausted available database client-pool capacity, causing connection acquisition waits and reducing API throughput without verified migration lock contention.",
+  "mitigation_summary": "Service capacity recovered only after connection acquisition latency and active connection demand returned to a stable range; this record does not prescribe a configuration change for a new incident.",
+  "recovery_state": "recovered",
+  "timeline_summary": "API latency rose with pool acquisition waits and high active connection counts. No migration activity or lock-wait pattern was confirmed.",
+  "linked_procedure_ids": [
+    "RB-003"
+  ],
+  "safe_procedure_ids": [
+    "RB-003"
+  ],
+  "unsafe_procedure_ids": [
+    "RB-002"
+  ],
+  "required_verification_facts": [
+    "database_connection_pool_utilization",
+    "database_connection_acquire_latency",
+    "active_database_connections",
+    "migration_lock_waits",
+    "error_rate_by_component"
+  ],
+  "narrative_safe": "RelayOps payment requests began timing out while database client-pool acquisition waits rose and active connections approached the configured limit. A migration-lock precedent is unsafe unless lock waits are independently confirmed."
+}

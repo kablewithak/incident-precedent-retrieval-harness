@@ -1,0 +1,24 @@
+{
+  "eval_id": "EVAL-010",
+  "split": "calibration",
+  "input_summary": "Authentication failures and database connection waits increased after a configuration change. Active connection count is elevated, but pool utilization, acquisition latency, and migration lock-wait status are unknown.",
+  "expected_decision_state": "missing_critical_facts",
+  "acceptable_precedent_ids": [
+    "INC-010"
+  ],
+  "unsafe_precedent_ids": [
+    "INC-006"
+  ],
+  "expected_candidate_procedure_ids": [],
+  "expected_missing_facts": [
+    "database_connection_pool_utilization",
+    "database_connection_acquire_latency",
+    "migration_lock_waits"
+  ],
+  "failure_label_intent": [
+    "missing_critical_incident_fact",
+    "overconfident_evidence_presentation",
+    "unsafe_procedure_surfaced"
+  ],
+  "acceptance_reason": "Prevents the system from presenting a client-pool procedure as applicable when the decisive pool and lock facts are absent."
+}

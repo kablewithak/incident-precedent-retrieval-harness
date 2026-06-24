@@ -1,0 +1,43 @@
+{
+  "incident_id": "INC-011",
+  "title": "CPU pressure delayed connection-pool initialization",
+  "record_origin": "controlled_variant",
+  "incident_family": "connection_pool_exhaustion",
+  "service": "feature-flag-service",
+  "component": "flag-evaluator",
+  "region": "us-east",
+  "severity": "sev_2",
+  "started_after_change": true,
+  "change_context": "deployment",
+  "symptoms": [
+    "feature evaluation latency",
+    "new pod readiness failures",
+    "intermittent database connection failures"
+  ],
+  "observability_signals": [
+    "database connection acquire latency increased",
+    "active database connections increased",
+    "error rate by component increased"
+  ],
+  "failure_mechanism": "CPU pressure delayed new instances while they initialized database client pools, reducing healthy capacity and causing connection acquisition failures without proving a code deployment defect.",
+  "mitigation_summary": "The service stabilized after resource pressure and connection acquisition delay reduced; this record does not imply that a rollback or restart is appropriate for a new incident.",
+  "recovery_state": "recovered",
+  "timeline_summary": "A routine rollout coincided with elevated CPU pressure. New instances failed readiness while connection-pool initialization lagged and error rate increased.",
+  "linked_procedure_ids": [
+    "RB-003"
+  ],
+  "safe_procedure_ids": [
+    "RB-003"
+  ],
+  "unsafe_procedure_ids": [
+    "RB-002"
+  ],
+  "required_verification_facts": [
+    "database_connection_acquire_latency",
+    "database_connection_pool_utilization",
+    "active_database_connections",
+    "worker_deployment_version",
+    "migration_lock_waits"
+  ],
+  "narrative_safe": "RelayOps feature evaluation capacity fell while new instances could not establish database client pools quickly enough under resource pressure. A consumer-capacity precedent may also look plausible, so this record requires separate verification before any procedure is considered."
+}

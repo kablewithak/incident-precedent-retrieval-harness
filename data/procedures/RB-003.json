@@ -1,0 +1,35 @@
+{
+  "procedure_id": "RB-003",
+  "title": "Inspect database client-pool acquisition pressure",
+  "version": "1.0",
+  "status": "current",
+  "applicable_incident_families": [
+    "connection_pool_exhaustion"
+  ],
+  "not_applicable_when": [
+    "database_migration_lock_contention",
+    "cache_stampede_invalidation_failure",
+    "third_party_webhook_provider_degradation"
+  ],
+  "verification_prerequisites": [
+    "database_connection_pool_utilization",
+    "database_connection_acquire_latency",
+    "active_database_connections",
+    "migration_lock_waits",
+    "error_rate_by_component"
+  ],
+  "safe_investigation_steps": [
+    "Inspect database client-pool utilization and connection acquisition latency over the same interval as the application error rate.",
+    "Compare active database connections with the configured connection limit without changing either value.",
+    "Confirm whether migration lock waits are absent or materially lower before treating connection-pool pressure as the relevant precedent.",
+    "Review whether retry volume, readiness failures, or resource pressure align with the period of connection acquisition delay.",
+    "Record the smallest unresolved verification facts before treating this precedent as applicable."
+  ],
+  "unsafe_or_out_of_scope_actions": [
+    "Do not increase connection limits, alter pool settings, restart services, or change timeout values from this evidence packet.",
+    "Do not treat high active connections alone as proof that the client pool is the primary failure.",
+    "Do not surface this procedure as applicable when migration lock waits or connection-acquisition evidence are unknown."
+  ],
+  "last_reviewed_at": "2026-06-24",
+  "owner_role": "platform_engineering"
+}

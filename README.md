@@ -29,6 +29,9 @@ alerting product, or generic RAG chatbot.
 - **Batch 02 controlled variants:** four migration-lock cards, one bounded
   investigation procedure, and four calibration cases including reciprocal
   false-operational-match tests
+- **Batch 03 controlled variants:** four connection-pool cards, one bounded
+  investigation procedure, and four calibration cases including a no-preference
+  conflict case
 - **Source grounding:** source-linked and pending explicit human verification
   before any record may be promoted to `source_grounded`
 - **Retrieval baseline, held-out evaluation, and promotion gate:** not yet
@@ -42,6 +45,7 @@ See:
 - `docs/handover/Incident_Precedent_Retrieval_Harness_Handover_001_Phase_0_Provider_Spike_Blocked.md`
 - `docs/data/batch-01-source-review.md`
 - `docs/data/batch-02-source-review.md`
+- `docs/data/batch-03-source-review.md`
 
 A healthy SIE server proves only that the local process can receive traffic. It
 does not prove every configured model can perform a useful inference operation.
@@ -81,15 +85,20 @@ inference-ready claim.
 
 ## Dataset posture
 
-The repository uses a fictional RelayOps archive. Batches 01 and 02 are
+The repository uses a fictional RelayOps archive. Batches 01 through 03 are
 **controlled variants** built from source-review ledgers; they deliberately do
 not claim `source_grounded` status until a human reviewer confirms each source,
 transformation note, and absence of copied narrative.
 
-Batch 02 introduces the project’s first hard anti-anchoring boundary: a queue
-backlog after a change can be operationally incompatible with a queue-consumer
-failure when verified database migration lock waits and healthy consumers point
-to a database-side throughput constraint.
+Batch 02 introduces a hard anti-anchoring boundary: a queue backlog after a
+change can be operationally incompatible with a queue-consumer failure when
+verified database migration lock waits and healthy consumers point to a
+database-side throughput constraint.
+
+Batch 03 introduces a separate conflict boundary: deployment-linked consumer
+capacity loss and database client-pool acquisition pressure can both look
+plausible. The expected state is conflict, not a preferred procedure, until the
+decisive facts are verified.
 
 ## Architecture boundary
 
