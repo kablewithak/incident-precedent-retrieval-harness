@@ -123,3 +123,28 @@ CLI, and normal tests must remain provider-neutral.
 
 The final state will be assigned by deterministic application policy, never
 directly by a model response.
+
+## Keyword baseline: calibration evidence
+
+The first retrieval baseline is now a deterministic in-memory BM25-style lexical
+ranker over the 12 authored controlled-variant cards. It is a **calibration-only
+baseline**, not a promotable configuration.
+
+The generated calibration report records an important negative result: it reaches
+high retrieval rank on the current authoring cases while still returning unsafe
+or irrelevant top-ranked candidates for two abstention cases. That is why MRR
+cannot be used as a promotion signal by itself.
+
+Run it from the repository root:
+
+```powershell
+python .\scripts\run_keyword_baseline.py --repository-root . --top-k 5
+```
+
+It writes only generated, reviewable evidence:
+
+- `docs/reports/keyword-baseline-calibration.md`
+- `evidence_vault/reports/keyword-baseline-calibration.json`
+
+The report deliberately does not evaluate held-out cases, assign a final decision
+state, surface procedures, or make a semantic/provider-latency claim.
