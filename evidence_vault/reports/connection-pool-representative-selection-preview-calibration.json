@@ -1,0 +1,180 @@
+{
+  "active_policy_changed": false,
+  "generated_at": "2026-06-24T23:49:17.437652+00:00",
+  "heldout_loaded": false,
+  "known_limits": [
+    "Calibration-only preview; no held-out case is loaded or scored.",
+    "The active AntiAnchoringDecisionPolicy remains unchanged.",
+    "This preview applies only to the authored connection_pool_exhaustion family.",
+    "Selection uses declared profile cues after current policy compatibility; it does not use lexical rank, lexical score, incident ID, procedure ID, or evaluation labels.",
+    "A passed preview does not authorize a held-out comparison or a production claim."
+  ],
+  "outcomes": [
+    {
+      "acceptable_selection": true,
+      "candidate_previews": [
+        {
+          "context_alignment": true,
+          "incident_id": "INC-009",
+          "matched_cues": [
+            "payment",
+            "configured limit"
+          ],
+          "reasons": [
+            "Declared change context aligns with the intake summary.",
+            "Matched declared incident-specific intake cues: payment, configured limit."
+          ],
+          "selection_status": "selected"
+        },
+        {
+          "context_alignment": false,
+          "incident_id": "INC-010",
+          "matched_cues": [],
+          "reasons": [
+            "A compatible connection-pool card had stronger declared context or cue evidence."
+          ],
+          "selection_status": "not_selected"
+        },
+        {
+          "context_alignment": false,
+          "incident_id": "INC-011",
+          "matched_cues": [],
+          "reasons": [
+            "A compatible connection-pool card had stronger declared context or cue evidence."
+          ],
+          "selection_status": "not_selected"
+        },
+        {
+          "context_alignment": true,
+          "incident_id": "INC-012",
+          "matched_cues": [],
+          "reasons": [
+            "A compatible connection-pool card had stronger declared context or cue evidence."
+          ],
+          "selection_status": "not_selected"
+        }
+      ],
+      "eval_id": "EVAL-009",
+      "selected_incident_ids": [
+        "INC-009"
+      ],
+      "selection_reason": "One compatible connection-pool card had the strongest declared selection profile.",
+      "selection_status": "selected",
+      "unsafe_selection": false
+    },
+    {
+      "acceptable_selection": true,
+      "candidate_previews": [
+        {
+          "context_alignment": false,
+          "incident_id": "INC-009",
+          "matched_cues": [],
+          "reasons": [
+            "A compatible connection-pool card had stronger declared context or cue evidence."
+          ],
+          "selection_status": "not_selected"
+        },
+        {
+          "context_alignment": true,
+          "incident_id": "INC-010",
+          "matched_cues": [
+            "authentication",
+            "auth",
+            "configuration change"
+          ],
+          "reasons": [
+            "Declared change context aligns with the intake summary.",
+            "Matched declared incident-specific intake cues: authentication, auth, configuration change."
+          ],
+          "selection_status": "selected"
+        },
+        {
+          "context_alignment": false,
+          "incident_id": "INC-011",
+          "matched_cues": [],
+          "reasons": [
+            "A compatible connection-pool card had stronger declared context or cue evidence."
+          ],
+          "selection_status": "not_selected"
+        },
+        {
+          "context_alignment": false,
+          "incident_id": "INC-012",
+          "matched_cues": [],
+          "reasons": [
+            "A compatible connection-pool card had stronger declared context or cue evidence."
+          ],
+          "selection_status": "not_selected"
+        }
+      ],
+      "eval_id": "EVAL-010",
+      "selected_incident_ids": [
+        "INC-010"
+      ],
+      "selection_reason": "One compatible connection-pool card had the strongest declared selection profile.",
+      "selection_status": "selected",
+      "unsafe_selection": false
+    },
+    {
+      "acceptable_selection": true,
+      "candidate_previews": [
+        {
+          "context_alignment": true,
+          "incident_id": "INC-009",
+          "matched_cues": [],
+          "reasons": [
+            "A compatible connection-pool card had stronger declared context or cue evidence."
+          ],
+          "selection_status": "not_selected"
+        },
+        {
+          "context_alignment": false,
+          "incident_id": "INC-010",
+          "matched_cues": [],
+          "reasons": [
+            "A compatible connection-pool card had stronger declared context or cue evidence."
+          ],
+          "selection_status": "not_selected"
+        },
+        {
+          "context_alignment": true,
+          "incident_id": "INC-011",
+          "matched_cues": [
+            "readiness",
+            "worker rollout",
+            "new workers"
+          ],
+          "reasons": [
+            "Declared change context aligns with the intake summary.",
+            "Matched declared incident-specific intake cues: readiness, worker rollout, new workers."
+          ],
+          "selection_status": "selected"
+        },
+        {
+          "context_alignment": true,
+          "incident_id": "INC-012",
+          "matched_cues": [
+            "webhook",
+            "delivery"
+          ],
+          "reasons": [
+            "A compatible connection-pool card had stronger declared context or cue evidence."
+          ],
+          "selection_status": "not_selected"
+        }
+      ],
+      "eval_id": "EVAL-011",
+      "selected_incident_ids": [
+        "INC-011"
+      ],
+      "selection_reason": "One compatible connection-pool card had the strongest declared selection profile.",
+      "selection_status": "selected",
+      "unsafe_selection": false
+    }
+  ],
+  "preview_case_count": 3,
+  "report_kind": "connection_pool_representative_selection_preview_calibration",
+  "safe_selection_count": 3,
+  "top_k": 5,
+  "unsafe_selection_count": 0
+}

@@ -1,0 +1,42 @@
+{
+  "profile_set_id": "connection-pool-representative-preview-v1",
+  "incident_family": "connection_pool_exhaustion",
+  "profiles": [
+    {
+      "incident_id": "INC-009",
+      "declared_change_context": "none",
+      "distinguishing_intake_cues": [
+        "payment",
+        "payments api",
+        "configured limit"
+      ]
+    },
+    {
+      "incident_id": "INC-010",
+      "declared_change_context": "configuration",
+      "distinguishing_intake_cues": [
+        "authentication",
+        "auth",
+        "configuration change"
+      ]
+    },
+    {
+      "incident_id": "INC-011",
+      "declared_change_context": "deployment",
+      "distinguishing_intake_cues": [
+        "readiness",
+        "worker rollout",
+        "new workers"
+      ]
+    },
+    {
+      "incident_id": "INC-012",
+      "declared_change_context": "none",
+      "distinguishing_intake_cues": [
+        "webhook",
+        "delivery",
+        "retry volume"
+      ]
+    }
+  ]
+}
