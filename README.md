@@ -37,6 +37,7 @@ alerting product, or generic RAG chatbot.
 - **Keyword retrieval baseline:** calibration-only evidence recorded
 - **Deterministic anti-anchoring policy:** calibration-only prototype recorded
 - **Held-out evaluation and promotion gate:** implemented; the generated report is the source of truth for the current keyword-plus-policy configuration
+- **Held-out baseline:** recorded as blocked at PR #9; its failure autopsy is a separate trace-only evidence step before any intervention
 
 The current evidence is intentionally mixed, not silently rounded up to a pass.
 See:
@@ -193,3 +194,11 @@ It writes one committed evidence pair:
 - `evidence_vault/reports/heldout-tranche-01-keyword-policy.json`
 
 The command refuses to overwrite either file. A `blocked` result is a valid evidence outcome, not a tool error; preserve it and investigate through a separate intervention slice. See `docs/runbooks/heldout-evaluation-runbook.md`.
+
+The next diagnostic step is the write-once failure autopsy. It reads the committed baseline rather than rescoring frozen cases:
+
+```powershell
+python .\scripts\run_heldout_failure_autopsy.py --repository-root .
+```
+
+It writes `docs/reports/heldout-tranche-01-failure-autopsy.md` and `evidence_vault/reports/heldout-tranche-01-failure-autopsy.json`. The autopsy identifies a narrowly testable intervention boundary, but it does not modify policy, ranking, frozen fixtures, or held-out evidence.
