@@ -39,5 +39,58 @@
     "error_rate_by_component",
     "migration_lock_waits"
   ],
-  "narrative_safe": "RelayOps authentication instances struggled to acquire database connections after a configuration change during elevated load. This may resemble a worker deployment failure, but pool acquisition evidence must be checked before choosing a procedure."
+  "narrative_safe": "RelayOps authentication instances struggled to acquire database connections after a configuration change during elevated load. This may resemble a worker deployment failure, but pool acquisition evidence must be checked before choosing a procedure.",
+  "selection_signature": {
+    "contract_version": "representative-selection-v1",
+    "service": "auth-service",
+    "component": "auth-db-client",
+    "change_context": "configuration",
+    "operational_signals": [
+      {
+        "signal_family": "connection_pool_pressure",
+        "source_references": [
+          {
+            "source_field": "observability_signals",
+            "source_values": [
+              "database connection pool utilization increased",
+              "database connection acquire latency increased"
+            ]
+          }
+        ]
+      },
+      {
+        "signal_family": "authentication_failure",
+        "source_references": [
+          {
+            "source_field": "symptoms",
+            "source_values": [
+              "authentication failures"
+            ]
+          }
+        ]
+      },
+      {
+        "signal_family": "readiness_failure",
+        "source_references": [
+          {
+            "source_field": "symptoms",
+            "source_values": [
+              "new instances failed readiness"
+            ]
+          }
+        ]
+      },
+      {
+        "signal_family": "component_error_pressure",
+        "source_references": [
+          {
+            "source_field": "observability_signals",
+            "source_values": [
+              "consumer error rate increased"
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

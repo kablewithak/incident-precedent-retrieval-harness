@@ -39,5 +39,57 @@
     "worker_deployment_version",
     "migration_lock_waits"
   ],
-  "narrative_safe": "RelayOps feature evaluation capacity fell while new instances could not establish database client pools quickly enough under resource pressure. A consumer-capacity precedent may also look plausible, so this record requires separate verification before any procedure is considered."
+  "narrative_safe": "RelayOps feature evaluation capacity fell while new instances could not establish database client pools quickly enough under resource pressure. A consumer-capacity precedent may also look plausible, so this record requires separate verification before any procedure is considered.",
+  "selection_signature": {
+    "contract_version": "representative-selection-v1",
+    "service": "feature-flag-service",
+    "component": "flag-evaluator",
+    "change_context": "deployment",
+    "operational_signals": [
+      {
+        "signal_family": "connection_pool_pressure",
+        "source_references": [
+          {
+            "source_field": "observability_signals",
+            "source_values": [
+              "database connection acquire latency increased"
+            ]
+          }
+        ]
+      },
+      {
+        "signal_family": "active_connection_pressure",
+        "source_references": [
+          {
+            "source_field": "observability_signals",
+            "source_values": [
+              "active database connections increased"
+            ]
+          }
+        ]
+      },
+      {
+        "signal_family": "readiness_failure",
+        "source_references": [
+          {
+            "source_field": "symptoms",
+            "source_values": [
+              "new pod readiness failures"
+            ]
+          }
+        ]
+      },
+      {
+        "signal_family": "component_error_pressure",
+        "source_references": [
+          {
+            "source_field": "observability_signals",
+            "source_values": [
+              "error rate by component increased"
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

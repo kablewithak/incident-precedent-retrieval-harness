@@ -108,3 +108,51 @@ class RequiredVerificationFact(str, Enum):
     AUTHENTICATION_ERROR_RATE = "authentication_error_rate"
     ERROR_RATE_BY_COMPONENT = "error_rate_by_component"
     REGION = "region"
+
+
+class RelayService(str, Enum):
+    """Controlled RelayOps service identity used by selection evidence."""
+
+    AUTH_SERVICE = "auth-service"
+    FEATURE_FLAG_SERVICE = "feature-flag-service"
+    NOTIFICATION_SERVICE = "notification-service"
+    PAYMENTS_API = "payments-api"
+    WEBHOOK_DELIVERY_SERVICE = "webhook-delivery-service"
+    WORKFLOW_SERVICE = "workflow-service"
+
+
+class RelayComponent(str, Enum):
+    """Controlled RelayOps component identity used by selection evidence."""
+
+    AUTH_DB_CLIENT = "auth-db-client"
+    CACHE_UPDATE_WORKER = "cache-update-worker"
+    DELIVERY_CONSUMER = "delivery-consumer"
+    DELIVERY_STORE_CLIENT = "delivery-store-client"
+    DELIVERY_STORE_WRITER = "delivery-store-writer"
+    EVENT_CONSUMER = "event-consumer"
+    FLAG_EVALUATOR = "flag-evaluator"
+    NOTIFICATION_WORKER = "notification-worker"
+    POSTGRES_CLIENT_POOL = "postgres-client-pool"
+    POSTGRES_PRIMARY = "postgres-primary"
+
+
+class OperationalSignalFamily(str, Enum):
+    """Independent, canonical operational concepts for representative selection."""
+
+    CONNECTION_POOL_PRESSURE = "connection_pool_pressure"
+    ACTIVE_CONNECTION_PRESSURE = "active_connection_pressure"
+    QUEUE_BACKLOG = "queue_backlog"
+    CONSUMER_FAILURE = "consumer_failure"
+    COMPONENT_ERROR_PRESSURE = "component_error_pressure"
+    ROLLOUT_OR_VERSION_CHANGE = "rollout_or_version_change"
+    MIGRATION_LOCK_CONTENTION = "migration_lock_contention"
+    AUTHENTICATION_FAILURE = "authentication_failure"
+    READINESS_FAILURE = "readiness_failure"
+    RETRY_AMPLIFICATION = "retry_amplification"
+
+
+class SelectionSignalSourceField(str, Enum):
+    """Canonical incident-card fields permitted to ground selection signals."""
+
+    SYMPTOMS = "symptoms"
+    OBSERVABILITY_SIGNALS = "observability_signals"
