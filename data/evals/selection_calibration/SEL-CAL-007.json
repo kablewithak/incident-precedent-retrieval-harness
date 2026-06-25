@@ -1,0 +1,24 @@
+{
+  "selection_case_id": "SEL-CAL-007",
+  "split": "selection_calibration",
+  "contract_version": "representative-selection-v1",
+  "selection_intake": {
+    "service": "payments-api",
+    "component": "postgres-client-pool",
+    "change_context": "none",
+    "operational_signal_families": [
+      "connection_pool_pressure",
+      "active_connection_pressure"
+    ],
+    "contradicted_signal_families": []
+  },
+  "candidate_incident_ids": ["INC-009", "INC-010", "INC-012"],
+  "expected_outcome": {
+    "state": "single_representative",
+    "representative_incident_ids": ["INC-009"]
+  },
+  "order_invariance_group": "ORDER-INVARIANCE-001",
+  "order_variant": "canonical",
+  "failure_label_intent": ["candidate_order_invariance"],
+  "acceptance_reason": "The expected representative is fixed independently of candidate serialization order."
+}

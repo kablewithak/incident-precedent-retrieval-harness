@@ -1,0 +1,19 @@
+{
+  "selection_case_id": "SEL-CAL-010",
+  "split": "selection_calibration",
+  "contract_version": "representative-selection-v1",
+  "selection_intake": {
+    "service": null,
+    "component": null,
+    "change_context": "none",
+    "operational_signal_families": ["connection_pool_pressure"],
+    "contradicted_signal_families": ["active_connection_pressure"]
+  },
+  "candidate_incident_ids": ["INC-009", "INC-012"],
+  "expected_outcome": {
+    "state": "single_representative",
+    "representative_incident_ids": ["INC-012"]
+  },
+  "failure_label_intent": ["explicit_signal_contradiction", "mismatch_avoidance"],
+  "acceptance_reason": "The payments card carries active_connection_pressure while the intake explicitly contradicts that family; the webhook card avoids that contradicted signal and remains the only defensible representative."
+}

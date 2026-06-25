@@ -1,0 +1,23 @@
+{
+  "selection_case_id": "SEL-CAL-009",
+  "split": "selection_calibration",
+  "contract_version": "representative-selection-v1",
+  "selection_intake": {
+    "service": "webhook-delivery-service",
+    "component": "delivery-store-client",
+    "change_context": "none",
+    "operational_signal_families": [
+      "connection_pool_pressure",
+      "queue_backlog",
+      "retry_amplification"
+    ],
+    "contradicted_signal_families": []
+  },
+  "candidate_incident_ids": ["INC-009", "INC-010", "INC-011", "INC-012"],
+  "expected_outcome": {
+    "state": "single_representative",
+    "representative_incident_ids": ["INC-012"]
+  },
+  "failure_label_intent": ["webhook_delivery_identity", "retry_amplification"],
+  "acceptance_reason": "Webhook delivery identity plus queue and retry signal families distinguish the delivery connection-pool precedent."
+}

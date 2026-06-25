@@ -1,0 +1,24 @@
+{
+  "selection_case_id": "SEL-CAL-003",
+  "split": "selection_calibration",
+  "contract_version": "representative-selection-v1",
+  "selection_intake": {
+    "service": "feature-flag-service",
+    "component": "flag-evaluator",
+    "change_context": "deployment",
+    "operational_signal_families": [
+      "connection_pool_pressure",
+      "active_connection_pressure",
+      "readiness_failure",
+      "component_error_pressure"
+    ],
+    "contradicted_signal_families": []
+  },
+  "candidate_incident_ids": ["INC-009", "INC-010", "INC-011", "INC-012"],
+  "expected_outcome": {
+    "state": "single_representative",
+    "representative_incident_ids": ["INC-011"]
+  },
+  "failure_label_intent": ["exact_component_match", "distinct_signal_families", "deployment_context"],
+  "acceptance_reason": "The feature-flag evaluator signature matches on identity, deployment context, and distinct active-connection, readiness, and component-error signal families."
+}
