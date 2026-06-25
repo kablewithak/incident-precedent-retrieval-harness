@@ -1,0 +1,181 @@
+{
+  "report_kind": "strict_dominance_representative_selection_calibration",
+  "generated_at": "2026-06-25T00:25:56.503509+00:00",
+  "contract_version": "representative-selection-v1",
+  "selection_calibration_case_count": 10,
+  "passed_case_ids": [
+    "SEL-CAL-001",
+    "SEL-CAL-002",
+    "SEL-CAL-003",
+    "SEL-CAL-004",
+    "SEL-CAL-005",
+    "SEL-CAL-006",
+    "SEL-CAL-007",
+    "SEL-CAL-008",
+    "SEL-CAL-009",
+    "SEL-CAL-010"
+  ],
+  "failed_case_ids": [],
+  "strict_dominance_contract_pass_rate": 1.0,
+  "active_policy_changed": false,
+  "heldout_loaded": false,
+  "retrieval_loaded": false,
+  "selector_activation_claim": false,
+  "outcomes": [
+    {
+      "selection_case_id": "SEL-CAL-001",
+      "passed": true,
+      "expected_state": "single_representative",
+      "actual_state": "single_representative",
+      "expected_representative_incident_ids": [
+        "INC-009"
+      ],
+      "actual_representative_incident_ids": [
+        "INC-009"
+      ],
+      "candidate_count": 4,
+      "reason": "One policy-admitted candidate strictly dominated every other candidate on typed identity, change-context, and operational-signal evidence."
+    },
+    {
+      "selection_case_id": "SEL-CAL-002",
+      "passed": true,
+      "expected_state": "single_representative",
+      "actual_state": "single_representative",
+      "expected_representative_incident_ids": [
+        "INC-010"
+      ],
+      "actual_representative_incident_ids": [
+        "INC-010"
+      ],
+      "candidate_count": 4,
+      "reason": "One policy-admitted candidate strictly dominated every other candidate on typed identity, change-context, and operational-signal evidence."
+    },
+    {
+      "selection_case_id": "SEL-CAL-003",
+      "passed": true,
+      "expected_state": "single_representative",
+      "actual_state": "single_representative",
+      "expected_representative_incident_ids": [
+        "INC-011"
+      ],
+      "actual_representative_incident_ids": [
+        "INC-011"
+      ],
+      "candidate_count": 4,
+      "reason": "One policy-admitted candidate strictly dominated every other candidate on typed identity, change-context, and operational-signal evidence."
+    },
+    {
+      "selection_case_id": "SEL-CAL-004",
+      "passed": true,
+      "expected_state": "explicit_tie",
+      "actual_state": "explicit_tie",
+      "expected_representative_incident_ids": [
+        "INC-009",
+        "INC-012"
+      ],
+      "actual_representative_incident_ids": [
+        "INC-009",
+        "INC-012"
+      ],
+      "candidate_count": 2,
+      "reason": "No single policy-admitted candidate strictly dominated every other candidate; the selector preserves the non-dominated tie set."
+    },
+    {
+      "selection_case_id": "SEL-CAL-005",
+      "passed": true,
+      "expected_state": "explicit_tie",
+      "actual_state": "explicit_tie",
+      "expected_representative_incident_ids": [
+        "INC-009",
+        "INC-010"
+      ],
+      "actual_representative_incident_ids": [
+        "INC-009",
+        "INC-010"
+      ],
+      "candidate_count": 2,
+      "reason": "No single policy-admitted candidate strictly dominated every other candidate; the selector preserves the non-dominated tie set."
+    },
+    {
+      "selection_case_id": "SEL-CAL-006",
+      "passed": true,
+      "expected_state": "explicit_tie",
+      "actual_state": "explicit_tie",
+      "expected_representative_incident_ids": [
+        "INC-009",
+        "INC-010",
+        "INC-011",
+        "INC-012"
+      ],
+      "actual_representative_incident_ids": [
+        "INC-009",
+        "INC-010",
+        "INC-011",
+        "INC-012"
+      ],
+      "candidate_count": 4,
+      "reason": "No single policy-admitted candidate strictly dominated every other candidate; the selector preserves the non-dominated tie set."
+    },
+    {
+      "selection_case_id": "SEL-CAL-007",
+      "passed": true,
+      "expected_state": "single_representative",
+      "actual_state": "single_representative",
+      "expected_representative_incident_ids": [
+        "INC-009"
+      ],
+      "actual_representative_incident_ids": [
+        "INC-009"
+      ],
+      "candidate_count": 3,
+      "reason": "One policy-admitted candidate strictly dominated every other candidate on typed identity, change-context, and operational-signal evidence."
+    },
+    {
+      "selection_case_id": "SEL-CAL-008",
+      "passed": true,
+      "expected_state": "single_representative",
+      "actual_state": "single_representative",
+      "expected_representative_incident_ids": [
+        "INC-009"
+      ],
+      "actual_representative_incident_ids": [
+        "INC-009"
+      ],
+      "candidate_count": 3,
+      "reason": "One policy-admitted candidate strictly dominated every other candidate on typed identity, change-context, and operational-signal evidence."
+    },
+    {
+      "selection_case_id": "SEL-CAL-009",
+      "passed": true,
+      "expected_state": "single_representative",
+      "actual_state": "single_representative",
+      "expected_representative_incident_ids": [
+        "INC-012"
+      ],
+      "actual_representative_incident_ids": [
+        "INC-012"
+      ],
+      "candidate_count": 4,
+      "reason": "One policy-admitted candidate strictly dominated every other candidate on typed identity, change-context, and operational-signal evidence."
+    },
+    {
+      "selection_case_id": "SEL-CAL-010",
+      "passed": true,
+      "expected_state": "single_representative",
+      "actual_state": "single_representative",
+      "expected_representative_incident_ids": [
+        "INC-012"
+      ],
+      "actual_representative_incident_ids": [
+        "INC-012"
+      ],
+      "candidate_count": 2,
+      "reason": "One policy-admitted candidate strictly dominated every other candidate on typed identity, change-context, and operational-signal evidence."
+    }
+  ],
+  "non_claims": [
+    "This report does not activate representative selection in AntiAnchoringDecisionPolicy.",
+    "This report does not evaluate held-out cases or establish promotion eligibility.",
+    "This report does not claim production incident-response safety or retrieval improvement."
+  ]
+}
