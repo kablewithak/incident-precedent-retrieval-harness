@@ -1,0 +1,19 @@
+{
+  "selection_case_id": "SEL-CAL-005",
+  "split": "selection_calibration",
+  "contract_version": "representative-selection-v1",
+  "selection_intake": {
+    "service": "payments-api",
+    "component": "auth-db-client",
+    "change_context": "configuration",
+    "operational_signal_families": ["connection_pool_pressure"],
+    "contradicted_signal_families": []
+  },
+  "candidate_incident_ids": ["INC-009", "INC-010"],
+  "expected_outcome": {
+    "state": "explicit_tie",
+    "representative_incident_ids": ["INC-009", "INC-010"]
+  },
+  "failure_label_intent": ["identity_context_tradeoff", "explicit_tie"],
+  "acceptance_reason": "One card matches service while the other matches component and change context. Neither may become a sole representative through an unstated weight preference."
+}

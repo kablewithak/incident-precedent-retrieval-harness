@@ -1,0 +1,19 @@
+{
+  "selection_case_id": "SEL-CAL-004",
+  "split": "selection_calibration",
+  "contract_version": "representative-selection-v1",
+  "selection_intake": {
+    "service": null,
+    "component": null,
+    "change_context": "none",
+    "operational_signal_families": ["connection_pool_pressure"],
+    "contradicted_signal_families": []
+  },
+  "candidate_incident_ids": ["INC-009", "INC-012"],
+  "expected_outcome": {
+    "state": "explicit_tie",
+    "representative_incident_ids": ["INC-009", "INC-012"]
+  },
+  "failure_label_intent": ["correlated_source_phrases", "explicit_tie"],
+  "acceptance_reason": "Both cards expose connection_pool_pressure, while the two canonical source phrases inside that family must count once rather than manufacture a single winner."
+}

@@ -1,0 +1,19 @@
+{
+  "selection_case_id": "SEL-CAL-006",
+  "split": "selection_calibration",
+  "contract_version": "representative-selection-v1",
+  "selection_intake": {
+    "service": null,
+    "component": null,
+    "change_context": null,
+    "operational_signal_families": [],
+    "contradicted_signal_families": []
+  },
+  "candidate_incident_ids": ["INC-009", "INC-010", "INC-011", "INC-012"],
+  "expected_outcome": {
+    "state": "explicit_tie",
+    "representative_incident_ids": ["INC-009", "INC-010", "INC-011", "INC-012"]
+  },
+  "failure_label_intent": ["no_distinguishing_evidence", "explicit_tie"],
+  "acceptance_reason": "Unknown identity, context, and signal evidence must not be converted into weak support or a rank-order winner."
+}
