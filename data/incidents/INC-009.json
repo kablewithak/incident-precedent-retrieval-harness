@@ -39,5 +39,36 @@
     "migration_lock_waits",
     "error_rate_by_component"
   ],
-  "narrative_safe": "RelayOps payment requests began timing out while database client-pool acquisition waits rose and active connections approached the configured limit. A migration-lock precedent is unsafe unless lock waits are independently confirmed."
+  "narrative_safe": "RelayOps payment requests began timing out while database client-pool acquisition waits rose and active connections approached the configured limit. A migration-lock precedent is unsafe unless lock waits are independently confirmed.",
+  "selection_signature": {
+    "contract_version": "representative-selection-v1",
+    "service": "payments-api",
+    "component": "postgres-client-pool",
+    "change_context": "none",
+    "operational_signals": [
+      {
+        "signal_family": "connection_pool_pressure",
+        "source_references": [
+          {
+            "source_field": "observability_signals",
+            "source_values": [
+              "database connection pool utilization increased",
+              "database connection acquire latency increased"
+            ]
+          }
+        ]
+      },
+      {
+        "signal_family": "active_connection_pressure",
+        "source_references": [
+          {
+            "source_field": "observability_signals",
+            "source_values": [
+              "active database connections approached configured limit"
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

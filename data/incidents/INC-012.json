@@ -39,5 +39,47 @@
     "migration_lock_waits",
     "error_rate_by_component"
   ],
-  "narrative_safe": "RelayOps webhook persistence fell behind while retry volume and database client-pool acquisition delay increased. A queue-consumer procedure is not automatically applicable because the immediate constraint may be connection-pool capacity."
+  "narrative_safe": "RelayOps webhook persistence fell behind while retry volume and database client-pool acquisition delay increased. A queue-consumer procedure is not automatically applicable because the immediate constraint may be connection-pool capacity.",
+  "selection_signature": {
+    "contract_version": "representative-selection-v1",
+    "service": "webhook-delivery-service",
+    "component": "delivery-store-client",
+    "change_context": "none",
+    "operational_signals": [
+      {
+        "signal_family": "connection_pool_pressure",
+        "source_references": [
+          {
+            "source_field": "observability_signals",
+            "source_values": [
+              "database connection pool utilization increased",
+              "database connection acquire latency increased"
+            ]
+          }
+        ]
+      },
+      {
+        "signal_family": "queue_backlog",
+        "source_references": [
+          {
+            "source_field": "observability_signals",
+            "source_values": [
+              "queue depth increased"
+            ]
+          }
+        ]
+      },
+      {
+        "signal_family": "retry_amplification",
+        "source_references": [
+          {
+            "source_field": "symptoms",
+            "source_values": [
+              "retry volume increased"
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }
