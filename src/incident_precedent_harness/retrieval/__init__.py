@@ -8,8 +8,11 @@ from incident_precedent_harness.retrieval.dense import (
     validate_dense_index_against_corpus,
 )
 from incident_precedent_harness.retrieval.keyword import KeywordRetriever
+from incident_precedent_harness.retrieval.rerank import DenseRerankError, DenseTopKReranker
 from incident_precedent_harness.retrieval.models import (
     DenseCandidate,
+    DenseRerankCalibrationReport,
+    RerankedCandidate,
     DenseRetrievalCalibrationReport,
     KeywordBaselineReport,
     KeywordCandidate,
@@ -23,6 +26,9 @@ __all__ = [
     "DenseCandidate",
     "DenseIndexError",
     "DenseIndexStore",
+    "DenseRerankCalibrationReport",
+    "DenseRerankError",
+    "DenseTopKReranker",
     "DenseRetriever",
     "DenseRetrievalCalibrationReport",
     "JsonDatasetRepository",
@@ -31,6 +37,7 @@ __all__ = [
     "KeywordCaseOutcome",
     "KeywordRetriever",
     "LocalDenseIndex",
+    "RerankedCandidate",
     "build_local_dense_index",
     "validate_dense_index_against_corpus",
 ]
