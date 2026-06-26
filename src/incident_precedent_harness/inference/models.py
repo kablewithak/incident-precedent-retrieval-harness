@@ -105,11 +105,17 @@ class CandidateScoringRequest(BaseModel):
 
 
 class CandidateScore(BaseModel):
-    """A scored candidate ordered from most to least relevant."""
+    """A scored candidate ordered from most to least relevant.
+
+    ``score`` is a provider-native raw relevance value, not a calibrated
+    probability. It may therefore be negative or greater than one. Ordering is
+    governed by ``rank``; the value is retained only as traceable ranking
+    evidence and must be finite.
+    """
 
     candidate_id: str = Field(min_length=1, max_length=128)
     rank: int = Field(ge=1)
-    score: float = Field(ge=0, le=1)
+    score: float = Field(allow_inf_nan=False)
 
 
 class CandidateScoringResponse(BaseModel):
