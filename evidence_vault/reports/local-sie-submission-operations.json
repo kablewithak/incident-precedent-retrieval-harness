@@ -1,0 +1,28 @@
+{
+  "validation_kind": "local_sie_submission_operations",
+  "status": "passed",
+  "trace_id": "3bb4ede8-b0ca-46d1-a14c-fc790f833399",
+  "provider_mode": "local_docker_sie",
+  "encode": {
+    "profile_id": "local-sie-encode-v1",
+    "vector_count": 3,
+    "vector_dimension": 384,
+    "latency_ms": 181
+  },
+  "score": {
+    "profile_id": "local-sie-score-v1",
+    "candidate_count": 2,
+    "ranked_candidate_ids": [
+      "INC-SIE-001",
+      "INC-SIE-002"
+    ],
+    "mapping_contract_pass": true,
+    "latency_ms": 107
+  },
+  "non_claims": [
+    "Does not prove retrieval quality.",
+    "Does not prove safe operational comparability.",
+    "Does not prove warm-operation latency.",
+    "Does not prove hosted-provider access or production readiness."
+  ]
+}
