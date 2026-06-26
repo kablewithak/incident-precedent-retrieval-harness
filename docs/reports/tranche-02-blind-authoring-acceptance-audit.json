@@ -1,0 +1,50 @@
+{
+  "audit_id": "tranche_02_blind_authoring_acceptance_audit_v1",
+  "authorized_next_step": "Govern a test-only procedure-asymmetry fixture boundary under ADR-0019, then author it in a fresh blinded session.",
+  "blocking_gaps": [
+    "No grounded procedure-availability asymmetry exists in the supplied profiled connection-pool corpus.",
+    "A Tranche 02 fixture validator does not yet define candidate_pool_family validation and intentional invalid-input comparison."
+  ],
+  "case_dispositions": {
+    "conditionally_retained": [
+      "SEL-T02-002",
+      "SEL-T02-003",
+      "SEL-T02-004",
+      "SEL-T02-005",
+      "SEL-T02-006",
+      "SEL-T02-007",
+      "SEL-T02-008",
+      "SEL-T02-009",
+      "SEL-T02-010",
+      "SEL-T02-011",
+      "SEL-T02-012"
+    ],
+    "rejected": {
+      "SEL-T02-001": "Exact structural duplicate of SEL-CAL-007 and SEL-CAL-008.",
+      "SEL-T02-013": "Near-duplicate of SEL-CAL-009 and insufficient for constitution category 12."
+    }
+  },
+  "non_claims": [
+    "No Tranche 02 run is authorized.",
+    "No selector activation is authorized.",
+    "No active-policy behavior has been evaluated or changed."
+  ],
+  "proposal": {
+    "archive_filename": "tranche-02-blind-authoring-proposal.zip",
+    "archive_sha256": "de11fb74758f0efe7776e22ec01608a0129209aa1a66fe0bcc0afc65b48e068c",
+    "expected_manifest_sha256": "c859834697d013fedaa24c8d63ad6e1569d53610d8027afb0806ebc56f24dae3",
+    "input_manifest_sha256": "a5a8785778e2fef1713306bf6c85ec6f8b7558388dcdfb643bdafde58d1e0d8b",
+    "proposal_manifest_sha256": "1c41bae6138b4cca4c26c3b258b0ebc9ca42809329987c4d34118ccb36df1edf",
+    "source_repository_baseline": "c94a6e5"
+  },
+  "status": "conditional_rejection_not_frozen",
+  "verified_checks": {
+    "invalid_case_intents": 2,
+    "manifest_files_verified": 31,
+    "manifest_mismatches": 0,
+    "order_pair_equivalent": true,
+    "source_cards_validated": 12,
+    "typed_intakes_validated": 13,
+    "valid_case_selector_matches": 11
+  }
+}
