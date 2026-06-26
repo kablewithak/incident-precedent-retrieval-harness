@@ -1,0 +1,93 @@
+{
+  "audit_id": "PAF-V2-AUDIT-001",
+  "audit_kind": "binary_v2_provenance_and_oracle_acceptance_audit",
+  "audited_archive": "procedure-asymmetry-adversarial-fixture-proposal-v2 (1).zip",
+  "proposal_root": "proposed_procedure_asymmetry_fixture/",
+  "status": "accepted_for_governed_test_only_repository_import_only",
+  "acceptance_scope": {
+    "accepted": [
+      "V2 constrained provenance remediation",
+      "case-scoped test-only fixture import after dedicated validator slice"
+    ],
+    "not_accepted": [
+      "Tranche 02 freeze",
+      "selector activation",
+      "active policy integration",
+      "production or customer-data use"
+    ]
+  },
+  "checks": {
+    "root_layout": {
+      "status": "pass",
+      "required_root": "proposed_procedure_asymmetry_fixture/",
+      "delivered_file_count": 16
+    },
+    "manifest_inventory": {
+      "status": "pass",
+      "non_manifest_assets_verified": 15,
+      "unexpected_assets": 0,
+      "missing_assets": 0,
+      "sha256_or_byte_count_mismatches": 0
+    },
+    "aggregate_hashes": {
+      "status": "pass",
+      "verified_groups": [
+        "inputs_sha256",
+        "expected_outcomes_sha256",
+        "governance_sha256",
+        "documentation_sha256",
+        "all_non_manifest_assets_sha256"
+      ]
+    },
+    "v1_change_boundary": {
+      "status": "pass",
+      "observed_changed_or_new_paths": [
+        "APPLY_MANIFEST.md",
+        "authoring_ledger.md",
+        "inputs/governance/controlled_card_derivation_assertions.json",
+        "inputs/governance/procedure_asymmetry_governance.json",
+        "manifest.json"
+      ],
+      "allowed_change_surface_match": true,
+      "unexpected_changed_paths": []
+    },
+    "immutable_assets": {
+      "status": "pass",
+      "runtime_inputs": "3/3",
+      "expected_outcomes": "3/3",
+      "controlled_cards": "4/4",
+      "rejected_case_ideas": "1/1"
+    },
+    "derivation_assertions": {
+      "status": "pass",
+      "assertions": "4/4",
+      "exact_field_set_matches": true,
+      "pav_001_inc_013_declares_unsafe_procedure_ids": true
+    },
+    "schema_validation": {
+      "status": "pass",
+      "controlled_cards": "4/4 HistoricalIncidentCard",
+      "typed_intakes": "3/3 RepresentativeSelectionIntake"
+    },
+    "procedure_asymmetry_design": {
+      "status": "pass",
+      "primary_loser_with_favorable_metadata": "INC-013",
+      "primary_winner": "INC-014",
+      "procedure_neutral_control": "PAF-T02-003"
+    },
+    "selector_oracle_replay": {
+      "status": "pass",
+      "execution_basis": "reconstructed PR-18 strict-dominance selector contract",
+      "cases": "3/3",
+      "representative_incident_id": "INC-014",
+      "order_reversal_invariant": true,
+      "procedure_neutral_control_parity": true
+    }
+  },
+  "limitations": [
+    "This audit accepts the V2 proposal for governed test-only repository import only.",
+    "It does not freeze Tranche 02, activate the selector, alter AntiAnchoringDecisionPolicy, or make a production or customer-data claim.",
+    "Selector replay used the isolated strict-dominance selector contract, not an active-policy or full Tranche 02 harness run."
+  ],
+  "next_gate": "dedicated case-scoped procedure-asymmetry fixture validator and import slice"
+}
