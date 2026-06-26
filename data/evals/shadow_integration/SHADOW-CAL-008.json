@@ -1,0 +1,30 @@
+{
+  "shadow_case_id": "SHADOW-CAL-008",
+  "split": "shadow_integration_calibration",
+  "policy_case_id": "EVAL-005",
+  "selection_intake_bindings": [
+    {
+      "incident_family": "database_migration_lock_contention",
+      "selection_intake": {
+        "service": null,
+        "component": null,
+        "change_context": null,
+        "operational_signal_families": [],
+        "contradicted_signal_families": []
+      }
+    }
+  ],
+  "expected_traces": [
+    {
+      "incident_family": "database_migration_lock_contention",
+      "admitted_candidate_ids": ["INC-005", "INC-006", "INC-007"],
+      "selection_intake_present": true,
+      "selector_invoked": false,
+      "selection_state": "unavailable",
+      "representative_incident_ids": [],
+      "unavailable_reason": "Strict-dominance selection is not supported for this policy-admitted incident family."
+    }
+  ],
+  "failure_label_intent": ["unsupported_family", "no_selector_expansion"],
+  "acceptance_reason": "Typed evidence cannot silently extend the connection-pool selector to unsupported incident families."
+}

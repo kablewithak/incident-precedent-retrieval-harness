@@ -1,0 +1,19 @@
+{
+  "shadow_case_id": "SHADOW-CAL-004",
+  "split": "shadow_integration_calibration",
+  "policy_case_id": "EVAL-009",
+  "selection_intake_bindings": [],
+  "expected_traces": [
+    {
+      "incident_family": "connection_pool_exhaustion",
+      "admitted_candidate_ids": ["INC-009", "INC-010", "INC-011", "INC-012"],
+      "selection_intake_present": false,
+      "selector_invoked": false,
+      "selection_state": "unavailable",
+      "representative_incident_ids": [],
+      "unavailable_reason": "Typed representative-selection intake was not supplied for this policy-admitted family."
+    }
+  ],
+  "failure_label_intent": ["missing_selection_intake", "no_lexical_fallback"],
+  "acceptance_reason": "A connection-pool admission set must not reuse lexical rank when typed representative-selection evidence is absent."
+}

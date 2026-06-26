@@ -1,0 +1,30 @@
+{
+  "shadow_case_id": "SHADOW-CAL-005",
+  "split": "shadow_integration_calibration",
+  "policy_case_id": "EVAL-009",
+  "selection_intake_bindings": [
+    {
+      "incident_family": "connection_pool_exhaustion",
+      "selection_intake": {
+        "service": "payments-api",
+        "component": "postgres-client-pool",
+        "change_context": "none",
+        "operational_signal_families": ["connection_pool_pressure", "active_connection_pressure"],
+        "contradicted_signal_families": []
+      }
+    }
+  ],
+  "expected_traces": [
+    {
+      "incident_family": "connection_pool_exhaustion",
+      "admitted_candidate_ids": ["INC-009", "INC-010", "INC-011", "INC-012"],
+      "selection_intake_present": true,
+      "selector_invoked": true,
+      "selection_state": "single_representative",
+      "representative_incident_ids": ["INC-009"],
+      "unavailable_reason": null
+    }
+  ],
+  "failure_label_intent": ["typed_selection_bridge", "trace_only_single_representative"],
+  "acceptance_reason": "Typed identity, no-change context, and distinct pool signals identify the payments precedent only in shadow trace output."
+}

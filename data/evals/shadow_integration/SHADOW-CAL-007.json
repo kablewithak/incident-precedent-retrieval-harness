@@ -1,0 +1,39 @@
+{
+  "shadow_case_id": "SHADOW-CAL-007",
+  "split": "shadow_integration_calibration",
+  "policy_case_id": "EVAL-011",
+  "selection_intake_bindings": [
+    {
+      "incident_family": "connection_pool_exhaustion",
+      "selection_intake": {
+        "service": "feature-flag-service",
+        "component": "flag-evaluator",
+        "change_context": "deployment",
+        "operational_signal_families": ["connection_pool_pressure", "active_connection_pressure", "readiness_failure", "component_error_pressure"],
+        "contradicted_signal_families": []
+      }
+    }
+  ],
+  "expected_traces": [
+    {
+      "incident_family": "connection_pool_exhaustion",
+      "admitted_candidate_ids": ["INC-009", "INC-010", "INC-011", "INC-012"],
+      "selection_intake_present": true,
+      "selector_invoked": true,
+      "selection_state": "single_representative",
+      "representative_incident_ids": ["INC-011"],
+      "unavailable_reason": null
+    },
+    {
+      "incident_family": "queue_backlog_consumer_failure",
+      "admitted_candidate_ids": ["INC-003"],
+      "selection_intake_present": false,
+      "selector_invoked": false,
+      "selection_state": "not_applicable_single_candidate",
+      "representative_incident_ids": [],
+      "unavailable_reason": "Strict-dominance selection is not applicable because this family has one policy-admitted candidate."
+    }
+  ],
+  "failure_label_intent": ["cross_family_conflict_preserved", "no_preferred_procedure"],
+  "acceptance_reason": "A family-level shadow representative does not alter the cross-family conflict state or surface a preferred procedure."
+}

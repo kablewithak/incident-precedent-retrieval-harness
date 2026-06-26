@@ -1,0 +1,19 @@
+{
+  "shadow_case_id": "SHADOW-CAL-003",
+  "split": "shadow_integration_calibration",
+  "policy_case_id": "EVAL-001",
+  "selection_intake_bindings": [],
+  "expected_traces": [
+    {
+      "incident_family": "queue_backlog_consumer_failure",
+      "admitted_candidate_ids": ["INC-003", "INC-004"],
+      "selection_intake_present": false,
+      "selector_invoked": false,
+      "selection_state": "unavailable",
+      "representative_incident_ids": [],
+      "unavailable_reason": "Typed representative-selection intake was not supplied for this policy-admitted family."
+    }
+  ],
+  "failure_label_intent": ["missing_selection_intake", "no_rank_fallback"],
+  "acceptance_reason": "Multiple compatibility-admitted queue cards must remain trace-unavailable without a separately supplied typed selection intake."
+}

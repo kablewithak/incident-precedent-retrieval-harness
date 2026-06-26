@@ -1,0 +1,78 @@
+{
+  "active_policy_changed": false,
+  "baseline_comparison_loaded": false,
+  "existing_policy_calibration_cases": 12,
+  "fixture_failures": [],
+  "fixture_results": [
+    {
+      "policy_case_id": "EVAL-004",
+      "public_result_invariant": true,
+      "shadow_case_id": "SHADOW-CAL-001",
+      "trace_contract_matched": true
+    },
+    {
+      "policy_case_id": "EVAL-003",
+      "public_result_invariant": true,
+      "shadow_case_id": "SHADOW-CAL-002",
+      "trace_contract_matched": true
+    },
+    {
+      "policy_case_id": "EVAL-001",
+      "public_result_invariant": true,
+      "shadow_case_id": "SHADOW-CAL-003",
+      "trace_contract_matched": true
+    },
+    {
+      "policy_case_id": "EVAL-009",
+      "public_result_invariant": true,
+      "shadow_case_id": "SHADOW-CAL-004",
+      "trace_contract_matched": true
+    },
+    {
+      "policy_case_id": "EVAL-009",
+      "public_result_invariant": true,
+      "shadow_case_id": "SHADOW-CAL-005",
+      "trace_contract_matched": true
+    },
+    {
+      "policy_case_id": "EVAL-010",
+      "public_result_invariant": true,
+      "shadow_case_id": "SHADOW-CAL-006",
+      "trace_contract_matched": true
+    },
+    {
+      "policy_case_id": "EVAL-011",
+      "public_result_invariant": true,
+      "shadow_case_id": "SHADOW-CAL-007",
+      "trace_contract_matched": true
+    },
+    {
+      "policy_case_id": "EVAL-005",
+      "public_result_invariant": true,
+      "shadow_case_id": "SHADOW-CAL-008",
+      "trace_contract_matched": true
+    }
+  ],
+  "freeze_manifest_loaded": false,
+  "heldout_loaded": false,
+  "legacy_rank_sensitivity_observation": {
+    "changed_public_fields": [
+      "assessments",
+      "candidate_procedure_ids",
+      "decision_state",
+      "missing_critical_facts",
+      "retained_precedent_ids",
+      "safety_notes"
+    ],
+    "observed": true,
+    "policy_case_id": "EVAL-009"
+  },
+  "order_trace_invariant": true,
+  "promotion_report_loaded": false,
+  "public_result_invariance_failures": [],
+  "report_kind": "policy_shadow_integration_calibration",
+  "same_input_policy_invariant": true,
+  "selector_activation_claim": false,
+  "shadow_integration_cases": 8,
+  "status": "PASS"
+}
