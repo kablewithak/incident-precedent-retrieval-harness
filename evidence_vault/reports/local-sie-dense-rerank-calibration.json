@@ -1,0 +1,573 @@
+{
+  "calibration_case_count": 12,
+  "comparison": {
+    "dense_correct_precedent_mrr": 0.9375,
+    "dense_false_operational_match_rate": 0.0909,
+    "dense_incident_family_recall_at_5": 1.0,
+    "keyword_correct_precedent_mrr": 1.0,
+    "keyword_false_operational_match_rate": 0.1818,
+    "keyword_incident_family_recall_at_5": 1.0,
+    "reranked_correct_precedent_mrr": 0.9375,
+    "reranked_correct_precedent_mrr_delta_vs_dense": 0.0,
+    "reranked_correct_precedent_mrr_delta_vs_keyword": -0.0625,
+    "reranked_false_operational_match_rate": 0.0909,
+    "reranked_false_operational_match_rate_delta_vs_dense": 0.0,
+    "reranked_false_operational_match_rate_delta_vs_keyword": -0.0909,
+    "reranked_incident_family_recall_at_5": 1.0,
+    "reranked_incident_family_recall_at_5_delta_vs_dense": 0.0,
+    "reranked_incident_family_recall_at_5_delta_vs_keyword": 0.0
+  },
+  "corpus_incident_count": 12,
+  "dense_metrics": {
+    "cases_with_acceptable_precedent": 8,
+    "correct_precedent_mrr": 0.9375,
+    "false_operational_match_count": 1,
+    "false_operational_match_rate": 0.0909,
+    "incident_family_recall_at_5": 1.0,
+    "p50_similarity_latency_ms": 1.0015,
+    "p95_similarity_latency_ms": 1.2547,
+    "safe_precedent_top_1_rate": 0.9091,
+    "safety_evaluable_case_count": 11,
+    "scored_case_count": 12
+  },
+  "dense_top_k": 5,
+  "generated_at": "2026-06-26T22:18:33.175531Z",
+  "index_manifest": {
+    "built_at": "2026-06-26T22:07:24.848679Z",
+    "corpus_fingerprint_sha256": "a2f625fd8f0e880f416144049ddd8e5841f7bf1f34cbdb7c5e515abc04c389f3",
+    "corpus_incident_count": 12,
+    "embedding_profile": {
+      "max_retries": 0,
+      "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+      "operation": "encode",
+      "profile_id": "local-sie-encode-v1",
+      "provider_name": "superlinked_sie",
+      "timeout_ms": 30000
+    },
+    "index_format_version": "local-dense-index-v1",
+    "index_id": "local-sie-dense-index-v1",
+    "representation_version": "incident-retrieval-representation-v1",
+    "vector_dimension": 384
+  },
+  "keyword_baseline_metrics": {
+    "cases_with_acceptable_precedent": 8,
+    "correct_precedent_mrr": 1.0,
+    "false_operational_match_count": 2,
+    "false_operational_match_rate": 0.1818,
+    "incident_family_recall_at_5": 1.0,
+    "p50_query_latency_ms": 0.2047,
+    "p95_query_latency_ms": 0.2588,
+    "safe_precedent_top_1_rate": 0.8182,
+    "safety_evaluable_case_count": 11,
+    "scored_case_count": 12
+  },
+  "known_limits": [
+    "Calibration-only report; held-out cases are not loaded or scored.",
+    "SIE score can reorder only the dense top-k candidate set; it cannot introduce a new incident card.",
+    "Dense-plus-rerank does not assign decision states, select an authoritative precedent, or authorize a procedure.",
+    "Raw relevance values are provider-native ranking evidence, not calibrated probabilities or confidence values.",
+    "A candidate returned for an insufficient-precedent case remains a retrieval limitation until a separate abstention policy is applied.",
+    "Observed provider score latency is synthetic calibration evidence, not a warm-operation or production latency claim.",
+    "This report is not a promotion decision; anti-anchoring policy and held-out evaluation remain separate gates."
+  ],
+  "outcomes": [
+    {
+      "acceptable_precedent_ids": [
+        "INC-003"
+      ],
+      "dense_candidate_ids": [
+        "INC-012",
+        "INC-003",
+        "INC-007",
+        "INC-004",
+        "INC-002"
+      ],
+      "eval_id": "EVAL-001",
+      "expected_decision_state": "evidence_found",
+      "expected_incident_families": [
+        "queue_backlog_consumer_failure"
+      ],
+      "failure_labels": [],
+      "first_acceptable_rank": 2,
+      "reranked_candidate_ids": [
+        "INC-012",
+        "INC-003",
+        "INC-007",
+        "INC-004",
+        "INC-002"
+      ],
+      "reranked_candidate_incident_families": [
+        "connection_pool_exhaustion",
+        "queue_backlog_consumer_failure",
+        "database_migration_lock_contention",
+        "queue_backlog_consumer_failure",
+        "queue_backlog_consumer_failure"
+      ],
+      "score_latency_ms": 275.0,
+      "top_1_is_unsafe": false,
+      "unsafe_precedent_ids": [
+        "INC-001",
+        "INC-002"
+      ]
+    },
+    {
+      "acceptable_precedent_ids": [
+        "INC-003",
+        "INC-004"
+      ],
+      "dense_candidate_ids": [
+        "INC-004",
+        "INC-003",
+        "INC-002",
+        "INC-001",
+        "INC-007"
+      ],
+      "eval_id": "EVAL-002",
+      "expected_decision_state": "missing_critical_facts",
+      "expected_incident_families": [
+        "queue_backlog_consumer_failure"
+      ],
+      "failure_labels": [],
+      "first_acceptable_rank": 1,
+      "reranked_candidate_ids": [
+        "INC-004",
+        "INC-003",
+        "INC-002",
+        "INC-001",
+        "INC-007"
+      ],
+      "reranked_candidate_incident_families": [
+        "queue_backlog_consumer_failure",
+        "queue_backlog_consumer_failure",
+        "queue_backlog_consumer_failure",
+        "queue_backlog_consumer_failure",
+        "database_migration_lock_contention"
+      ],
+      "score_latency_ms": 157.0,
+      "top_1_is_unsafe": false,
+      "unsafe_precedent_ids": [
+        "INC-001",
+        "INC-002"
+      ]
+    },
+    {
+      "acceptable_precedent_ids": [],
+      "dense_candidate_ids": [
+        "INC-012",
+        "INC-001",
+        "INC-004",
+        "INC-007",
+        "INC-003"
+      ],
+      "eval_id": "EVAL-003",
+      "expected_decision_state": "insufficient_precedent",
+      "expected_incident_families": [],
+      "failure_labels": [
+        "rerank_candidate_returned_without_abstention_policy"
+      ],
+      "first_acceptable_rank": null,
+      "reranked_candidate_ids": [
+        "INC-012",
+        "INC-001",
+        "INC-004",
+        "INC-007",
+        "INC-003"
+      ],
+      "reranked_candidate_incident_families": [
+        "connection_pool_exhaustion",
+        "queue_backlog_consumer_failure",
+        "queue_backlog_consumer_failure",
+        "database_migration_lock_contention",
+        "queue_backlog_consumer_failure"
+      ],
+      "score_latency_ms": 160.0,
+      "top_1_is_unsafe": false,
+      "unsafe_precedent_ids": [
+        "INC-001",
+        "INC-002",
+        "INC-003",
+        "INC-004"
+      ]
+    },
+    {
+      "acceptable_precedent_ids": [],
+      "dense_candidate_ids": [
+        "INC-004",
+        "INC-002",
+        "INC-001",
+        "INC-011",
+        "INC-012"
+      ],
+      "eval_id": "EVAL-004",
+      "expected_decision_state": "provider_degraded",
+      "expected_incident_families": [],
+      "failure_labels": [],
+      "first_acceptable_rank": null,
+      "reranked_candidate_ids": [
+        "INC-004",
+        "INC-002",
+        "INC-001",
+        "INC-011",
+        "INC-012"
+      ],
+      "reranked_candidate_incident_families": [
+        "queue_backlog_consumer_failure",
+        "queue_backlog_consumer_failure",
+        "queue_backlog_consumer_failure",
+        "connection_pool_exhaustion",
+        "connection_pool_exhaustion"
+      ],
+      "score_latency_ms": 143.0,
+      "top_1_is_unsafe": false,
+      "unsafe_precedent_ids": []
+    },
+    {
+      "acceptable_precedent_ids": [
+        "INC-005",
+        "INC-007"
+      ],
+      "dense_candidate_ids": [
+        "INC-005",
+        "INC-006",
+        "INC-002",
+        "INC-007",
+        "INC-008"
+      ],
+      "eval_id": "EVAL-005",
+      "expected_decision_state": "evidence_found",
+      "expected_incident_families": [
+        "database_migration_lock_contention"
+      ],
+      "failure_labels": [],
+      "first_acceptable_rank": 1,
+      "reranked_candidate_ids": [
+        "INC-005",
+        "INC-006",
+        "INC-002",
+        "INC-007",
+        "INC-008"
+      ],
+      "reranked_candidate_incident_families": [
+        "database_migration_lock_contention",
+        "database_migration_lock_contention",
+        "queue_backlog_consumer_failure",
+        "database_migration_lock_contention",
+        "database_migration_lock_contention"
+      ],
+      "score_latency_ms": 161.0,
+      "top_1_is_unsafe": false,
+      "unsafe_precedent_ids": [
+        "INC-003",
+        "INC-004"
+      ]
+    },
+    {
+      "acceptable_precedent_ids": [
+        "INC-005",
+        "INC-007"
+      ],
+      "dense_candidate_ids": [
+        "INC-007",
+        "INC-012",
+        "INC-003",
+        "INC-005",
+        "INC-006"
+      ],
+      "eval_id": "EVAL-006",
+      "expected_decision_state": "missing_critical_facts",
+      "expected_incident_families": [
+        "database_migration_lock_contention"
+      ],
+      "failure_labels": [],
+      "first_acceptable_rank": 1,
+      "reranked_candidate_ids": [
+        "INC-007",
+        "INC-012",
+        "INC-003",
+        "INC-005",
+        "INC-006"
+      ],
+      "reranked_candidate_incident_families": [
+        "database_migration_lock_contention",
+        "connection_pool_exhaustion",
+        "queue_backlog_consumer_failure",
+        "database_migration_lock_contention",
+        "database_migration_lock_contention"
+      ],
+      "score_latency_ms": 194.0,
+      "top_1_is_unsafe": false,
+      "unsafe_precedent_ids": [
+        "INC-003",
+        "INC-004"
+      ]
+    },
+    {
+      "acceptable_precedent_ids": [
+        "INC-003"
+      ],
+      "dense_candidate_ids": [
+        "INC-003",
+        "INC-007",
+        "INC-012",
+        "INC-004",
+        "INC-006"
+      ],
+      "eval_id": "EVAL-007",
+      "expected_decision_state": "evidence_found",
+      "expected_incident_families": [
+        "queue_backlog_consumer_failure"
+      ],
+      "failure_labels": [],
+      "first_acceptable_rank": 1,
+      "reranked_candidate_ids": [
+        "INC-003",
+        "INC-007",
+        "INC-012",
+        "INC-004",
+        "INC-006"
+      ],
+      "reranked_candidate_incident_families": [
+        "queue_backlog_consumer_failure",
+        "database_migration_lock_contention",
+        "connection_pool_exhaustion",
+        "queue_backlog_consumer_failure",
+        "database_migration_lock_contention"
+      ],
+      "score_latency_ms": 177.0,
+      "top_1_is_unsafe": false,
+      "unsafe_precedent_ids": [
+        "INC-005",
+        "INC-006",
+        "INC-007",
+        "INC-008"
+      ]
+    },
+    {
+      "acceptable_precedent_ids": [],
+      "dense_candidate_ids": [
+        "INC-008",
+        "INC-006",
+        "INC-009",
+        "INC-005",
+        "INC-007"
+      ],
+      "eval_id": "EVAL-008",
+      "expected_decision_state": "insufficient_precedent",
+      "expected_incident_families": [],
+      "failure_labels": [
+        "false_operational_match",
+        "rerank_candidate_returned_without_abstention_policy"
+      ],
+      "first_acceptable_rank": null,
+      "reranked_candidate_ids": [
+        "INC-008",
+        "INC-006",
+        "INC-009",
+        "INC-005",
+        "INC-007"
+      ],
+      "reranked_candidate_incident_families": [
+        "database_migration_lock_contention",
+        "database_migration_lock_contention",
+        "connection_pool_exhaustion",
+        "database_migration_lock_contention",
+        "database_migration_lock_contention"
+      ],
+      "score_latency_ms": 155.0,
+      "top_1_is_unsafe": true,
+      "unsafe_precedent_ids": [
+        "INC-005",
+        "INC-006",
+        "INC-007",
+        "INC-008"
+      ]
+    },
+    {
+      "acceptable_precedent_ids": [
+        "INC-009",
+        "INC-012"
+      ],
+      "dense_candidate_ids": [
+        "INC-009",
+        "INC-008",
+        "INC-006",
+        "INC-007",
+        "INC-005"
+      ],
+      "eval_id": "EVAL-009",
+      "expected_decision_state": "evidence_found",
+      "expected_incident_families": [
+        "connection_pool_exhaustion"
+      ],
+      "failure_labels": [],
+      "first_acceptable_rank": 1,
+      "reranked_candidate_ids": [
+        "INC-009",
+        "INC-008",
+        "INC-006",
+        "INC-007",
+        "INC-005"
+      ],
+      "reranked_candidate_incident_families": [
+        "connection_pool_exhaustion",
+        "database_migration_lock_contention",
+        "database_migration_lock_contention",
+        "database_migration_lock_contention",
+        "database_migration_lock_contention"
+      ],
+      "score_latency_ms": 168.0,
+      "top_1_is_unsafe": false,
+      "unsafe_precedent_ids": [
+        "INC-005",
+        "INC-008"
+      ]
+    },
+    {
+      "acceptable_precedent_ids": [
+        "INC-010"
+      ],
+      "dense_candidate_ids": [
+        "INC-010",
+        "INC-009",
+        "INC-008",
+        "INC-011",
+        "INC-007"
+      ],
+      "eval_id": "EVAL-010",
+      "expected_decision_state": "missing_critical_facts",
+      "expected_incident_families": [
+        "connection_pool_exhaustion"
+      ],
+      "failure_labels": [],
+      "first_acceptable_rank": 1,
+      "reranked_candidate_ids": [
+        "INC-010",
+        "INC-009",
+        "INC-008",
+        "INC-011",
+        "INC-007"
+      ],
+      "reranked_candidate_incident_families": [
+        "connection_pool_exhaustion",
+        "connection_pool_exhaustion",
+        "database_migration_lock_contention",
+        "connection_pool_exhaustion",
+        "database_migration_lock_contention"
+      ],
+      "score_latency_ms": 151.0,
+      "top_1_is_unsafe": false,
+      "unsafe_precedent_ids": [
+        "INC-006"
+      ]
+    },
+    {
+      "acceptable_precedent_ids": [
+        "INC-003",
+        "INC-011"
+      ],
+      "dense_candidate_ids": [
+        "INC-003",
+        "INC-007",
+        "INC-012",
+        "INC-004",
+        "INC-010"
+      ],
+      "eval_id": "EVAL-011",
+      "expected_decision_state": "evidence_found_with_conflict",
+      "expected_incident_families": [
+        "connection_pool_exhaustion",
+        "queue_backlog_consumer_failure"
+      ],
+      "failure_labels": [],
+      "first_acceptable_rank": 1,
+      "reranked_candidate_ids": [
+        "INC-003",
+        "INC-007",
+        "INC-012",
+        "INC-004",
+        "INC-010"
+      ],
+      "reranked_candidate_incident_families": [
+        "queue_backlog_consumer_failure",
+        "database_migration_lock_contention",
+        "connection_pool_exhaustion",
+        "queue_backlog_consumer_failure",
+        "connection_pool_exhaustion"
+      ],
+      "score_latency_ms": 171.0,
+      "top_1_is_unsafe": false,
+      "unsafe_precedent_ids": [
+        "INC-005"
+      ]
+    },
+    {
+      "acceptable_precedent_ids": [],
+      "dense_candidate_ids": [
+        "INC-002",
+        "INC-004",
+        "INC-006",
+        "INC-011",
+        "INC-010"
+      ],
+      "eval_id": "EVAL-012",
+      "expected_decision_state": "insufficient_precedent",
+      "expected_incident_families": [],
+      "failure_labels": [
+        "rerank_candidate_returned_without_abstention_policy"
+      ],
+      "first_acceptable_rank": null,
+      "reranked_candidate_ids": [
+        "INC-002",
+        "INC-004",
+        "INC-006",
+        "INC-011",
+        "INC-010"
+      ],
+      "reranked_candidate_incident_families": [
+        "queue_backlog_consumer_failure",
+        "queue_backlog_consumer_failure",
+        "database_migration_lock_contention",
+        "connection_pool_exhaustion",
+        "connection_pool_exhaustion"
+      ],
+      "score_latency_ms": 173.0,
+      "top_1_is_unsafe": false,
+      "unsafe_precedent_ids": [
+        "INC-009",
+        "INC-012",
+        "INC-005",
+        "INC-003"
+      ]
+    }
+  ],
+  "query_embedding_batch_latency_ms": 575.0,
+  "query_embedding_profile": {
+    "max_retries": 0,
+    "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+    "operation": "encode",
+    "profile_id": "local-sie-encode-v1",
+    "provider_name": "superlinked_sie",
+    "timeout_ms": 30000
+  },
+  "report_kind": "local_sie_dense_rerank_calibration",
+  "rerank_metrics": {
+    "cases_with_acceptable_precedent": 8,
+    "correct_precedent_mrr": 0.9375,
+    "false_operational_match_count": 1,
+    "false_operational_match_rate": 0.0909,
+    "incident_family_recall_at_5": 1.0,
+    "p50_score_latency_ms": 164.5,
+    "p95_score_latency_ms": 230.45,
+    "safe_precedent_top_1_rate": 0.9091,
+    "safety_evaluable_case_count": 11,
+    "scored_case_count": 12
+  },
+  "score_profile": {
+    "max_retries": 0,
+    "model_id": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "operation": "score",
+    "profile_id": "local-sie-score-v1",
+    "provider_name": "superlinked_sie",
+    "timeout_ms": 30000
+  }
+}

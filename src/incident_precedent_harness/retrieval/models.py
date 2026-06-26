@@ -200,3 +200,87 @@ class DenseRetrievalCalibrationReport(BaseModel):
     comparison_to_keyword_baseline: DenseVsKeywordComparison
     outcomes: tuple[DenseCaseOutcome, ...]
     known_limits: tuple[str, ...] = Field(min_length=1)
+
+
+class RerankedCandidate(BaseModel):
+    """One dense candidate after SIE score reranking within the fixed top-k set."""
+
+    incident_id: RecordIdentifier
+    dense_rank: PositiveInteger
+    rerank_rank: PositiveInteger
+    cosine_similarity: float = Field(ge=-1.000001, le=1.000001, allow_inf_nan=False)
+    raw_relevance_score: float = Field(allow_inf_nan=False)
+
+
+class DenseRerankCaseOutcome(BaseModel):
+    """Calibration-only dense-top-k reranking outcome for one evaluation case."""
+
+    eval_id: EvalIdentifier
+    expected_decision_state: str
+    dense_candidate_ids: tuple[RecordIdentifier, ...]
+    reranked_candidate_ids: tuple[RecordIdentifier, ...]
+    reranked_candidate_incident_families: tuple[str, ...]
+    expected_incident_families: tuple[str, ...]
+    acceptable_precedent_ids: tuple[RecordIdentifier, ...]
+    unsafe_precedent_ids: tuple[RecordIdentifier, ...]
+    first_acceptable_rank: int | None = Field(default=None, ge=1)
+    top_1_is_unsafe: bool
+    score_latency_ms: NonNegativeFloat
+    failure_labels: tuple[str, ...] = ()
+
+
+class DenseRerankMetrics(BaseModel):
+    """Calibration metrics for SIE score reranking of the fixed dense top-k set."""
+
+    scored_case_count: int = Field(ge=0)
+    cases_with_acceptable_precedent: int = Field(ge=0)
+    correct_precedent_mrr: float | None = Field(default=None, ge=0, le=1)
+    incident_family_recall_at_5: float | None = Field(default=None, ge=0, le=1)
+    safety_evaluable_case_count: int = Field(ge=0)
+    safe_precedent_top_1_rate: float | None = Field(default=None, ge=0, le=1)
+    false_operational_match_count: int = Field(ge=0)
+    false_operational_match_rate: float | None = Field(default=None, ge=0, le=1)
+    p50_score_latency_ms: NonNegativeFloat
+    p95_score_latency_ms: NonNegativeFloat
+
+
+class ThreeWayRetrievalComparison(BaseModel):
+    """Calibration-only comparison of keyword, dense, and dense-plus-rerank paths."""
+
+    keyword_correct_precedent_mrr: float | None = Field(default=None, ge=0, le=1)
+    dense_correct_precedent_mrr: float | None = Field(default=None, ge=0, le=1)
+    reranked_correct_precedent_mrr: float | None = Field(default=None, ge=0, le=1)
+    reranked_correct_precedent_mrr_delta_vs_dense: float | None = None
+    reranked_correct_precedent_mrr_delta_vs_keyword: float | None = None
+    keyword_incident_family_recall_at_5: float | None = Field(default=None, ge=0, le=1)
+    dense_incident_family_recall_at_5: float | None = Field(default=None, ge=0, le=1)
+    reranked_incident_family_recall_at_5: float | None = Field(default=None, ge=0, le=1)
+    reranked_incident_family_recall_at_5_delta_vs_dense: float | None = None
+    reranked_incident_family_recall_at_5_delta_vs_keyword: float | None = None
+    keyword_false_operational_match_rate: float | None = Field(default=None, ge=0, le=1)
+    dense_false_operational_match_rate: float | None = Field(default=None, ge=0, le=1)
+    reranked_false_operational_match_rate: float | None = Field(default=None, ge=0, le=1)
+    reranked_false_operational_match_rate_delta_vs_dense: float | None = None
+    reranked_false_operational_match_rate_delta_vs_keyword: float | None = None
+
+
+class DenseRerankCalibrationReport(BaseModel):
+    """Saved calibration evidence for bounded SIE score reranking after dense retrieval."""
+
+    report_kind: Literal["local_sie_dense_rerank_calibration"] = (
+        "local_sie_dense_rerank_calibration"
+    )
+    generated_at: datetime
+    corpus_incident_count: int = Field(gt=0)
+    calibration_case_count: int = Field(gt=0)
+    dense_top_k: PositiveInteger
+    index_manifest: DenseIndexManifest
+    query_embedding_profile: InferenceProfile
+    score_profile: InferenceProfile
+    query_embedding_batch_latency_ms: NonNegativeFloat
+    dense_metrics: DenseRetrievalMetrics
+    rerank_metrics: DenseRerankMetrics
+    keyword_baseline_metrics: KeywordBaselineMetrics
+    comparison: ThreeWayRetrievalComparison
+    outcomes: tuple[DenseRerankCaseOutcome, ...]
+    known_limits: tuple[str, ...] = Field(min_length=1)
