@@ -1,0 +1,9 @@
+{
+  "shadow_case_id": "SHADOW-CAL-001",
+  "split": "shadow_integration_calibration",
+  "policy_case_id": "EVAL-004",
+  "selection_intake_bindings": [],
+  "expected_traces": [],
+  "failure_label_intent": ["provider_degraded_bypass", "selector_not_invoked"],
+  "acceptance_reason": "Provider degradation must block normal evidence evaluation before any family admission or shadow selection trace exists."
+}

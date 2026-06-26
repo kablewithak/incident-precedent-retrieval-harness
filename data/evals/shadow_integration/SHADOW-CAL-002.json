@@ -1,0 +1,9 @@
+{
+  "shadow_case_id": "SHADOW-CAL-002",
+  "split": "shadow_integration_calibration",
+  "policy_case_id": "EVAL-003",
+  "selection_intake_bindings": [],
+  "expected_traces": [],
+  "failure_label_intent": ["insufficient_precedent_bypass", "selector_not_invoked"],
+  "acceptance_reason": "No compatibility-admitted family exists, so shadow selection cannot run."
+}

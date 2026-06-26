@@ -1,16 +1,30 @@
-"""Deterministic anti-anchoring policy for ranked historical incidents.
+"""Deterministic anti-anchoring policy with trace-only selection observation.
 
-The policy consumes ranked candidates and structured intake facts. It does not infer
-facts from model output, choose a root cause, or execute an investigation procedure.
+The normal policy result remains the active contract. ``evaluate_with_shadow``
+retains the complete compatibility-admitted pool only for typed, trace-only
+representative-selection observation. It cannot alter policy states, retained
+precedent IDs, missing facts, or procedure eligibility.
 """
 
 from __future__ import annotations
 
+from collections import defaultdict
 from collections.abc import Iterable
+from dataclasses import dataclass
 
 from incident_precedent_harness.decisions.models import (
     CandidatePolicyAssessment,
+    FamilyAdmissionSet,
+    FamilyRepresentativeSelectionTrace,
     PolicyDecisionResult,
+    PolicyShadowEvaluationResult,
+    PolicyShadowRequest,
+    ShadowSelectionState,
+)
+from incident_precedent_harness.decisions.strict_dominance_selection import (
+    RepresentativeSelectionState,
+    SelectionInputError,
+    StrictDominanceRepresentativeSelector,
 )
 from incident_precedent_harness.domain.incident_data import (
     CandidateInvestigationProcedure,
@@ -26,12 +40,19 @@ from incident_precedent_harness.domain.incident_enums import (
 from incident_precedent_harness.retrieval.models import KeywordCandidate
 
 
+@dataclass(frozen=True, slots=True)
+class _PolicyEvaluationArtifacts:
+    """Private core result used to keep normal and shadow calls behaviorally aligned."""
+
+    policy_result: PolicyDecisionResult
+    family_admission_sets: tuple[FamilyAdmissionSet, ...]
+
+
 class AntiAnchoringDecisionPolicy:
     """Apply compatibility, missing-fact, conflict, and procedure gates.
 
-    This is intentionally a deterministic prototype for the current three-family
-    calibration corpus. Future family support must be added with fixed cases rather
-    than silently treating lexical similarity as compatibility.
+    This remains a deterministic prototype for the current three-family
+    calibration corpus. The shadow method adds no active decision authority.
     """
 
     def evaluate(
@@ -42,19 +63,75 @@ class AntiAnchoringDecisionPolicy:
         incidents: tuple[HistoricalIncidentCard, ...],
         procedures: tuple[CandidateInvestigationProcedure, ...],
     ) -> PolicyDecisionResult:
+        """Return the unchanged active policy contract."""
+        return self._evaluate_core(
+            intake=intake,
+            ranked_candidates=ranked_candidates,
+            incidents=incidents,
+            procedures=procedures,
+        ).policy_result
+
+    def evaluate_with_shadow(
+        self,
+        *,
+        intake: EvalCase,
+        ranked_candidates: tuple[KeywordCandidate, ...],
+        incidents: tuple[HistoricalIncidentCard, ...],
+        procedures: tuple[CandidateInvestigationProcedure, ...],
+        shadow_request: PolicyShadowRequest | None = None,
+    ) -> PolicyShadowEvaluationResult:
+        """Return the active result plus non-authoritative selection observations.
+
+        ``shadow_request`` must supply explicit typed selection evidence. The
+        method never derives selection evidence from ``EvalCase.input_summary``,
+        retrieval scores, ranks, procedure metadata, or evaluation labels.
+        """
+        artifacts = self._evaluate_core(
+            intake=intake,
+            ranked_candidates=ranked_candidates,
+            incidents=incidents,
+            procedures=procedures,
+        )
+        request = shadow_request or PolicyShadowRequest()
+        traces = self._build_shadow_traces(
+            admission_sets=artifacts.family_admission_sets,
+            incidents=incidents,
+            shadow_request=request,
+        )
+        return PolicyShadowEvaluationResult(
+            policy_result=artifacts.policy_result,
+            family_admission_sets=artifacts.family_admission_sets,
+            selection_traces=traces,
+        )
+
+    def _evaluate_core(
+        self,
+        *,
+        intake: EvalCase,
+        ranked_candidates: tuple[KeywordCandidate, ...],
+        incidents: tuple[HistoricalIncidentCard, ...],
+        procedures: tuple[CandidateInvestigationProcedure, ...],
+    ) -> _PolicyEvaluationArtifacts:
         if not intake.provider_available:
-            return PolicyDecisionResult(
-                decision_state=EvidenceDecisionState.PROVIDER_DEGRADED,
-                assessments=(),
-                safety_notes=(
-                    "Required provider capability is unavailable; normal evidence presentation is blocked.",
+            return _PolicyEvaluationArtifacts(
+                policy_result=PolicyDecisionResult(
+                    decision_state=EvidenceDecisionState.PROVIDER_DEGRADED,
+                    assessments=(),
+                    safety_notes=(
+                        "Required provider capability is unavailable; normal evidence presentation is blocked.",
+                    ),
                 ),
+                family_admission_sets=(),
             )
 
         incident_by_id = {incident.incident_id: incident for incident in incidents}
-        status_by_fact = {observation.fact: observation.status for observation in intake.observed_facts}
+        status_by_fact = {
+            observation.fact: observation.status
+            for observation in intake.observed_facts
+        }
         assessments: list[CandidatePolicyAssessment] = []
         retained_cards: list[HistoricalIncidentCard] = []
+        admitted_cards_by_family: dict[IncidentFamily, list[HistoricalIncidentCard]] = defaultdict(list)
 
         retained_families: set[IncidentFamily] = set()
         for candidate in ranked_candidates:
@@ -66,6 +143,12 @@ class AntiAnchoringDecisionPolicy:
                 input_summary=intake.input_summary,
                 status_by_fact=status_by_fact,
             )
+            if assessment.retained:
+                admitted_cards_by_family[incident.incident_family].append(incident)
+
+            # This branch intentionally preserves the legacy public policy
+            # contract. Shadow traces inspect the pre-suppression admission pool;
+            # they never replace this first-compatible representative behavior.
             if assessment.retained and incident.incident_family in retained_families:
                 assessment = assessment.model_copy(
                     update={
@@ -81,14 +164,30 @@ class AntiAnchoringDecisionPolicy:
                 retained_cards.append(incident)
             assessments.append(assessment)
 
-        if not retained_cards:
-            return PolicyDecisionResult(
-                decision_state=EvidenceDecisionState.INSUFFICIENT_PRECEDENT,
-                assessments=tuple(assessments),
-                safety_notes=(
-                    "No ranked precedent satisfied the deterministic compatibility gate.",
-                    "Candidate investigation procedures are blocked when precedent is insufficient.",
+        family_admission_sets = tuple(
+            FamilyAdmissionSet(
+                incident_family=incident_family,
+                admitted_candidate_ids=tuple(
+                    sorted(card.incident_id for card in admitted_cards)
                 ),
+            )
+            for incident_family, admitted_cards in sorted(
+                admitted_cards_by_family.items(),
+                key=lambda item: item[0].value,
+            )
+        )
+
+        if not retained_cards:
+            return _PolicyEvaluationArtifacts(
+                policy_result=PolicyDecisionResult(
+                    decision_state=EvidenceDecisionState.INSUFFICIENT_PRECEDENT,
+                    assessments=tuple(assessments),
+                    safety_notes=(
+                        "No ranked precedent satisfied the deterministic compatibility gate.",
+                        "Candidate investigation procedures are blocked when precedent is insufficient.",
+                    ),
+                ),
+                family_admission_sets=family_admission_sets,
             )
 
         procedure_by_id = {procedure.procedure_id: procedure for procedure in procedures}
@@ -105,7 +204,7 @@ class AntiAnchoringDecisionPolicy:
         distinct_families = {incident.incident_family for incident in retained_cards}
 
         if len(distinct_families) > 1:
-            return PolicyDecisionResult(
+            result = PolicyDecisionResult(
                 decision_state=EvidenceDecisionState.EVIDENCE_FOUND_WITH_CONFLICT,
                 retained_precedent_ids=tuple(card.incident_id for card in retained_cards),
                 missing_critical_facts=missing_facts,
@@ -118,9 +217,8 @@ class AntiAnchoringDecisionPolicy:
                     "Candidate procedures are withheld while plausible paths diverge.",
                 ),
             )
-
-        if missing_facts:
-            return PolicyDecisionResult(
+        elif missing_facts:
+            result = PolicyDecisionResult(
                 decision_state=EvidenceDecisionState.MISSING_CRITICAL_FACTS,
                 retained_precedent_ids=tuple(card.incident_id for card in retained_cards),
                 missing_critical_facts=missing_facts,
@@ -130,16 +228,116 @@ class AntiAnchoringDecisionPolicy:
                     "Candidate procedures are withheld until required facts are known.",
                 ),
             )
+        else:
+            result = PolicyDecisionResult(
+                decision_state=EvidenceDecisionState.EVIDENCE_FOUND,
+                retained_precedent_ids=tuple(card.incident_id for card in retained_cards),
+                candidate_procedure_ids=eligible_procedures,
+                assessments=tuple(assessments),
+                safety_notes=(
+                    "Historical incidents are candidate evidence, not a diagnosis or remediation instruction.",
+                ),
+            )
 
-        return PolicyDecisionResult(
-            decision_state=EvidenceDecisionState.EVIDENCE_FOUND,
-            retained_precedent_ids=tuple(card.incident_id for card in retained_cards),
-            candidate_procedure_ids=eligible_procedures,
-            assessments=tuple(assessments),
-            safety_notes=(
-                "Historical incidents are candidate evidence, not a diagnosis or remediation instruction.",
-            ),
+        return _PolicyEvaluationArtifacts(
+            policy_result=result,
+            family_admission_sets=family_admission_sets,
         )
+
+    def _build_shadow_traces(
+        self,
+        *,
+        admission_sets: tuple[FamilyAdmissionSet, ...],
+        incidents: tuple[HistoricalIncidentCard, ...],
+        shadow_request: PolicyShadowRequest,
+    ) -> tuple[FamilyRepresentativeSelectionTrace, ...]:
+        selector = StrictDominanceRepresentativeSelector()
+        traces: list[FamilyRepresentativeSelectionTrace] = []
+        for admission_set in admission_sets:
+            selection_intake = shadow_request.selection_intake_for(
+                admission_set.incident_family
+            )
+            candidate_ids = admission_set.admitted_candidate_ids
+            if len(candidate_ids) == 1:
+                traces.append(
+                    FamilyRepresentativeSelectionTrace(
+                        incident_family=admission_set.incident_family,
+                        admitted_candidate_ids=candidate_ids,
+                        selection_intake_present=selection_intake is not None,
+                        selector_invoked=False,
+                        selection_state=ShadowSelectionState.NOT_APPLICABLE_SINGLE_CANDIDATE,
+                        unavailable_reason=(
+                            "Strict-dominance selection is not applicable because this family has one policy-admitted candidate."
+                        ),
+                    )
+                )
+                continue
+
+            if selection_intake is None:
+                traces.append(
+                    FamilyRepresentativeSelectionTrace(
+                        incident_family=admission_set.incident_family,
+                        admitted_candidate_ids=candidate_ids,
+                        selection_intake_present=False,
+                        selector_invoked=False,
+                        selection_state=ShadowSelectionState.UNAVAILABLE,
+                        unavailable_reason=(
+                            "Typed representative-selection intake was not supplied for this policy-admitted family."
+                        ),
+                    )
+                )
+                continue
+
+            if admission_set.incident_family is not IncidentFamily.CONNECTION_POOL_EXHAUSTION:
+                traces.append(
+                    FamilyRepresentativeSelectionTrace(
+                        incident_family=admission_set.incident_family,
+                        admitted_candidate_ids=candidate_ids,
+                        selection_intake_present=True,
+                        selector_invoked=False,
+                        selection_state=ShadowSelectionState.UNAVAILABLE,
+                        unavailable_reason=(
+                            "Strict-dominance selection is not supported for this policy-admitted incident family."
+                        ),
+                    )
+                )
+                continue
+
+            try:
+                selection_result = selector.select(
+                    intake=selection_intake,
+                    candidate_incident_ids=candidate_ids,
+                    incidents=incidents,
+                )
+            except SelectionInputError:
+                traces.append(
+                    FamilyRepresentativeSelectionTrace(
+                        incident_family=admission_set.incident_family,
+                        admitted_candidate_ids=candidate_ids,
+                        selection_intake_present=True,
+                        selector_invoked=False,
+                        selection_state=ShadowSelectionState.UNAVAILABLE,
+                        unavailable_reason=(
+                            "Schema-derived representative selection was unavailable for one or more policy-admitted cards."
+                        ),
+                    )
+                )
+                continue
+
+            traces.append(
+                FamilyRepresentativeSelectionTrace(
+                    incident_family=admission_set.incident_family,
+                    admitted_candidate_ids=candidate_ids,
+                    selection_intake_present=True,
+                    selector_invoked=True,
+                    selection_state=_shadow_state_from_selection_result(
+                        selection_result.selection_state
+                    ),
+                    representative_incident_ids=selection_result.representative_incident_ids,
+                    candidate_evidence=selection_result.candidate_evidence,
+                )
+            )
+        return tuple(traces)
 
     def _assess_candidate(
         self,
@@ -225,6 +423,15 @@ class AntiAnchoringDecisionPolicy:
         return tuple(eligible)
 
 
+def _shadow_state_from_selection_result(
+    selection_state: RepresentativeSelectionState,
+) -> ShadowSelectionState:
+    return {
+        RepresentativeSelectionState.SINGLE_REPRESENTATIVE: ShadowSelectionState.SINGLE_REPRESENTATIVE,
+        RepresentativeSelectionState.EXPLICIT_TIE: ShadowSelectionState.EXPLICIT_TIE,
+    }[selection_state]
+
+
 def _family_compatibility(
     *,
     incident_family: IncidentFamily,
@@ -300,9 +507,6 @@ def _family_compatibility(
             status(fact) is VerificationFactStatus.CONTRADICTED for fact in direct_pool_signals
         )
 
-        # Active database connections are contextual. They can preserve an
-        # explicitly incomplete pool hypothesis when both direct signals remain
-        # unknown, but they cannot override two direct contradictions.
         supported = confirmed_direct_signal or (
             direct_signals_unknown
             and status(active_connections) is VerificationFactStatus.CONFIRMED
