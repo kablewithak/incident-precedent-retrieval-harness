@@ -1,0 +1,92 @@
+{
+  "audit_kind": "tranche_02_future_heldout_v2_acceptance_audit",
+  "audited_archive": {
+    "expected_outcome_count": 12,
+    "file_name": "tranche-02-future-heldout-blind-authoring-proposal-v2.zip",
+    "non_manifest_asset_count": 27,
+    "proposal_root": "proposed_tranche_02_future_heldout/",
+    "proposal_status": "not_frozen",
+    "runtime_case_count": 12,
+    "sha256": "a371be0ab28e2b7f742cf682f212d2665e4e2d893004bc73e72c898c3d886fa0"
+  },
+  "corrected_case": {
+    "candidate_incident_families": [
+      "queue_backlog_consumer_failure",
+      "connection_pool_exhaustion"
+    ],
+    "candidate_incident_ids": [
+      "INC-001",
+      "INC-009"
+    ],
+    "case_id": "SEL-T02-FH-012",
+    "expected_pre_selector_failure": "cross_family_candidate_pool_rejected",
+    "selector_execution_permitted": false,
+    "source_card_sha256_verified": {
+      "INC-001": "6b86e6aa5b8ccc3269231511604af06981084918f6f73f665e05daa7a18efcdd",
+      "INC-009": "2625957bae8015d8dbbd582ea852d00db20bbb8ff941b21101a3dcf26b5de69c"
+    }
+  },
+  "decision": "accepted_for_governed_future_tranche_freeze",
+  "gates": {
+    "aggregate_integrity": "pass",
+    "archive_topology": "pass",
+    "cross_family_candidate_pool_rejection": "pass",
+    "expected_outcome_isolation": "pass",
+    "freeze_eligibility": "pass",
+    "invalid_intake_pre_selector_rejection": "pass",
+    "manifest_inventory": "pass",
+    "order_reversal_pair": "pass",
+    "raw_asset_integrity": "pass",
+    "retained_v1_typed_oracle_coherence": "pass",
+    "runtime_outcome_separation": "pass",
+    "source_grounding_for_corrected_case": "pass"
+  },
+  "integrity": {
+    "aggregate_hashes": {
+      "all_non_manifest_assets": "a2c4871677fa8a6d5210ae31412b46bf128af78b709cbe48da4ccca614d88639",
+      "documentation": "47b61266488a6f5aeec5788d6684c4a84860e85adaf19b46ff6808d98c75c397",
+      "expected_outcomes": "ec6225ae594be5d2f1bd21dad559baede4e34d102293167c67ee773ba9d7bdea",
+      "runtime_inputs": "5a165ec48d0528362440f6736d25fb914c1d914aa21e1231b7e81b1db9e763b1"
+    },
+    "aggregate_hashes_reproduced": true,
+    "asset_byte_count_mismatch_count": 0,
+    "asset_hash_mismatch_count": 0,
+    "manifest_inventory_count": 27,
+    "observed_non_manifest_asset_count": 27
+  },
+  "next_gate": {
+    "constraints": [
+      "Validate archive topology, raw asset SHA-256 values, byte counts, aggregate hashes, runtime/outcome separation, and typed contracts before copying.",
+      "Copy accepted runtime inputs and expected outcomes into a new isolated future-held-out location only after every gate passes.",
+      "Write an immutable import/freeze receipt and refuse re-execution after a successful copy.",
+      "Do not load selector implementation, active policy, retrieval, procedures, existing held-out cases, or procedure-asymmetry fixture assets during the import/freeze operation.",
+      "No selector comparison, activation decision, or policy integration is authorized by this acceptance audit."
+    ],
+    "required_slice": "dedicated case-scoped Tranche 02 fixture validator and governed import/freeze boundary"
+  },
+  "non_claims": [
+    "This acceptance decision does not itself import, freeze, or run the Tranche 02 assets.",
+    "This decision does not activate the strict-dominance selector or alter AntiAnchoringDecisionPolicy.",
+    "This decision does not alter retrieval, procedures, source incident cards, customer data, or production behavior.",
+    "This is synthetic-data, repository-governance evidence only; it is not production, deployment, customer-data, or procedure-authorization evidence."
+  ],
+  "v2_remediation": {
+    "all_other_v1_assets_byte_identical": true,
+    "allowed_changed_paths": [
+      "inputs/cases/SEL-T02-FH-012.json",
+      "expected_outcomes/SEL-T02-FH-012.json",
+      "manifest.json",
+      "authoring_ledger.md",
+      "APPLY_MANIFEST.md"
+    ],
+    "observed_changed_paths": [
+      "APPLY_MANIFEST.md",
+      "authoring_ledger.md",
+      "expected_outcomes/SEL-T02-FH-012.json",
+      "inputs/cases/SEL-T02-FH-012.json",
+      "manifest.json"
+    ],
+    "unchanged_v1_asset_count": 23,
+    "v1_archive_sha256_verified": "2fb04f17a2a6854457ef9ca339dcda9ace9cfb0299543386b60587e9523e4b2f"
+  }
+}
