@@ -1,251 +1,221 @@
 # Related Incident Evidence
 
-**Technical subtitle:** An evaluated retrieval reliability harness for historical
-incident precedent.
+**An evaluated AI reliability harness for surfacing historical incident evidence without unsafe operational anchoring.**
 
-## What this repository isolates
+> **Maturity:** locally validated + synthetic-data validated.
+> **Not a claim:** deployed, customer-data tested, production-ready, or authorized to execute operational procedures.
 
-This repository tests one narrow safety question:
+Related Incident Evidence is a deliberately narrow system. It tests one operational safety question:
 
-> When is a historical incident comparable enough to surface as evidence to an
-> on-call engineer, and when must the system abstain because the similarity could
-> cause unsafe operational anchoring?
+> When is a historical incident comparable enough to show as evidence to a responder, and when must the system preserve uncertainty or abstain?
 
-It is not an incident-management platform, root-cause engine, remediation agent,
-alerting product, or generic RAG chatbot.
+It is **not** an incident-management platform, root-cause engine, remediation agent, alerting product, or generic RAG chatbot.
 
-## Current maturity
+---
 
-- **Production-shaped design:** in progress
-- **Local Docker SIE server health/readiness:** verified
-- **Typed provider-neutral protocol and deterministic fake provider:** included
-- **Local SIE `encode`:** verified once with a 384-dimension response
-- **Local SIE `score`:** verified once with two ranked candidates
-- **Local SIE `extract`:** blocked for the tested CPU/model path because the model
-  did not become ready within the server's model-load budget
-- **Dataset contract:** implemented
-- **Batch 01 controlled variants:** four queue-backlog cards, one bounded
-  investigation procedure, and four calibration cases
-- **Batch 02 controlled variants:** four migration-lock cards, one bounded
-  investigation procedure, and four calibration cases including reciprocal
-  false-operational-match tests
-- **Batch 03 controlled variants:** four connection-pool cards, one bounded
-  investigation procedure, and four calibration cases including a no-preference
-  conflict case
-- **Source grounding:** source-linked and pending explicit human verification
-  before any record may be promoted to `source_grounded`
-- **Keyword retrieval baseline:** calibration-only evidence recorded
-- **Deterministic anti-anchoring policy:** calibration-only prototype recorded
-- **Held-out evaluation and promotion gate:** implemented; the generated report is the source of truth for the current keyword-plus-policy configuration
-- **Held-out baseline:** recorded as blocked at PR #9; its failure autopsy is a separate trace-only evidence step before any intervention
-- **Calibration intervention:** ADR-0008 narrows connection-pool admission so contextual active-connection evidence cannot override two contradicted direct pool signals; held-out cases remain frozen and unrerun until calibration evidence is committed
+## Start here
 
-The current evidence is intentionally mixed, not silently rounded up to a pass.
-See:
+An evaluator should read these in order:
 
-- `docs/reports/phase-0-provider-capability-spike.md`
-- `evidence_vault/reports/phase-0-local-sie-capability-spike.json`
-- `docs/handover/Incident_Precedent_Retrieval_Harness_Handover_001_Phase_0_Provider_Spike_Blocked.md`
-- `docs/data/batch-01-source-review.md`
-- `docs/data/batch-02-source-review.md`
-- `docs/data/batch-03-source-review.md`
+1. [Evaluator guide](docs/submission/evaluator-start-here.md)
+2. [Architecture and decision boundaries](docs/architecture/related-incident-evidence-architecture.md)
+3. [Evidence map](docs/submission/evidence-map.md)
+4. [Local demo script](docs/submission/demo-script.md)
+5. [Maturity and non-claims](docs/submission/maturity-and-nonclaims.md)
 
-A healthy SIE server proves only that the local process can receive traffic. It
-does not prove every configured model can perform a useful inference operation.
+The key result is intentionally mixed: the repository preserves a **blocked** frozen Tranche 01 promotion result rather than relabeling it as success. A separate representative-selection capability is locally integrated under narrow, display-only conditions; that does not erase the Tranche 01 baseline limitation.
 
-## Local setup
+---
 
-From the repository root in Windows PowerShell:
+## What the system does
+
+```text
+sanitized incident summary + structured verification facts
+    -> deterministic keyword candidate path
+    -> AntiAnchoringDecisionPolicy
+    -> typed TriageEvidencePacket
+    -> optional display-only representative refinement
+    + advisory local Superlinked SIE evidence
+    -> local reviewer interface
+```
+
+The deterministic policy is the authority for:
+
+- top-level decision state;
+- evidence admission;
+- retained precedent IDs;
+- missing critical facts;
+- conflict handling;
+- candidate procedure eligibility;
+- provider-degraded behavior.
+
+The local Superlinked SIE layer is **advisory only**. It cannot change the policy conclusion, missing facts, retained precedents, procedure posture, or execution authority.
+
+Representative selection is narrower still: it may refine **which already policy-approved same-family precedent is displayed** only when validated selection intake is supplied and all activation preconditions hold. It never sets policy state or procedure posture.
+
+---
+
+## Decision states
+
+| State | Meaning |
+|---|---|
+| `evidence_found` | Historical evidence is safe to review. A human still decides what to investigate. |
+| `evidence_found_with_conflict` | More than one plausible explanation remains. The system preserves ambiguity. |
+| `missing_critical_facts` | Plausible evidence exists, but key verification is incomplete. |
+| `insufficient_precedent` | No grounded historical match is safe to show. |
+| `provider_degraded` | Required evidence capability is unavailable. The system fails closed. |
+
+Every path retains:
+
+```text
+procedure_execution_authorized = false
+```
+
+Candidate procedures are investigation material for a human. They never create authority to restart services, alter configuration, apply a runbook, or perform any production action.
+
+---
+
+## Run the local demo
+
+The demo uses only the synthetic RelayOps corpus, a local dense index, local Docker SIE for provider-available scenarios, and loopback-only HTTP processes.
+
+### 1. Validate the Python harness
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -e ".[dev]"
 python -m pytest .\tests\unit
 ```
 
-Copy `.env.example` to `.env` only when local configuration is required. Do not
-add real API keys to the repository, fixtures, screenshots, logs, or reports.
-
-## Local SIE server
-
-The initial provider mode is a local CPU Docker server at
-`http://localhost:8080`.
+### 2. First-time frontend setup
 
 ```powershell
-docker start -ai incident-sie
+Push-Location .\apps\local-demo-ui
+
+npm ci
+
+npm run test
+
+npm run build
+
+Pop-Location
 ```
 
-In another PowerShell tab:
+`node_modules/`, Vite caches, and `dist/` are generated local artifacts and must not be committed.
+
+### 3. Start the Python boundary
+
+Open a PowerShell window at repository root:
 
 ```powershell
-python .\scripts\check_sie_health.py
+docker start incident-sie
+
+python .\scripts\run_local_submission_demo.py `
+    --repository-root . `
+    --port 8765
 ```
 
-The health script tests only `/healthz` and `/readyz`. It does not make an
-inference-ready claim.
+### 4. Start the React presentation layer
 
-## Dataset posture
+Open a second PowerShell window at repository root:
 
-The repository uses a fictional RelayOps archive. Batches 01 through 03 are
-**controlled variants** built from source-review ledgers; they deliberately do
-not claim `source_grounded` status until a human reviewer confirms each source,
-transformation note, and absence of copied narrative.
+```powershell
+Push-Location .\apps\local-demo-ui
 
-Batch 02 introduces a hard anti-anchoring boundary: a queue backlog after a
-change can be operationally incompatible with a queue-consumer failure when
-verified database migration lock waits and healthy consumers point to a
-database-side throughput constraint.
+npm run dev
+```
 
-Batch 03 introduces a separate conflict boundary: deployment-linked consumer
-capacity loss and database client-pool acquisition pressure can both look
-plausible. The expected state is conflict, not a preferred procedure, until the
-decisive facts are verified.
-
-## Architecture boundary
+Open:
 
 ```text
-Domain workflow
-  -> provider-neutral SemanticInferenceClient protocol
-      -> deterministic fake client for normal tests
-      -> future Superlinked SIE adapter after the required operation contracts are verified
+http://127.0.0.1:5173
 ```
 
-Only the future adapter may know Superlinked SDK classes, HTTP response shapes, or
-provider-specific exceptions. Domain policy, retrieval, evaluation, reporting,
-CLI, and normal tests must remain provider-neutral.
+The React process proxies only `/api` to the local Python boundary on `127.0.0.1:8765`. It does not call retrieval, Superlinked SIE, policy, representative selection, or procedures directly.
 
-## Decision states planned for the product
+For detailed controls and the four reviewer scenarios, read [the demo script](docs/submission/demo-script.md).
 
-- `evidence_found`
-- `evidence_found_with_conflict`
-- `missing_critical_facts`
-- `insufficient_precedent`
-- `provider_degraded`
+---
 
-The final state will be assigned by deterministic application policy, never
-directly by a model response.
+## Evaluation evidence
 
-## Keyword baseline: calibration evidence
+| Evidence asset | What it tested | Recorded result | What it does **not** prove |
+|---|---|---|---|
+| [Frozen typed-triage promotion gate](docs/reports/frozen-typed-triage-promotion-gate.md) | Typed packet parity against frozen Tranche 01 | **BLOCK**; `EVAL-110` remains unresolved | Promotion, production readiness, or semantic retriever authority |
+| [EVAL-110 autopsy](docs/reports/eval-110-representative-selection-autopsy.md) | Cause of the frozen representative divergence | `UNDOCUMENTED_CONFLICT_RULE` | That a selector fix promotes the active policy |
+| [Procedure-asymmetry comparison](docs/reports/procedure-asymmetry-fixture-comparison.md) | Whether procedure availability can alter isolated selector output | `COMPARISON_PASSED_ACTIVATION_BLOCKED` | Active-policy or end-to-end runtime safety |
+| [Future-held-out Tranche 02 comparison](docs/reports/tranche-02-future-heldout-comparison.md) | Strict-dominance selector on frozen future-held-out cases | `comparison_passed_activation_blocked` | Policy integration, procedure safety, or production use |
+| [Conditional selection activation readiness](docs/reports/conditional-representative-selection-activation-readiness.md) | Local typed integration controls | `implementation_validated_activation_blocked` | Retrieval improvement, customer-data safety, or production readiness |
 
-The first retrieval baseline is now a deterministic in-memory BM25-style lexical
-ranker over the 12 authored controlled-variant cards. It is a **calibration-only
-baseline**, not a promotable configuration.
+The detailed source-to-claim map is in [Evidence map](docs/submission/evidence-map.md).
 
-The generated calibration report records an important negative result: it reaches
-high retrieval rank on the current authoring cases while still returning unsafe
-or irrelevant top-ranked candidates for two abstention cases. That is why MRR
-cannot be used as a promotion signal by itself.
+---
 
-Run it from the repository root:
+## Repository map
 
-```powershell
-python .\scripts\run_keyword_baseline.py --repository-root . --top-k 5
+```text
+src/incident_precedent_harness/
+  decisions/                  deterministic policy and display refinement
+  domain/                     typed incident and procedure contracts
+  evaluation/                 governed evaluation and comparison harnesses
+  retrieval/                  bounded candidate generation / adapter seams
+  triage/                     typed TriageEvidencePacket boundary
+  demo/                       loopback-only Python browser boundary
+
+apps/local-demo-ui/           React + Vite + shadcn-compatible presentation layer
+
+data/
+  incidents/                  synthetic RelayOps incident cards
+  procedures/                 synthetic candidate investigation material
+  evals/
+    calibration/              calibration-only evaluation assets
+    heldout/                  frozen Tranche 01 and future-held-out Tranche 02
+
+docs/
+  adr/                        architecture and activation decisions
+  reports/                    committed human-readable evidence
+  runbooks/                   reproducible local operations
+  submission/                 evaluator guide, evidence map, demo script
+
+evidence_vault/
+  reports/                    machine-readable immutable evidence receipts
+  indexes/                    local dense index used by the local demo
 ```
 
-It writes only generated, reviewable evidence:
+---
 
-- `docs/reports/keyword-baseline-calibration.md`
-- `evidence_vault/reports/keyword-baseline-calibration.json`
+## Key safety controls
 
-The report deliberately does not evaluate held-out cases, assign a final decision
-state, surface procedures, or make a semantic/provider-latency claim.
+- Schema-first typed boundaries with Pydantic validation.
+- Explicit decision states and refusal-safe behavior.
+- No browser-side policy, retrieval, selection, or procedure logic.
+- Local loopback-only demo servers; no public bind, tunnel, or hosted endpoint.
+- Input minimization and sensitive-content rejection at the browser boundary.
+- No persistence of browser incident summaries.
+- Synthetic RelayOps corpus only; do not paste real logs, customer identifiers, secrets, or post-mortems.
+- Frozen held-out data and write-once reports are not retuned or overwritten.
+- Procedure execution authorization is always false.
 
-## Deterministic anti-anchoring policy: calibration evidence
+---
 
-The keyword baseline demonstrates why ranking cannot determine safe incident
-support by itself. The policy prototype consumes ranked candidates plus explicit
-structured intake observations (`confirmed`, `contradicted`, or `unknown`). It
-then assigns a final decision state deterministically.
+## Known evidence boundary
 
-The current calibration report records zero surfaced unsafe precedents and zero
-unsafe procedures across the 12 authoring cases. This is **calibration evidence**,
-not a held-out safety claim.
+The frozen Tranche 01 typed-triage gate remains blocked on **EVAL-110** despite correct decision-state parity. The recorded issue is a same-family representative-selection divergence: the baseline retained `INC-012` where the frozen contract required `INC-009`, while the conflict state remained correct.
 
-Run it from the repository root:
+The later selector work is deliberately constrained: it is evaluated separately, activated only as a conditional display refinement, and does not alter the underlying active policy conclusion or rewrite the frozen baseline. This is a reliability artifact, not a “problem solved” claim.
 
-```powershell
-python .\scripts\run_anti_anchoring_policy.py --repository-root . --top-k 5
-```
+---
 
-It writes:
+## Do not claim
 
-- `docs/reports/anti-anchoring-policy-calibration.md`
-- `evidence_vault/reports/anti-anchoring-policy-calibration.json`
+This repository does **not** establish:
 
-The policy supports only the three authored families. It does not extract facts
-from free text, call SIE, diagnose a current incident, or authorize a procedure.
+- a production deployment;
+- customer-data validation;
+- real-incident performance;
+- load, concurrency, or uptime guarantees;
+- provider reliability under production conditions;
+- automated diagnosis;
+- automated remediation;
+- authorization to execute procedures;
+- a general-purpose incident response platform.
 
-## Held-out evaluation boundary
-
-`heldout_tranche_01` is frozen under `data/evals/heldout` and is intentionally separate from calibration. It contains 12 diagnostic cases across positive, false-operational-match, no-precedent, conflict, and provider-degraded behavior. The tranche is hash-locked by `HELDOUT_FREEZE_MANIFEST.json` and must not be used to tune retrieval, policy, procedure eligibility, or prompts.
-
-The current tranche is not the final planned 36-case holdout. The write-once evaluator verifies the manifest before scoring and records a strict pass-or-block promotion result without modifying retrieval or policy behavior.
-
-Run it only after the working tree is clean and unit tests pass:
-
-```powershell
-python .\scripts\run_heldout_evaluation.py --repository-root . --top-k 5
-```
-
-It writes one committed evidence pair:
-
-- `docs/reports/heldout-tranche-01-keyword-policy.md`
-- `evidence_vault/reports/heldout-tranche-01-keyword-policy.json`
-
-The command refuses to overwrite either file. A `blocked` result is a valid evidence outcome, not a tool error; preserve it and investigate through a separate intervention slice. See `docs/runbooks/heldout-evaluation-runbook.md`.
-
-The next diagnostic step is the write-once failure autopsy. It reads the committed baseline rather than rescoring frozen cases:
-
-```powershell
-python .\scripts\run_heldout_failure_autopsy.py --repository-root .
-```
-
-It writes `docs/reports/heldout-tranche-01-failure-autopsy.md` and `evidence_vault/reports/heldout-tranche-01-failure-autopsy.json`. The autopsy identifies a narrowly testable intervention boundary, but it does not modify policy, ranking, frozen fixtures, or held-out evidence.
-
-## Connection-pool direct-signal calibration intervention
-
-ADR-0008 records the first calibration-only intervention arising from the held-out
-failure autopsy. The policy now distinguishes direct connection-pool signals
-(pool utilization and connection-acquisition latency) from contextual active
-connection counts. Confirmed active connections cannot keep a connection-pool
-family admissible once both direct pool signals are contradicted.
-
-This is intentionally not a held-out result. Run the separate calibration-only
-command after committing the intervention code:
-
-```powershell
-python .\scripts\run_connection_pool_direct_signal_calibration.py --repository-root . --top-k 5
-```
-
-It writes a new evidence pair and does not overwrite the prior calibration or
-held-out baseline artifacts:
-
-- `docs/reports/connection-pool-direct-signal-calibration.md`
-- `evidence_vault/reports/connection-pool-direct-signal-calibration.json`
-
-## Held-out direct-signal comparison and Handover 002
-
-ADR-0008’s calibration evidence passed its declared safety checks. ADR-0009 now
-permits one controlled comparison against the immutable Held-Out Tranche 01
-baseline. The comparison is not a new baseline and does not overwrite any prior
-evidence.
-
-After committing comparison code on a clean branch, run:
-
-```powershell
-python .\scripts\run_heldout_direct_signal_comparison.py --repository-root . --top-k 5
-```
-
-The command verifies the frozen manifest, reads the committed PR #9 baseline,
-records the post-intervention result in a separate write-once report pair, and
-generates the project handover at the resulting evidence boundary:
-
-- `docs/reports/heldout-tranche-01-direct-signal-comparison.md`;
-- `evidence_vault/reports/heldout-tranche-01-direct-signal-comparison.json`;
-- `docs/handover/Incident_Precedent_Retrieval_Harness_Handover_002_Post_Intervention_Comparison.md`.
-
-The comparison can improve while remaining blocked. Its role is to preserve the
-before/after evidence and identify the next narrowly scoped design boundary,
-not to relax the promotion gate or tune frozen case labels.
+See [Maturity and non-claims](docs/submission/maturity-and-nonclaims.md).
