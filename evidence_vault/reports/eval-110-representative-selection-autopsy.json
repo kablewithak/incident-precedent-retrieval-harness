@@ -1,0 +1,277 @@
+{
+  "baseline_decision_state": "evidence_found_with_conflict",
+  "baseline_report_path": "evidence_vault/reports/heldout-tranche-01-keyword-policy.json",
+  "baseline_report_sha256": "4518cc80b4e6864bbf1d19fc6e76047787fffa09d9bc58c3f080d23f5aa65a96",
+  "candidate_traces": [
+    {
+      "confirmed_required_fact_count": 4,
+      "contradicted_required_fact_count": 1,
+      "expected_acceptable": false,
+      "incident_family": "connection_pool_exhaustion",
+      "incident_id": "INC-012",
+      "ranked_position": 1,
+      "required_fact_trace": [
+        {
+          "fact": "database_connection_pool_utilization",
+          "status": "confirmed"
+        },
+        {
+          "fact": "database_connection_acquire_latency",
+          "status": "confirmed"
+        },
+        {
+          "fact": "queue_depth",
+          "status": "confirmed"
+        },
+        {
+          "fact": "migration_lock_waits",
+          "status": "contradicted"
+        },
+        {
+          "fact": "error_rate_by_component",
+          "status": "confirmed"
+        }
+      ],
+      "retained_by_policy": true,
+      "selection_signature_present": true,
+      "signature_change_context": "none",
+      "signature_component": "delivery-store-client",
+      "signature_service": "webhook-delivery-service",
+      "signature_signal_families": [
+        "connection_pool_pressure",
+        "queue_backlog",
+        "retry_amplification"
+      ],
+      "unknown_required_fact_count": 0
+    },
+    {
+      "confirmed_required_fact_count": 4,
+      "contradicted_required_fact_count": 1,
+      "expected_acceptable": false,
+      "incident_family": "connection_pool_exhaustion",
+      "incident_id": "INC-011",
+      "ranked_position": 2,
+      "required_fact_trace": [
+        {
+          "fact": "database_connection_acquire_latency",
+          "status": "confirmed"
+        },
+        {
+          "fact": "database_connection_pool_utilization",
+          "status": "confirmed"
+        },
+        {
+          "fact": "active_database_connections",
+          "status": "confirmed"
+        },
+        {
+          "fact": "worker_deployment_version",
+          "status": "confirmed"
+        },
+        {
+          "fact": "migration_lock_waits",
+          "status": "contradicted"
+        }
+      ],
+      "retained_by_policy": false,
+      "selection_signature_present": true,
+      "signature_change_context": "deployment",
+      "signature_component": "flag-evaluator",
+      "signature_service": "feature-flag-service",
+      "signature_signal_families": [
+        "connection_pool_pressure",
+        "active_connection_pressure",
+        "readiness_failure",
+        "component_error_pressure"
+      ],
+      "unknown_required_fact_count": 0
+    },
+    {
+      "confirmed_required_fact_count": 4,
+      "contradicted_required_fact_count": 1,
+      "expected_acceptable": true,
+      "incident_family": "connection_pool_exhaustion",
+      "incident_id": "INC-009",
+      "ranked_position": 3,
+      "required_fact_trace": [
+        {
+          "fact": "database_connection_pool_utilization",
+          "status": "confirmed"
+        },
+        {
+          "fact": "database_connection_acquire_latency",
+          "status": "confirmed"
+        },
+        {
+          "fact": "active_database_connections",
+          "status": "confirmed"
+        },
+        {
+          "fact": "migration_lock_waits",
+          "status": "contradicted"
+        },
+        {
+          "fact": "error_rate_by_component",
+          "status": "confirmed"
+        }
+      ],
+      "retained_by_policy": false,
+      "selection_signature_present": true,
+      "signature_change_context": "none",
+      "signature_component": "postgres-client-pool",
+      "signature_service": "payments-api",
+      "signature_signal_families": [
+        "connection_pool_pressure",
+        "active_connection_pressure"
+      ],
+      "unknown_required_fact_count": 0
+    },
+    {
+      "confirmed_required_fact_count": 4,
+      "contradicted_required_fact_count": 0,
+      "expected_acceptable": true,
+      "incident_family": "queue_backlog_consumer_failure",
+      "incident_id": "INC-003",
+      "ranked_position": 4,
+      "required_fact_trace": [
+        {
+          "fact": "worker_deployment_version",
+          "status": "confirmed"
+        },
+        {
+          "fact": "consumer_error_rate",
+          "status": "confirmed"
+        },
+        {
+          "fact": "queue_depth",
+          "status": "confirmed"
+        },
+        {
+          "fact": "error_rate_by_component",
+          "status": "confirmed"
+        }
+      ],
+      "retained_by_policy": true,
+      "selection_signature_present": false,
+      "signature_change_context": null,
+      "signature_component": null,
+      "signature_service": null,
+      "signature_signal_families": [],
+      "unknown_required_fact_count": 0
+    },
+    {
+      "confirmed_required_fact_count": 4,
+      "contradicted_required_fact_count": 1,
+      "expected_acceptable": false,
+      "incident_family": "connection_pool_exhaustion",
+      "incident_id": "INC-010",
+      "ranked_position": 5,
+      "required_fact_trace": [
+        {
+          "fact": "database_connection_pool_utilization",
+          "status": "confirmed"
+        },
+        {
+          "fact": "database_connection_acquire_latency",
+          "status": "confirmed"
+        },
+        {
+          "fact": "active_database_connections",
+          "status": "confirmed"
+        },
+        {
+          "fact": "error_rate_by_component",
+          "status": "confirmed"
+        },
+        {
+          "fact": "migration_lock_waits",
+          "status": "contradicted"
+        }
+      ],
+      "retained_by_policy": false,
+      "selection_signature_present": true,
+      "signature_change_context": "configuration",
+      "signature_component": "auth-db-client",
+      "signature_service": "auth-service",
+      "signature_signal_families": [
+        "connection_pool_pressure",
+        "authentication_failure",
+        "readiness_failure",
+        "component_error_pressure"
+      ],
+      "unknown_required_fact_count": 0
+    }
+  ],
+  "expected_acceptable_precedent_ids": [
+    "INC-003",
+    "INC-009"
+  ],
+  "expected_decision_state": "evidence_found_with_conflict",
+  "failure_labels": [
+    "required_acceptable_precedent_missing",
+    "unexpected_retained_precedent"
+  ],
+  "freeze_verification": {
+    "case_count": 12,
+    "manifest_path": "data/evals/heldout/HELDOUT_FREEZE_MANIFEST.json",
+    "manifest_sha256": "5fbb4372582db66a96e9718394776a3dcbde8f6c7447cefc0c1e5beaf2f63535",
+    "scope": "heldout_tranche_01",
+    "verified": true,
+    "verified_case_ids": [
+      "EVAL-101",
+      "EVAL-102",
+      "EVAL-103",
+      "EVAL-104",
+      "EVAL-105",
+      "EVAL-106",
+      "EVAL-107",
+      "EVAL-108",
+      "EVAL-109",
+      "EVAL-110",
+      "EVAL-111",
+      "EVAL-112"
+    ]
+  },
+  "generated_at": "2026-06-27T16:56:17.521560Z",
+  "non_claims": [
+    "This autopsy reads recorded frozen evidence; it does not rerun retrieval, policy, or semantic inference.",
+    "The held-out fixture, labels, hashes, candidate ordering, policy rules, procedure eligibility, and semantic-advisory authority are unchanged.",
+    "The verdict is a diagnostic classification, not proof that any remediation will pass the frozen tranche.",
+    "No procedure is authorized, and no production, customer-data, or incident-response safety claim follows from this report."
+  ],
+  "omitted_required_precedent_ids": [
+    "INC-009"
+  ],
+  "promotion_parity": {
+    "policy_matches_baseline": true,
+    "procedure_execution_authorized": false,
+    "semantic_advisory_available": true,
+    "typed_triage_decision_state": "evidence_found_with_conflict",
+    "typed_triage_matches_expected_state": true
+  },
+  "promotion_report_path": "evidence_vault/reports/frozen-typed-triage-promotion-gate.json",
+  "promotion_report_sha256": "22af8427e859f13b616051a09873c08295149923903474eed85f3e6f8b9f87c9",
+  "ranked_candidate_ids": [
+    "INC-012",
+    "INC-011",
+    "INC-009",
+    "INC-003",
+    "INC-010"
+  ],
+  "remediation_boundary": "Do not patch ranks, incident IDs, retrieval order, held-out labels, or active policy on this branch. A separate calibration-only design slice must define and evaluate a typed within-family representative-selection contract before any activation proposal.",
+  "report_kind": "eval_110_representative_selection_autopsy",
+  "retained_precedent_ids": [
+    "INC-012",
+    "INC-003"
+  ],
+  "target_eval_id": "EVAL-110",
+  "unexpected_retained_precedent_ids": [
+    "INC-012"
+  ],
+  "verdict": "undocumented_conflict_rule",
+  "verdict_reasons": [
+    "The active policy retained higher-ranked INC-012 while the frozen contract required INC-009; both are connection_pool_exhaustion cards.",
+    "The recorded decision state remains correct, so the divergence is within-family representative selection rather than conflict-state detection.",
+    "The current active path suppresses later compatible candidates in the same family, making the retained representative depend on fixed retrieval order without an active reviewed selection rule."
+  ]
+}
