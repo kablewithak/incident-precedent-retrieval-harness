@@ -1,0 +1,54 @@
+{
+  "case_id": "SEL-T02-FH-008",
+  "expected_outcome_kind": "explicit_tie",
+  "expected_representative_ids": [],
+  "expected_non_dominated_ids": [
+    "INC-009",
+    "INC-010",
+    "INC-012"
+  ],
+  "expected_reason_codes": {
+    "classification": "evaluator-diagnostic-only",
+    "codes": [
+      "no_typed_distinguishing_evidence",
+      "explicit_tie_required"
+    ],
+    "non_runtime_notice": "These codes are comparison-harness diagnostics only and must not be loaded by runtime selector code."
+  },
+  "pre_selector_validation": {
+    "must_pass_before_selector": true,
+    "expected_status": "valid"
+  },
+  "source_grounding": {
+    "source_corpus": "synthetic RelayOps incident-card corpus supplied in blind authoring package",
+    "source_cards": [
+      {
+        "source_card_id": "INC-009",
+        "source_card_sha256": "2625957bae8015d8dbbd582ea852d00db20bbb8ff941b21101a3dcf26b5de69c",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      },
+      {
+        "source_card_id": "INC-010",
+        "source_card_sha256": "6d2420b97f3b9fe7a86e0fe879b87f95cb700897574ae47e1745e82d9d8296f5",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      },
+      {
+        "source_card_id": "INC-012",
+        "source_card_sha256": "73fd77fd4ef9d3dcccf2edea398e284ae86837aaea5da4175548627c0084422c",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      }
+    ],
+    "grounding_note": "Only the supplied card IDs and their schema-derived signatures ground this evaluation asset."
+  },
+  "acceptance_reason": "The intake supplies no typed identity, context, supported signal, or contradicted signal evidence.",
+  "failure_label_intent": [
+    "tie_handling_error",
+    "forbidden_signal_leakage",
+    "order_dependence_error"
+  ],
+  "diagnostic_explanation": "This is a mandatory fail-safe: a runtime cannot manufacture a representative from identifiers, candidate order, titles, procedures, or unobserved card fields when the typed intake is empty.",
+  "proposal_status": "not_frozen_evaluator_controlled_expected_outcome"
+}

@@ -1,0 +1,16 @@
+{
+  "case_id": "SEL-T02-FH-012",
+  "contract_version": "tranche-02-selection-v1",
+  "selection_intake": {
+    "service": null,
+    "component": null,
+    "change_context": null,
+    "operational_signal_families": [],
+    "contradicted_signal_families": []
+  },
+  "candidate_incident_ids": [
+    "INC-001",
+    "INC-009"
+  ],
+  "candidate_pool_family": "queue_backlog_consumer_failure"
+}

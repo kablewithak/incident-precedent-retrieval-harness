@@ -1,0 +1,48 @@
+{
+  "case_id": "SEL-T02-FH-007",
+  "expected_outcome_kind": "explicit_tie",
+  "expected_representative_ids": [],
+  "expected_non_dominated_ids": [
+    "INC-009",
+    "INC-011"
+  ],
+  "expected_reason_codes": {
+    "classification": "evaluator-diagnostic-only",
+    "codes": [
+      "service_only_alignment_vs_context_alignment_tradeoff",
+      "equal_supported_signal_families",
+      "explicit_non_dominated_tie"
+    ],
+    "non_runtime_notice": "These codes are comparison-harness diagnostics only and must not be loaded by runtime selector code."
+  },
+  "pre_selector_validation": {
+    "must_pass_before_selector": true,
+    "expected_status": "valid"
+  },
+  "source_grounding": {
+    "source_corpus": "synthetic RelayOps incident-card corpus supplied in blind authoring package",
+    "source_cards": [
+      {
+        "source_card_id": "INC-009",
+        "source_card_sha256": "2625957bae8015d8dbbd582ea852d00db20bbb8ff941b21101a3dcf26b5de69c",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      },
+      {
+        "source_card_id": "INC-011",
+        "source_card_sha256": "3c268cf7c57c1b1f8df67e6052205333111a412ce7e8469b374a48b697174842",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      }
+    ],
+    "grounding_note": "Only the supplied card IDs and their schema-derived signatures ground this evaluation asset."
+  },
+  "acceptance_reason": "INC-009 has service-only alignment while INC-011 has exact deployment-context alignment; both cover the supported signal set and neither is no worse on all dimensions.",
+  "failure_label_intent": [
+    "tie_handling_error",
+    "dominance_relation_error",
+    "contract_interpretation_error"
+  ],
+  "diagnostic_explanation": "This is a genuine Pareto-style non-dominance case. It must preserve ambiguity rather than invent weights between service alignment and change-context alignment.",
+  "proposal_status": "not_frozen_evaluator_controlled_expected_outcome"
+}

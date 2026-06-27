@@ -1,0 +1,314 @@
+{
+  "accepted_case_ids": [
+    "SEL-T02-FH-001",
+    "SEL-T02-FH-002",
+    "SEL-T02-FH-003",
+    "SEL-T02-FH-004",
+    "SEL-T02-FH-005",
+    "SEL-T02-FH-006",
+    "SEL-T02-FH-007",
+    "SEL-T02-FH-008",
+    "SEL-T02-FH-009",
+    "SEL-T02-FH-010",
+    "SEL-T02-FH-011",
+    "SEL-T02-FH-012"
+  ],
+  "active_policy_loaded": false,
+  "existing_heldout_loaded": false,
+  "expected_outcome_count": 12,
+  "freeze_status": "frozen_test_only_not_active",
+  "frozen_aggregate_hashes": {
+    "all_frozen_assets": "d8d3a95a585f5c597f55360880858fe07fe3a64b05297eb1e8f1fd1203728e83",
+    "expected_outcomes": "ec6225ae594be5d2f1bd21dad559baede4e34d102293167c67ee773ba9d7bdea",
+    "runtime_inputs": "5a165ec48d0528362440f6736d25fb914c1d914aa21e1231b7e81b1db9e763b1"
+  },
+  "frozen_asset_inventory": [
+    {
+      "asset_group": "expected_outcomes",
+      "byte_count": 2534,
+      "relative_path": "expected_outcomes/SEL-T02-FH-001.json",
+      "sha256": "c8b9e237460e4f01a780fb68f6d78f4e6df059d616ec9f359a61e9be81d85b20"
+    },
+    {
+      "asset_group": "expected_outcomes",
+      "byte_count": 2491,
+      "relative_path": "expected_outcomes/SEL-T02-FH-002.json",
+      "sha256": "dfd62ccf7111b4e5d78ef3f4b201e6805a775ad2f7198766ad27254696f61e1e"
+    },
+    {
+      "asset_group": "expected_outcomes",
+      "byte_count": 2075,
+      "relative_path": "expected_outcomes/SEL-T02-FH-003.json",
+      "sha256": "c768ed56cb6a5a291941e91df1f2ab82ea4af5a70db680b679b265eb84950af4"
+    },
+    {
+      "asset_group": "expected_outcomes",
+      "byte_count": 1995,
+      "relative_path": "expected_outcomes/SEL-T02-FH-004.json",
+      "sha256": "02351aa0e502e9426ae57ebf78646e25538a3cca7dff6cb0c21d891279bb611d"
+    },
+    {
+      "asset_group": "expected_outcomes",
+      "byte_count": 2035,
+      "relative_path": "expected_outcomes/SEL-T02-FH-005.json",
+      "sha256": "644e25afdaf633844de8d7e216b0f56181b355e9e68f23c983faba12cc54be31"
+    },
+    {
+      "asset_group": "expected_outcomes",
+      "byte_count": 2108,
+      "relative_path": "expected_outcomes/SEL-T02-FH-006.json",
+      "sha256": "dd9cf3d18f4a44555b47b3531a645217c44a876212951379080aa3343e9bf5f6"
+    },
+    {
+      "asset_group": "expected_outcomes",
+      "byte_count": 2028,
+      "relative_path": "expected_outcomes/SEL-T02-FH-007.json",
+      "sha256": "7c1bc0c565584fec3e5b8fd9626139b61db7916cb5c5b9d4150d3e7b1ab4e379"
+    },
+    {
+      "asset_group": "expected_outcomes",
+      "byte_count": 2183,
+      "relative_path": "expected_outcomes/SEL-T02-FH-008.json",
+      "sha256": "0345709c532ff4e62a98e865d9e95020a57947dd9e41d5395073ebe3ce9a27dd"
+    },
+    {
+      "asset_group": "expected_outcomes",
+      "byte_count": 2042,
+      "relative_path": "expected_outcomes/SEL-T02-FH-009.json",
+      "sha256": "bb47fda32c7768701e55a097687fd1ff41427d540d709baae6397c5848d54cf6"
+    },
+    {
+      "asset_group": "expected_outcomes",
+      "byte_count": 2010,
+      "relative_path": "expected_outcomes/SEL-T02-FH-010.json",
+      "sha256": "5e23e03867c8b50bc29d08c8fe1d1e2c9cee2b71bc42e0678c2180407985dbf6"
+    },
+    {
+      "asset_group": "expected_outcomes",
+      "byte_count": 2103,
+      "relative_path": "expected_outcomes/SEL-T02-FH-011.json",
+      "sha256": "bded415b8333e984cf2c41ba55db17730de69e3ee3ee4c02271f53b3b66c3df9"
+    },
+    {
+      "asset_group": "expected_outcomes",
+      "byte_count": 2118,
+      "relative_path": "expected_outcomes/SEL-T02-FH-012.json",
+      "sha256": "40f3b8f91769c7fd1a528bcf60421be0e06f86eb5f7c26f71ffe055154c6b268"
+    },
+    {
+      "asset_group": "runtime_inputs",
+      "byte_count": 487,
+      "relative_path": "inputs/cases/SEL-T02-FH-001.json",
+      "sha256": "25475352c466a94457c56a27f39defdb2ccda003d115e592b616365eeb1377e3"
+    },
+    {
+      "asset_group": "runtime_inputs",
+      "byte_count": 487,
+      "relative_path": "inputs/cases/SEL-T02-FH-002.json",
+      "sha256": "8352012c24c31271cc9399c8bbec3257cb864216b63816efac6ccd977e88670e"
+    },
+    {
+      "asset_group": "runtime_inputs",
+      "byte_count": 465,
+      "relative_path": "inputs/cases/SEL-T02-FH-003.json",
+      "sha256": "0f184a76d7f286c0537be86fb1e46289059b6f6319f9e75d3f0eb211ee92b468"
+    },
+    {
+      "asset_group": "runtime_inputs",
+      "byte_count": 523,
+      "relative_path": "inputs/cases/SEL-T02-FH-004.json",
+      "sha256": "893d8d43e73216b1eccb684365427f9a53826edd37397c33edeba78428d97540"
+    },
+    {
+      "asset_group": "runtime_inputs",
+      "byte_count": 423,
+      "relative_path": "inputs/cases/SEL-T02-FH-005.json",
+      "sha256": "6d63036e7172efeae733ffb706c339c2eff79b299459d5cf2f4c0f4f820636a0"
+    },
+    {
+      "asset_group": "runtime_inputs",
+      "byte_count": 490,
+      "relative_path": "inputs/cases/SEL-T02-FH-006.json",
+      "sha256": "2eb6068bd17d23f33db07040f9a4653b7e707b3a0193d6c7b553b3d08749f732"
+    },
+    {
+      "asset_group": "runtime_inputs",
+      "byte_count": 475,
+      "relative_path": "inputs/cases/SEL-T02-FH-007.json",
+      "sha256": "7badab91ef2f07949fefda27d07293992a06c07e8b0a830b5472d801ef21456d"
+    },
+    {
+      "asset_group": "runtime_inputs",
+      "byte_count": 398,
+      "relative_path": "inputs/cases/SEL-T02-FH-008.json",
+      "sha256": "96332bee96704b8c2f33b590f505187bf4dcb176cebe8084049f44c1a3c5f1c3"
+    },
+    {
+      "asset_group": "runtime_inputs",
+      "byte_count": 462,
+      "relative_path": "inputs/cases/SEL-T02-FH-009.json",
+      "sha256": "c15752ddd44e9eb055f14b01f76eb1d77eb86b6208b0ef6fb713ea32d92e4e28"
+    },
+    {
+      "asset_group": "runtime_inputs",
+      "byte_count": 445,
+      "relative_path": "inputs/cases/SEL-T02-FH-010.json",
+      "sha256": "6986dba30c9c823c461ac4af1fec1ca8c3de857db15dc1534ccff008e9d80e09"
+    },
+    {
+      "asset_group": "runtime_inputs",
+      "byte_count": 485,
+      "relative_path": "inputs/cases/SEL-T02-FH-011.json",
+      "sha256": "22e869b6eeffa39a5b9cc615cff112352d58206602dc31206fb808e4502f7b74"
+    },
+    {
+      "asset_group": "runtime_inputs",
+      "byte_count": 387,
+      "relative_path": "inputs/cases/SEL-T02-FH-012.json",
+      "sha256": "a85875681eb975e5e491c566878c8c876a4973828500fbb02f955052c955057b"
+    }
+  ],
+  "frozen_at": "2026-06-27T19:07:07.913560Z",
+  "manifest_kind": "tranche_02_future_heldout_freeze_manifest",
+  "non_claims": [
+    "This is a frozen, test-only representative-selection evaluation tranche; it is not selector calibration material.",
+    "This freeze does not run or activate representative selection and does not alter active policy, retrieval, procedures, or decision states.",
+    "This freeze does not authorize procedure execution, production use, deployment, customer-data validation, or operational response decisions."
+  ],
+  "pre_selector_checks": [
+    {
+      "case_id": "SEL-T02-FH-001",
+      "expected_error_class": null,
+      "expected_outcome_kind": "single_representative",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-002",
+      "expected_error_class": null,
+      "expected_outcome_kind": "single_representative",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-003",
+      "expected_error_class": null,
+      "expected_outcome_kind": "single_representative",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-004",
+      "expected_error_class": null,
+      "expected_outcome_kind": "single_representative",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-005",
+      "expected_error_class": null,
+      "expected_outcome_kind": "explicit_tie",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-006",
+      "expected_error_class": null,
+      "expected_outcome_kind": "explicit_tie",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-007",
+      "expected_error_class": null,
+      "expected_outcome_kind": "explicit_tie",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-008",
+      "expected_error_class": null,
+      "expected_outcome_kind": "explicit_tie",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-009",
+      "expected_error_class": null,
+      "expected_outcome_kind": "explicit_tie",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-010",
+      "expected_error_class": null,
+      "expected_outcome_kind": "single_representative",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-011",
+      "expected_error_class": "duplicate_operational_signal_family",
+      "expected_outcome_kind": "invalid_input",
+      "selector_execution_permitted": false,
+      "validation_boundary": "RepresentativeSelectionIntake",
+      "validation_status": "invalid_expected"
+    },
+    {
+      "case_id": "SEL-T02-FH-012",
+      "expected_error_class": "cross_family_candidate_pool_rejected",
+      "expected_outcome_kind": "invalid_input",
+      "selector_execution_permitted": false,
+      "validation_boundary": "candidate_pool_family",
+      "validation_status": "invalid_expected"
+    }
+  ],
+  "procedure_asymmetry_fixture_loaded": false,
+  "procedures_loaded": false,
+  "retrieval_loaded": false,
+  "runtime_case_count": 12,
+  "selector_activation_authorized": false,
+  "selector_loaded": false,
+  "source_acceptance_audit_path": "docs/reports/tranche-02-future-heldout-v2-acceptance-audit.json",
+  "source_acceptance_decision": "accepted_for_governed_future_tranche_freeze",
+  "source_aggregate_verifications": [
+    {
+      "aggregate_name": "runtime_inputs",
+      "expected_sha256": "5a165ec48d0528362440f6736d25fb914c1d914aa21e1231b7e81b1db9e763b1",
+      "formula": "sha256_sorted_sha256_byte_count_relative_path_lines_v1",
+      "observed_sha256": "5a165ec48d0528362440f6736d25fb914c1d914aa21e1231b7e81b1db9e763b1"
+    },
+    {
+      "aggregate_name": "expected_outcomes",
+      "expected_sha256": "ec6225ae594be5d2f1bd21dad559baede4e34d102293167c67ee773ba9d7bdea",
+      "formula": "sha256_sorted_sha256_byte_count_relative_path_lines_v1",
+      "observed_sha256": "ec6225ae594be5d2f1bd21dad559baede4e34d102293167c67ee773ba9d7bdea"
+    },
+    {
+      "aggregate_name": "documentation",
+      "expected_sha256": "47b61266488a6f5aeec5788d6684c4a84860e85adaf19b46ff6808d98c75c397",
+      "formula": "sha256_sorted_sha256_byte_count_relative_path_lines_v1",
+      "observed_sha256": "47b61266488a6f5aeec5788d6684c4a84860e85adaf19b46ff6808d98c75c397"
+    },
+    {
+      "aggregate_name": "all_non_manifest_assets",
+      "expected_sha256": "a2c4871677fa8a6d5210ae31412b46bf128af78b709cbe48da4ccca614d88639",
+      "formula": "sha256_sorted_sha256_byte_count_relative_path_lines_v1",
+      "observed_sha256": "a2c4871677fa8a6d5210ae31412b46bf128af78b709cbe48da4ccca614d88639"
+    }
+  ],
+  "source_archive_asset_count": 27,
+  "source_proposal_archive_name": "tranche-02-future-heldout-blind-authoring-proposal-v2.zip",
+  "source_proposal_archive_sha256": "a371be0ab28e2b7f742cf682f212d2665e4e2d893004bc73e72c898c3d886fa0",
+  "source_proposal_root": "proposed_tranche_02_future_heldout"
+}

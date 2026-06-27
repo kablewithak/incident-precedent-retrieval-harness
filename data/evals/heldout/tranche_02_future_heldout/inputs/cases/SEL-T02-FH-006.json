@@ -1,0 +1,20 @@
+{
+  "case_id": "SEL-T02-FH-006",
+  "contract_version": "tranche-02-selection-v1",
+  "selection_intake": {
+    "service": "auth-service",
+    "component": "auth-db-client",
+    "change_context": "configuration",
+    "operational_signal_families": [
+      "connection_pool_pressure"
+    ],
+    "contradicted_signal_families": [
+      "authentication_failure"
+    ]
+  },
+  "candidate_incident_ids": [
+    "INC-009",
+    "INC-010"
+  ],
+  "candidate_pool_family": "connection_pool_exhaustion"
+}

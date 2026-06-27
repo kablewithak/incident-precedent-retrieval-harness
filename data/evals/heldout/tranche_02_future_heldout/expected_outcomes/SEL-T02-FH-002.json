@@ -1,0 +1,64 @@
+{
+  "case_id": "SEL-T02-FH-002",
+  "expected_outcome_kind": "single_representative",
+  "expected_representative_ids": [
+    "INC-009"
+  ],
+  "expected_non_dominated_ids": [
+    "INC-009"
+  ],
+  "expected_reason_codes": {
+    "classification": "evaluator-diagnostic-only",
+    "codes": [
+      "exact_component_alignment",
+      "exact_change_context_alignment",
+      "signal_family_superset",
+      "candidate_order_invariance"
+    ],
+    "non_runtime_notice": "These codes are comparison-harness diagnostics only and must not be loaded by runtime selector code."
+  },
+  "pre_selector_validation": {
+    "must_pass_before_selector": true,
+    "expected_status": "valid"
+  },
+  "source_grounding": {
+    "source_corpus": "synthetic RelayOps incident-card corpus supplied in blind authoring package",
+    "source_cards": [
+      {
+        "source_card_id": "INC-009",
+        "source_card_sha256": "2625957bae8015d8dbbd582ea852d00db20bbb8ff941b21101a3dcf26b5de69c",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      },
+      {
+        "source_card_id": "INC-010",
+        "source_card_sha256": "6d2420b97f3b9fe7a86e0fe879b87f95cb700897574ae47e1745e82d9d8296f5",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      }
+    ],
+    "grounding_note": "Only the supplied card IDs and their schema-derived signatures ground this evaluation asset."
+  },
+  "acceptance_reason": "This is the exact candidate-order reversal partner of SEL-T02-FH-001: intake and oracle are identical while only candidate serialization order changes.",
+  "failure_label_intent": [
+    "order_dependence_error",
+    "forbidden_signal_leakage",
+    "dominance_relation_error"
+  ],
+  "diagnostic_explanation": "The pair exposes a hidden first-item or last-item tie-break without introducing rank, score, identifier priority, or evaluator guidance into the runtime asset.",
+  "proposal_status": "not_frozen_evaluator_controlled_expected_outcome",
+  "order_reversal_invariant": {
+    "pair_id": "SEL-T02-FH-ORDER-001",
+    "partner_case_id": "SEL-T02-FH-001",
+    "invariant_selection_oracle": {
+      "expected_outcome_kind": "single_representative",
+      "expected_representative_ids": [
+        "INC-009"
+      ],
+      "expected_non_dominated_ids": [
+        "INC-009"
+      ]
+    },
+    "comparison_rule": "Only candidate serialization order differs; the evaluated selection outcome must be identical."
+  }
+}
