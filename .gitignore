@@ -46,3 +46,6 @@ Thumbs.db
 *.log
 .tmp/
 tmp/
+
+# Rebuildable local semantic indexes
+evidence_vault/indexes/
