@@ -1,0 +1,106 @@
+{
+  "active_policy_changed": false,
+  "aggregate_verifications": [
+    {
+      "aggregate_name": "inputs_sha256",
+      "expected_sha256": "85e6d58f62d2ad7b2b9e59c6bdbe30c009bbfaf44c31fb225a1f0574e74bccab",
+      "formula": "canonical_json_inventory_records_v2",
+      "observed_sha256": "85e6d58f62d2ad7b2b9e59c6bdbe30c009bbfaf44c31fb225a1f0574e74bccab"
+    },
+    {
+      "aggregate_name": "expected_outcomes_sha256",
+      "expected_sha256": "501230df443b6fe9fde0074b492c755e12c2f2fc6aaf5f0b7fd92b73c9896b1a",
+      "formula": "canonical_json_inventory_records_v2",
+      "observed_sha256": "501230df443b6fe9fde0074b492c755e12c2f2fc6aaf5f0b7fd92b73c9896b1a"
+    },
+    {
+      "aggregate_name": "governance_sha256",
+      "expected_sha256": "083c20eaf0530c5fd2f6a60072f0f1f8cad0b1cd038aeb85ebc48792c8689f8a",
+      "formula": "canonical_json_inventory_records_v2",
+      "observed_sha256": "083c20eaf0530c5fd2f6a60072f0f1f8cad0b1cd038aeb85ebc48792c8689f8a"
+    },
+    {
+      "aggregate_name": "documentation_sha256",
+      "expected_sha256": "e7eceff8137738886ada3e638aa77d32525b4b7edda77964b66243eb99500f4b",
+      "formula": "canonical_json_inventory_records_v2",
+      "observed_sha256": "e7eceff8137738886ada3e638aa77d32525b4b7edda77964b66243eb99500f4b"
+    },
+    {
+      "aggregate_name": "all_non_manifest_assets_sha256",
+      "expected_sha256": "6efbdc41a4f25be098bb91bc4dc9f78946559ed9253766afe06359852a1ff540",
+      "formula": "canonical_json_inventory_records_v2",
+      "observed_sha256": "6efbdc41a4f25be098bb91bc4dc9f78946559ed9253766afe06359852a1ff540"
+    }
+  ],
+  "controlled_card_count": 4,
+  "decision": "imported_test_only",
+  "derivation_assertion_count": 4,
+  "expected_outcome_count": 3,
+  "generated_at": "2026-06-27T17:55:56.279536Z",
+  "heldout_loaded": false,
+  "imported_fixture_path": "data/evals/procedure_asymmetry_fixture",
+  "non_claims": [
+    "This imports an isolated, test-only evaluation fixture; it does not add cards to data/incidents or procedures to data/procedures.",
+    "This run does not load retrieval, held-out cases, or AntiAnchoringDecisionPolicy.",
+    "The strict-dominance selector remains isolated and non-authoritative after this import.",
+    "The report does not freeze Tranche 02, authorize selector activation, authorize procedures, or establish production or customer-data readiness."
+  ],
+  "non_manifest_asset_count": 15,
+  "outcomes": [
+    {
+      "actual_representative_incident_ids": [
+        "INC-014"
+      ],
+      "actual_state": "single_representative",
+      "candidate_incident_ids": [
+        "INC-013",
+        "INC-014"
+      ],
+      "case_id": "PAF-T02-001",
+      "contract_matches": true,
+      "expected_representative_incident_ids": [
+        "INC-014"
+      ],
+      "expected_state": "single_representative"
+    },
+    {
+      "actual_representative_incident_ids": [
+        "INC-014"
+      ],
+      "actual_state": "single_representative",
+      "candidate_incident_ids": [
+        "INC-014",
+        "INC-013"
+      ],
+      "case_id": "PAF-T02-002",
+      "contract_matches": true,
+      "expected_representative_incident_ids": [
+        "INC-014"
+      ],
+      "expected_state": "single_representative"
+    },
+    {
+      "actual_representative_incident_ids": [
+        "INC-014"
+      ],
+      "actual_state": "single_representative",
+      "candidate_incident_ids": [
+        "INC-013",
+        "INC-014"
+      ],
+      "case_id": "PAF-T02-003",
+      "contract_matches": true,
+      "expected_representative_incident_ids": [
+        "INC-014"
+      ],
+      "expected_state": "single_representative"
+    }
+  ],
+  "proposal_archive_name": "procedure-asymmetry-adversarial-fixture-proposal-v2.zip",
+  "proposal_archive_sha256": "86603235f0c4c3e0de47ba2a4fd07a62fc49495d53a366e832cd4f27934c40b8",
+  "proposal_root": "proposed_procedure_asymmetry_fixture",
+  "report_kind": "procedure_asymmetry_fixture_import",
+  "retrieval_loaded": false,
+  "runtime_case_count": 3,
+  "selector_activation_claim": false
+}

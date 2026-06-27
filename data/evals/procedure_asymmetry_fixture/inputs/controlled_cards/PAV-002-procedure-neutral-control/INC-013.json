@@ -1,0 +1,68 @@
+{
+  "change_context": "none",
+  "component": "postgres-client-pool",
+  "failure_mechanism": "Concurrent payment requests exhausted available database client-pool capacity, causing connection acquisition waits and reducing API throughput without verified migration lock contention.",
+  "incident_family": "connection_pool_exhaustion",
+  "incident_id": "INC-013",
+  "linked_procedure_ids": [],
+  "mitigation_summary": "Service capacity recovered only after connection acquisition latency and active connection demand returned to a stable range; this record does not prescribe a configuration change for a new incident.",
+  "narrative_safe": "RelayOps payment requests began timing out while database client-pool acquisition waits rose and active connections approached the configured limit. A migration-lock precedent is unsafe unless lock waits are independently confirmed.",
+  "observability_signals": [
+    "database connection pool utilization increased",
+    "database connection acquire latency increased",
+    "active database connections approached configured limit"
+  ],
+  "record_origin": "controlled_variant",
+  "recovery_state": "recovered",
+  "region": "us-east",
+  "required_verification_facts": [
+    "database_connection_pool_utilization",
+    "database_connection_acquire_latency",
+    "active_database_connections",
+    "migration_lock_waits",
+    "error_rate_by_component"
+  ],
+  "safe_procedure_ids": [],
+  "selection_signature": {
+    "change_context": "none",
+    "component": "postgres-client-pool",
+    "contract_version": "representative-selection-v1",
+    "operational_signals": [
+      {
+        "signal_family": "connection_pool_pressure",
+        "source_references": [
+          {
+            "source_field": "observability_signals",
+            "source_values": [
+              "database connection pool utilization increased",
+              "database connection acquire latency increased"
+            ]
+          }
+        ]
+      },
+      {
+        "signal_family": "active_connection_pressure",
+        "source_references": [
+          {
+            "source_field": "observability_signals",
+            "source_values": [
+              "active database connections approached configured limit"
+            ]
+          }
+        ]
+      }
+    ],
+    "service": "payments-api"
+  },
+  "service": "payments-api",
+  "severity": "sev_1",
+  "started_after_change": false,
+  "symptoms": [
+    "payment API timeout rate increased",
+    "connection acquisition timeout",
+    "request latency increased"
+  ],
+  "timeline_summary": "API latency rose with pool acquisition waits and high active connection counts. No migration activity or lock-wait pattern was confirmed.",
+  "title": "Test-only procedure-asymmetry variant: Connection acquisition timeouts reduced API capacity",
+  "unsafe_procedure_ids": []
+}

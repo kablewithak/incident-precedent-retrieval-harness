@@ -1,0 +1,143 @@
+{
+  "accepted_cases": [
+    {
+      "case_id": "PAF-T02-001",
+      "expected_outcome_path": "expected_outcomes/PAF-T02-001.expected.json",
+      "governance_path": "inputs/governance/procedure_asymmetry_governance.json",
+      "input_path": "inputs/cases/PAF-T02-001.input.json"
+    },
+    {
+      "case_id": "PAF-T02-002",
+      "expected_outcome_path": "expected_outcomes/PAF-T02-002.expected.json",
+      "governance_path": "inputs/governance/procedure_asymmetry_governance.json",
+      "input_path": "inputs/cases/PAF-T02-002.input.json"
+    },
+    {
+      "case_id": "PAF-T02-003",
+      "expected_outcome_path": "expected_outcomes/PAF-T02-003.expected.json",
+      "governance_path": "inputs/governance/procedure_asymmetry_governance.json",
+      "input_path": "inputs/cases/PAF-T02-003.input.json"
+    }
+  ],
+  "aggregate_hashes": {
+    "all_non_manifest_assets_sha256": "6efbdc41a4f25be098bb91bc4dc9f78946559ed9253766afe06359852a1ff540",
+    "documentation_sha256": "e7eceff8137738886ada3e638aa77d32525b4b7edda77964b66243eb99500f4b",
+    "expected_outcomes_sha256": "501230df443b6fe9fde0074b492c755e12c2f2fc6aaf5f0b7fd92b73c9896b1a",
+    "governance_sha256": "083c20eaf0530c5fd2f6a60072f0f1f8cad0b1cd038aeb85ebc48792c8689f8a",
+    "inputs_sha256": "85e6d58f62d2ad7b2b9e59c6bdbe30c009bbfaf44c31fb225a1f0574e74bccab"
+  },
+  "asset_inventory": [
+    {
+      "byte_count": 4411,
+      "group": "documentation",
+      "relative_path": "APPLY_MANIFEST.md",
+      "sha256": "0791155bdae55afa2292bf7046e8e00fb5afb1a85f24ca76efda46c9f0d41630"
+    },
+    {
+      "byte_count": 6159,
+      "group": "documentation",
+      "relative_path": "authoring_ledger.md",
+      "sha256": "ecd3f4b224eecfaa380af426fec485a3024809805745bdbef80705b15ec9ce68"
+    },
+    {
+      "byte_count": 884,
+      "group": "expected_outcomes",
+      "relative_path": "expected_outcomes/PAF-T02-001.expected.json",
+      "sha256": "2fff96e617c582a845cf065859656ee3c3928341d2070570a7678c92e48d4cf1"
+    },
+    {
+      "byte_count": 659,
+      "group": "expected_outcomes",
+      "relative_path": "expected_outcomes/PAF-T02-002.expected.json",
+      "sha256": "6fdbe0d5cbdf559486e86c9223566d0bcfec10d6a4e0a995a2b8dc488086a3ea"
+    },
+    {
+      "byte_count": 763,
+      "group": "expected_outcomes",
+      "relative_path": "expected_outcomes/PAF-T02-003.expected.json",
+      "sha256": "58703aceb062cf164f1aa09f605add3ad7556663f9f757320a7dbe6889d38961"
+    },
+    {
+      "byte_count": 1206,
+      "group": "inputs",
+      "relative_path": "inputs/cases/PAF-T02-001.input.json",
+      "sha256": "a40190593160a369002d3b5ef65e4ca2da01bafdd4032b3a69bace463cb88239"
+    },
+    {
+      "byte_count": 1153,
+      "group": "inputs",
+      "relative_path": "inputs/cases/PAF-T02-002.input.json",
+      "sha256": "d49be9364e4fe1026d4045739a76f61567b37e9910c0c605c78b07e1c0daeb8a"
+    },
+    {
+      "byte_count": 1168,
+      "group": "inputs",
+      "relative_path": "inputs/cases/PAF-T02-003.input.json",
+      "sha256": "c1d9cc827e49f4aead69c11c9efca6d2935f6938e86fb5759f575fd4776b11ec"
+    },
+    {
+      "byte_count": 2862,
+      "group": "inputs",
+      "relative_path": "inputs/controlled_cards/PAV-001-procedure-asymmetric/INC-013.json",
+      "sha256": "4dbaa0a74b208e9bddfe193c4f7b6a4aadf87bcb4a11213053f9d33adad46ab0"
+    },
+    {
+      "byte_count": 3334,
+      "group": "inputs",
+      "relative_path": "inputs/controlled_cards/PAV-001-procedure-asymmetric/INC-014.json",
+      "sha256": "4c11e066145ade117fd1c2db35b967fef16a2ab1eb79abb665515106a58df9c2"
+    },
+    {
+      "byte_count": 2830,
+      "group": "inputs",
+      "relative_path": "inputs/controlled_cards/PAV-002-procedure-neutral-control/INC-013.json",
+      "sha256": "edfaf2f4851a5f9f676e0137d994add12453b98b684cec557780edadd4019375"
+    },
+    {
+      "byte_count": 3318,
+      "group": "inputs",
+      "relative_path": "inputs/controlled_cards/PAV-002-procedure-neutral-control/INC-014.json",
+      "sha256": "7efd95e63f8654e38c93d0c3eb6d2c1c8d48a7ecb2a5c9488eee0a714851320a"
+    },
+    {
+      "byte_count": 3238,
+      "group": "governance",
+      "relative_path": "inputs/governance/controlled_card_derivation_assertions.json",
+      "sha256": "b6aa09ade1ecde7551909578ca6b517ee714a7d2b78d217b9f5f01072c3af7d5"
+    },
+    {
+      "byte_count": 6004,
+      "group": "governance",
+      "relative_path": "inputs/governance/procedure_asymmetry_governance.json",
+      "sha256": "c8fb7d4d40401b9c34db9f27bd109d6e61d3e2cdd16c6681ce8d1f8e21593445"
+    },
+    {
+      "byte_count": 2187,
+      "group": "documentation",
+      "relative_path": "rejected_case_ideas.md",
+      "sha256": "2abd2ec4a6983b9059358d0fb7742c680dac336973f290c00d4df5ff99fd2279"
+    }
+  ],
+  "fixture_contract_version": "procedure-asymmetry-adversarial-fixture-v2",
+  "governing_adr": "ADR-0019",
+  "non_claims": [
+    "This archive is test-only and does not freeze Tranche 02.",
+    "This archive does not activate the selector or modify AntiAnchoringDecisionPolicy.",
+    "This archive does not alter active retrieval, procedures, source incident data, customer data, or production behavior."
+  ],
+  "proposal_kind": "governed_test_only_procedure_asymmetry_adversarial_fixture",
+  "proposal_root": "proposed_procedure_asymmetry_fixture",
+  "proposal_version": "v2",
+  "status": "v2_provenance_remediated_proposal_not_frozen_not_active",
+  "v2_remediation_boundary": {
+    "all_other_v1_assets_byte_identical": true,
+    "baseline_kind": "v1_proposal_immutability_and_allowed_change_contract",
+    "changed_or_new_paths": [
+      "APPLY_MANIFEST.md",
+      "authoring_ledger.md",
+      "inputs/governance/controlled_card_derivation_assertions.json",
+      "inputs/governance/procedure_asymmetry_governance.json",
+      "manifest.json"
+    ]
+  }
+}

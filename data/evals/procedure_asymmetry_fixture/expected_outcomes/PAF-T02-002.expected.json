@@ -1,0 +1,17 @@
+{
+  "case_id": "PAF-T02-002",
+  "expected_non_dominated_ids": [
+    "INC-014"
+  ],
+  "expected_outcome_kind": "single_representative",
+  "expected_reason_codes": [
+    "typed_strict_dominance",
+    "forbidden_procedure_metadata_ignored",
+    "order_invariance_required"
+  ],
+  "expected_representative_ids": [
+    "INC-014"
+  ],
+  "reason_code_status": "evaluation_diagnostic_only_not_selector_contract",
+  "review_rationale": "The typed intake and case-scoped card signatures are identical to PAF-T02-001. Only candidate sequence is reversed. ADR-0012 requires the same strict-dominance result; candidate order cannot promote INC-013 or displace INC-014."
+}

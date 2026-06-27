@@ -1,0 +1,90 @@
+{
+  "change_context": "configuration",
+  "component": "auth-db-client",
+  "failure_mechanism": "A reduced connection timeout during elevated database load amplified retries, consuming application connection-pool capacity and causing new instances to fail database connection checks.",
+  "incident_family": "connection_pool_exhaustion",
+  "incident_id": "INC-014",
+  "linked_procedure_ids": [],
+  "mitigation_summary": "Failure pressure subsided only after connection acquisition behavior and retry volume stabilized; the historical record does not prescribe changing a timeout during a new incident.",
+  "narrative_safe": "RelayOps authentication instances struggled to acquire database connections after a configuration change during elevated load. This may resemble a worker deployment failure, but pool acquisition evidence must be checked before choosing a procedure.",
+  "observability_signals": [
+    "database connection pool utilization increased",
+    "database connection acquire latency increased",
+    "consumer error rate increased"
+  ],
+  "record_origin": "controlled_variant",
+  "recovery_state": "recovered",
+  "region": "us-east",
+  "required_verification_facts": [
+    "database_connection_pool_utilization",
+    "database_connection_acquire_latency",
+    "active_database_connections",
+    "error_rate_by_component",
+    "migration_lock_waits"
+  ],
+  "safe_procedure_ids": [],
+  "selection_signature": {
+    "change_context": "configuration",
+    "component": "auth-db-client",
+    "contract_version": "representative-selection-v1",
+    "operational_signals": [
+      {
+        "signal_family": "connection_pool_pressure",
+        "source_references": [
+          {
+            "source_field": "observability_signals",
+            "source_values": [
+              "database connection pool utilization increased",
+              "database connection acquire latency increased"
+            ]
+          }
+        ]
+      },
+      {
+        "signal_family": "authentication_failure",
+        "source_references": [
+          {
+            "source_field": "symptoms",
+            "source_values": [
+              "authentication failures"
+            ]
+          }
+        ]
+      },
+      {
+        "signal_family": "readiness_failure",
+        "source_references": [
+          {
+            "source_field": "symptoms",
+            "source_values": [
+              "new instances failed readiness"
+            ]
+          }
+        ]
+      },
+      {
+        "signal_family": "component_error_pressure",
+        "source_references": [
+          {
+            "source_field": "observability_signals",
+            "source_values": [
+              "consumer error rate increased"
+            ]
+          }
+        ]
+      }
+    ],
+    "service": "auth-service"
+  },
+  "service": "auth-service",
+  "severity": "sev_1",
+  "started_after_change": true,
+  "symptoms": [
+    "authentication failures",
+    "connection acquisition timeout",
+    "new instances failed readiness"
+  ],
+  "timeline_summary": "A configuration change preceded rising connection waits. Authentication failures and readiness failures appeared while retries increased under database stress.",
+  "title": "Test-only procedure-asymmetry variant: Retry amplification consumed authentication connection pool",
+  "unsafe_procedure_ids": []
+}

@@ -1,0 +1,99 @@
+{
+  "assertion_kind": "controlled_card_derivation_assertions_v2",
+  "assertions": [
+    {
+      "actual_changed_fields": [
+        "incident_id",
+        "title",
+        "unsafe_procedure_ids"
+      ],
+      "allowed_perturbation_fields": [
+        "incident_id",
+        "title",
+        "unsafe_procedure_ids"
+      ],
+      "assertion_id": "PAV-001",
+      "card_set_id": "PAV-001-procedure-asymmetric",
+      "controlled_card_sha256": "4dbaa0a74b208e9bddfe193c4f7b6a4aadf87bcb4a11213053f9d33adad46ab0",
+      "controlled_incident_id": "INC-013",
+      "exact_field_set_match": true,
+      "source_card_sha256": "2625957bae8015d8dbbd582ea852d00db20bbb8ff941b21101a3dcf26b5de69c",
+      "source_incident_id": "INC-009",
+      "test_only": true
+    },
+    {
+      "actual_changed_fields": [
+        "incident_id",
+        "linked_procedure_ids",
+        "safe_procedure_ids",
+        "title",
+        "unsafe_procedure_ids"
+      ],
+      "allowed_perturbation_fields": [
+        "incident_id",
+        "linked_procedure_ids",
+        "safe_procedure_ids",
+        "title",
+        "unsafe_procedure_ids"
+      ],
+      "assertion_id": "PAV-002",
+      "card_set_id": "PAV-001-procedure-asymmetric",
+      "controlled_card_sha256": "4c11e066145ade117fd1c2db35b967fef16a2ab1eb79abb665515106a58df9c2",
+      "controlled_incident_id": "INC-014",
+      "exact_field_set_match": true,
+      "source_card_sha256": "6d2420b97f3b9fe7a86e0fe879b87f95cb700897574ae47e1745e82d9d8296f5",
+      "source_incident_id": "INC-010",
+      "test_only": true
+    },
+    {
+      "actual_changed_fields": [
+        "incident_id",
+        "linked_procedure_ids",
+        "safe_procedure_ids",
+        "title",
+        "unsafe_procedure_ids"
+      ],
+      "allowed_perturbation_fields": [
+        "incident_id",
+        "linked_procedure_ids",
+        "safe_procedure_ids",
+        "title",
+        "unsafe_procedure_ids"
+      ],
+      "assertion_id": "PAV-003",
+      "card_set_id": "PAV-002-procedure-neutral-control",
+      "controlled_card_sha256": "edfaf2f4851a5f9f676e0137d994add12453b98b684cec557780edadd4019375",
+      "controlled_incident_id": "INC-013",
+      "exact_field_set_match": true,
+      "source_card_sha256": "2625957bae8015d8dbbd582ea852d00db20bbb8ff941b21101a3dcf26b5de69c",
+      "source_incident_id": "INC-009",
+      "test_only": true
+    },
+    {
+      "actual_changed_fields": [
+        "incident_id",
+        "linked_procedure_ids",
+        "safe_procedure_ids",
+        "title",
+        "unsafe_procedure_ids"
+      ],
+      "allowed_perturbation_fields": [
+        "incident_id",
+        "linked_procedure_ids",
+        "safe_procedure_ids",
+        "title",
+        "unsafe_procedure_ids"
+      ],
+      "assertion_id": "PAV-004",
+      "card_set_id": "PAV-002-procedure-neutral-control",
+      "controlled_card_sha256": "7efd95e63f8654e38c93d0c3eb6d2c1c8d48a7ecb2a5c9488eee0a714851320a",
+      "controlled_incident_id": "INC-014",
+      "exact_field_set_match": true,
+      "source_card_sha256": "6d2420b97f3b9fe7a86e0fe879b87f95cb700897574ae47e1745e82d9d8296f5",
+      "source_incident_id": "INC-010",
+      "test_only": true
+    }
+  ],
+  "governing_adr": "ADR-0019",
+  "proposal_status": "test_only_not_frozen_not_active"
+}
