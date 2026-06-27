@@ -1,0 +1,302 @@
+{
+  "activation_blockers": [
+    "The strict-dominance selector remains disconnected from AntiAnchoringDecisionPolicy.",
+    "No activation ADR or active-policy integration review has authorized selector activation.",
+    "This frozen comparison does not establish decision-state, procedure-withholding, provider-degraded, retrieval, or production safety for an integrated runtime path."
+  ],
+  "comparison_decision": "comparison_passed_activation_blocked",
+  "decision_reasons": [
+    "All ten selector-permitted cases matched evaluator-only frozen outcomes.",
+    "Both negative controls rejected before selector execution.",
+    "The exact order-reversal pair produced the same selection result.",
+    "Activation remains blocked because this gate does not integrate the selector into active policy or authorize a runtime behavior change."
+  ],
+  "freeze_manifest_path": "data/evals/heldout/tranche_02_future_heldout/TRANCHE_02_FUTURE_HELDOUT_FREEZE_MANIFEST.json",
+  "freeze_receipt_path": "evidence_vault/reports/tranche-02-future-heldout-freeze.json",
+  "frozen_fixture_path": "data/evals/heldout/tranche_02_future_heldout",
+  "generated_at": "2026-06-27T19:20:56.960555Z",
+  "metrics": {
+    "active_policy_loaded": false,
+    "existing_heldout_loaded": false,
+    "failed_case_ids": [],
+    "freeze_manifest_verified": true,
+    "freeze_receipt_verified": true,
+    "frozen_asset_count": 24,
+    "order_invariance_passed": true,
+    "pre_selector_rejection_case_count": 2,
+    "pre_selector_rejections_passed": true,
+    "procedure_asymmetry_fixture_loaded": false,
+    "procedures_loaded": false,
+    "retrieval_loaded": false,
+    "selector_activation_authorized": false,
+    "selector_loaded": true,
+    "source_card_count": 5,
+    "source_card_hashes_verified": true,
+    "valid_case_contract_pass_rate": 1.0,
+    "valid_selector_case_count": 10
+  },
+  "non_claims": [
+    "Expected outcomes are evaluator-only oracles and are never supplied to selector invocation.",
+    "This comparison does not alter retrieval, active policy, procedures, Tranche 01, provider behavior, or any production-facing decision path.",
+    "A passing comparison does not authorize procedure execution, production use, customer-data validation, or automated incident response."
+  ],
+  "outcomes": [
+    {
+      "actual_non_dominated_ids": [
+        "INC-009"
+      ],
+      "actual_representative_ids": [
+        "INC-009"
+      ],
+      "actual_selection_state": "single_representative",
+      "case_id": "SEL-T02-FH-001",
+      "contract_matches": true,
+      "expected_error_class": null,
+      "expected_non_dominated_ids": [
+        "INC-009"
+      ],
+      "expected_outcome_kind": "single_representative",
+      "expected_representative_ids": [
+        "INC-009"
+      ],
+      "mismatch_reason": null,
+      "pre_selector_boundary": null,
+      "selector_execution_permitted": true
+    },
+    {
+      "actual_non_dominated_ids": [
+        "INC-009"
+      ],
+      "actual_representative_ids": [
+        "INC-009"
+      ],
+      "actual_selection_state": "single_representative",
+      "case_id": "SEL-T02-FH-002",
+      "contract_matches": true,
+      "expected_error_class": null,
+      "expected_non_dominated_ids": [
+        "INC-009"
+      ],
+      "expected_outcome_kind": "single_representative",
+      "expected_representative_ids": [
+        "INC-009"
+      ],
+      "mismatch_reason": null,
+      "pre_selector_boundary": null,
+      "selector_execution_permitted": true
+    },
+    {
+      "actual_non_dominated_ids": [
+        "INC-011"
+      ],
+      "actual_representative_ids": [
+        "INC-011"
+      ],
+      "actual_selection_state": "single_representative",
+      "case_id": "SEL-T02-FH-003",
+      "contract_matches": true,
+      "expected_error_class": null,
+      "expected_non_dominated_ids": [
+        "INC-011"
+      ],
+      "expected_outcome_kind": "single_representative",
+      "expected_representative_ids": [
+        "INC-011"
+      ],
+      "mismatch_reason": null,
+      "pre_selector_boundary": null,
+      "selector_execution_permitted": true
+    },
+    {
+      "actual_non_dominated_ids": [
+        "INC-011"
+      ],
+      "actual_representative_ids": [
+        "INC-011"
+      ],
+      "actual_selection_state": "single_representative",
+      "case_id": "SEL-T02-FH-004",
+      "contract_matches": true,
+      "expected_error_class": null,
+      "expected_non_dominated_ids": [
+        "INC-011"
+      ],
+      "expected_outcome_kind": "single_representative",
+      "expected_representative_ids": [
+        "INC-011"
+      ],
+      "mismatch_reason": null,
+      "pre_selector_boundary": null,
+      "selector_execution_permitted": true
+    },
+    {
+      "actual_non_dominated_ids": [
+        "INC-009",
+        "INC-012"
+      ],
+      "actual_representative_ids": [
+        "INC-009",
+        "INC-012"
+      ],
+      "actual_selection_state": "explicit_tie",
+      "case_id": "SEL-T02-FH-005",
+      "contract_matches": true,
+      "expected_error_class": null,
+      "expected_non_dominated_ids": [
+        "INC-009",
+        "INC-012"
+      ],
+      "expected_outcome_kind": "explicit_tie",
+      "expected_representative_ids": [],
+      "mismatch_reason": null,
+      "pre_selector_boundary": null,
+      "selector_execution_permitted": true
+    },
+    {
+      "actual_non_dominated_ids": [
+        "INC-009",
+        "INC-010"
+      ],
+      "actual_representative_ids": [
+        "INC-009",
+        "INC-010"
+      ],
+      "actual_selection_state": "explicit_tie",
+      "case_id": "SEL-T02-FH-006",
+      "contract_matches": true,
+      "expected_error_class": null,
+      "expected_non_dominated_ids": [
+        "INC-009",
+        "INC-010"
+      ],
+      "expected_outcome_kind": "explicit_tie",
+      "expected_representative_ids": [],
+      "mismatch_reason": null,
+      "pre_selector_boundary": null,
+      "selector_execution_permitted": true
+    },
+    {
+      "actual_non_dominated_ids": [
+        "INC-009",
+        "INC-011"
+      ],
+      "actual_representative_ids": [
+        "INC-009",
+        "INC-011"
+      ],
+      "actual_selection_state": "explicit_tie",
+      "case_id": "SEL-T02-FH-007",
+      "contract_matches": true,
+      "expected_error_class": null,
+      "expected_non_dominated_ids": [
+        "INC-009",
+        "INC-011"
+      ],
+      "expected_outcome_kind": "explicit_tie",
+      "expected_representative_ids": [],
+      "mismatch_reason": null,
+      "pre_selector_boundary": null,
+      "selector_execution_permitted": true
+    },
+    {
+      "actual_non_dominated_ids": [
+        "INC-009",
+        "INC-010",
+        "INC-012"
+      ],
+      "actual_representative_ids": [
+        "INC-009",
+        "INC-010",
+        "INC-012"
+      ],
+      "actual_selection_state": "explicit_tie",
+      "case_id": "SEL-T02-FH-008",
+      "contract_matches": true,
+      "expected_error_class": null,
+      "expected_non_dominated_ids": [
+        "INC-009",
+        "INC-010",
+        "INC-012"
+      ],
+      "expected_outcome_kind": "explicit_tie",
+      "expected_representative_ids": [],
+      "mismatch_reason": null,
+      "pre_selector_boundary": null,
+      "selector_execution_permitted": true
+    },
+    {
+      "actual_non_dominated_ids": [
+        "INC-009",
+        "INC-011"
+      ],
+      "actual_representative_ids": [
+        "INC-009",
+        "INC-011"
+      ],
+      "actual_selection_state": "explicit_tie",
+      "case_id": "SEL-T02-FH-009",
+      "contract_matches": true,
+      "expected_error_class": null,
+      "expected_non_dominated_ids": [
+        "INC-009",
+        "INC-011"
+      ],
+      "expected_outcome_kind": "explicit_tie",
+      "expected_representative_ids": [],
+      "mismatch_reason": null,
+      "pre_selector_boundary": null,
+      "selector_execution_permitted": true
+    },
+    {
+      "actual_non_dominated_ids": [
+        "INC-012"
+      ],
+      "actual_representative_ids": [
+        "INC-012"
+      ],
+      "actual_selection_state": "single_representative",
+      "case_id": "SEL-T02-FH-010",
+      "contract_matches": true,
+      "expected_error_class": null,
+      "expected_non_dominated_ids": [
+        "INC-012"
+      ],
+      "expected_outcome_kind": "single_representative",
+      "expected_representative_ids": [
+        "INC-012"
+      ],
+      "mismatch_reason": null,
+      "pre_selector_boundary": null,
+      "selector_execution_permitted": true
+    },
+    {
+      "actual_non_dominated_ids": [],
+      "actual_representative_ids": [],
+      "actual_selection_state": null,
+      "case_id": "SEL-T02-FH-011",
+      "contract_matches": true,
+      "expected_error_class": "duplicate_operational_signal_family",
+      "expected_non_dominated_ids": [],
+      "expected_outcome_kind": "invalid_input",
+      "expected_representative_ids": [],
+      "mismatch_reason": null,
+      "pre_selector_boundary": "RepresentativeSelectionIntake",
+      "selector_execution_permitted": false
+    },
+    {
+      "actual_non_dominated_ids": [],
+      "actual_representative_ids": [],
+      "actual_selection_state": null,
+      "case_id": "SEL-T02-FH-012",
+      "contract_matches": true,
+      "expected_error_class": "cross_family_candidate_pool_rejected",
+      "expected_non_dominated_ids": [],
+      "expected_outcome_kind": "invalid_input",
+      "expected_representative_ids": [],
+      "mismatch_reason": null,
+      "pre_selector_boundary": "candidate_pool_family",
+      "selector_execution_permitted": false
+    }
+  ],
+  "report_kind": "tranche_02_future_heldout_comparison"
+}
