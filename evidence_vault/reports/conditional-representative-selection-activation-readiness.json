@@ -1,0 +1,88 @@
+{
+  "activation_blockers": [
+    "No selection-aware end-to-end frozen policy promotion gate has run.",
+    "The active policy remains unchanged unless a caller explicitly supplies validated selection intake.",
+    "This readiness report does not alter the frozen Tranche 02 receipt or comparison evidence."
+  ],
+  "contract_pass_rate": 1.0,
+  "decision": "implementation_validated_activation_blocked",
+  "decision_reasons": [
+    "All controlled integration cases preserved the complete policy decision while applying only the typed display-refinement contract."
+  ],
+  "fixed_case_count": 3,
+  "generated_at": "2026-06-27T19:47:57.521615Z",
+  "non_claims": [
+    "This report validates a local synthetic-data integration control, not production readiness.",
+    "The selector does not set top-level policy state, missing facts, procedure eligibility, or execution authority.",
+    "This report is not evidence that retrieval quality, incident diagnosis, or customer-data safety improved."
+  ],
+  "outcomes": [
+    {
+      "actual_displayed_representatives": [
+        "INC-009"
+      ],
+      "actual_refinement_status": "single_representative_applied",
+      "baseline_policy_state": "evidence_found",
+      "case_id": "CSR-001-single-winner",
+      "contract_matches": true,
+      "expected_displayed_representatives": [
+        "INC-009"
+      ],
+      "expected_refinement_status": "single_representative_applied",
+      "failure_labels": [
+        "dominance_relation_error",
+        "retrieval_order_fallback",
+        "policy_authority_mutation"
+      ],
+      "integrated_policy_state": "evidence_found",
+      "missing_facts_unchanged": true,
+      "policy_state_unchanged": true,
+      "procedures_unchanged": true
+    },
+    {
+      "actual_displayed_representatives": [
+        "INC-009",
+        "INC-010"
+      ],
+      "actual_refinement_status": "explicit_tie_applied",
+      "baseline_policy_state": "evidence_found",
+      "case_id": "CSR-002-explicit-tie",
+      "contract_matches": true,
+      "expected_displayed_representatives": [
+        "INC-009",
+        "INC-010"
+      ],
+      "expected_refinement_status": "explicit_tie_applied",
+      "failure_labels": [
+        "forced_winner_error",
+        "candidate_order_dependence",
+        "policy_authority_mutation"
+      ],
+      "integrated_policy_state": "evidence_found",
+      "missing_facts_unchanged": true,
+      "policy_state_unchanged": true,
+      "procedures_unchanged": true
+    },
+    {
+      "actual_displayed_representatives": [
+        "INC-010"
+      ],
+      "actual_refinement_status": "not_requested",
+      "baseline_policy_state": "evidence_found",
+      "case_id": "CSR-003-selection-not-requested",
+      "contract_matches": true,
+      "expected_displayed_representatives": [
+        "INC-010"
+      ],
+      "expected_refinement_status": "not_requested",
+      "failure_labels": [
+        "unexpected_selector_invocation"
+      ],
+      "integrated_policy_state": "evidence_found",
+      "missing_facts_unchanged": true,
+      "policy_state_unchanged": true,
+      "procedures_unchanged": true
+    }
+  ],
+  "report_kind": "conditional_representative_selection_activation_readiness"
+}
