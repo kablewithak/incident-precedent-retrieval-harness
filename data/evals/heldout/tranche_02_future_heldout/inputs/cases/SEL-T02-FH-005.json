@@ -1,0 +1,18 @@
+{
+  "case_id": "SEL-T02-FH-005",
+  "contract_version": "tranche-02-selection-v1",
+  "selection_intake": {
+    "service": null,
+    "component": null,
+    "change_context": "none",
+    "operational_signal_families": [
+      "connection_pool_pressure"
+    ],
+    "contradicted_signal_families": []
+  },
+  "candidate_incident_ids": [
+    "INC-009",
+    "INC-012"
+  ],
+  "candidate_pool_family": "connection_pool_exhaustion"
+}

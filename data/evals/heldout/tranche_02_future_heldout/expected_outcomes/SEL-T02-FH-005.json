@@ -1,0 +1,48 @@
+{
+  "case_id": "SEL-T02-FH-005",
+  "expected_outcome_kind": "explicit_tie",
+  "expected_representative_ids": [],
+  "expected_non_dominated_ids": [
+    "INC-009",
+    "INC-012"
+  ],
+  "expected_reason_codes": {
+    "classification": "evaluator-diagnostic-only",
+    "codes": [
+      "correlated_source_reference_deduplicated",
+      "equal_context_alignment",
+      "explicit_non_dominated_tie"
+    ],
+    "non_runtime_notice": "These codes are comparison-harness diagnostics only and must not be loaded by runtime selector code."
+  },
+  "pre_selector_validation": {
+    "must_pass_before_selector": true,
+    "expected_status": "valid"
+  },
+  "source_grounding": {
+    "source_corpus": "synthetic RelayOps incident-card corpus supplied in blind authoring package",
+    "source_cards": [
+      {
+        "source_card_id": "INC-009",
+        "source_card_sha256": "2625957bae8015d8dbbd582ea852d00db20bbb8ff941b21101a3dcf26b5de69c",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      },
+      {
+        "source_card_id": "INC-012",
+        "source_card_sha256": "73fd77fd4ef9d3dcccf2edea398e284ae86837aaea5da4175548627c0084422c",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      }
+    ],
+    "grounding_note": "Only the supplied card IDs and their schema-derived signatures ground this evaluation asset."
+  },
+  "acceptance_reason": "Both cards expose one matching connection-pool signal family and exact none-context alignment; multiple canonical source values inside a single signature family must not become additional votes.",
+  "failure_label_intent": [
+    "tie_handling_error",
+    "schema_signature_error",
+    "forbidden_signal_leakage"
+  ],
+  "diagnostic_explanation": "This checks the contract’s cardinality rule: correlated source references that ground one family remain one family. Extra unobserved signal families are not support.",
+  "proposal_status": "not_frozen_evaluator_controlled_expected_outcome"
+}

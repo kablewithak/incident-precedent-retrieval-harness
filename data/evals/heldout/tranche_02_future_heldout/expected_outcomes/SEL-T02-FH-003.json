@@ -1,0 +1,49 @@
+{
+  "case_id": "SEL-T02-FH-003",
+  "expected_outcome_kind": "single_representative",
+  "expected_representative_ids": [
+    "INC-011"
+  ],
+  "expected_non_dominated_ids": [
+    "INC-011"
+  ],
+  "expected_reason_codes": {
+    "classification": "evaluator-diagnostic-only",
+    "codes": [
+      "exact_change_context_alignment",
+      "identity_unknown_non_supporting",
+      "equal_supported_signal_families"
+    ],
+    "non_runtime_notice": "These codes are comparison-harness diagnostics only and must not be loaded by runtime selector code."
+  },
+  "pre_selector_validation": {
+    "must_pass_before_selector": true,
+    "expected_status": "valid"
+  },
+  "source_grounding": {
+    "source_corpus": "synthetic RelayOps incident-card corpus supplied in blind authoring package",
+    "source_cards": [
+      {
+        "source_card_id": "INC-009",
+        "source_card_sha256": "2625957bae8015d8dbbd582ea852d00db20bbb8ff941b21101a3dcf26b5de69c",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      },
+      {
+        "source_card_id": "INC-011",
+        "source_card_sha256": "3c268cf7c57c1b1f8df67e6052205333111a412ce7e8469b374a48b697174842",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      }
+    ],
+    "grounding_note": "Only the supplied card IDs and their schema-derived signatures ground this evaluation asset."
+  },
+  "acceptance_reason": "The cards have equal supported signal-family alignment and no supplied identity evidence; deployment context is the only permitted discriminator.",
+  "failure_label_intent": [
+    "dominance_relation_error",
+    "contract_interpretation_error",
+    "forbidden_signal_leakage"
+  ],
+  "diagnostic_explanation": "This isolates change-context comparison without relying on card title wording or retrieval behavior. The candidate with deployment alignment must win only because unknown identity is neutral and the supported signal set is equal.",
+  "proposal_status": "not_frozen_evaluator_controlled_expected_outcome"
+}

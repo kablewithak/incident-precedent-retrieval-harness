@@ -1,0 +1,49 @@
+{
+  "case_id": "SEL-T02-FH-004",
+  "expected_outcome_kind": "single_representative",
+  "expected_representative_ids": [
+    "INC-011"
+  ],
+  "expected_non_dominated_ids": [
+    "INC-011"
+  ],
+  "expected_reason_codes": {
+    "classification": "evaluator-diagnostic-only",
+    "codes": [
+      "distinct_signal_family_superset",
+      "unknown_identity_non_supporting",
+      "unknown_context_non_supporting"
+    ],
+    "non_runtime_notice": "These codes are comparison-harness diagnostics only and must not be loaded by runtime selector code."
+  },
+  "pre_selector_validation": {
+    "must_pass_before_selector": true,
+    "expected_status": "valid"
+  },
+  "source_grounding": {
+    "source_corpus": "synthetic RelayOps incident-card corpus supplied in blind authoring package",
+    "source_cards": [
+      {
+        "source_card_id": "INC-009",
+        "source_card_sha256": "2625957bae8015d8dbbd582ea852d00db20bbb8ff941b21101a3dcf26b5de69c",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      },
+      {
+        "source_card_id": "INC-011",
+        "source_card_sha256": "3c268cf7c57c1b1f8df67e6052205333111a412ce7e8469b374a48b697174842",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      }
+    ],
+    "grounding_note": "Only the supplied card IDs and their schema-derived signatures ground this evaluation asset."
+  },
+  "acceptance_reason": "With no identity or context support, INC-011 contains every supported signal family of INC-009 plus independent readiness and component-error families.",
+  "failure_label_intent": [
+    "dominance_relation_error",
+    "schema_signature_error",
+    "forbidden_signal_leakage"
+  ],
+  "diagnostic_explanation": "The case distinguishes independent signal families from raw phrase count. It is source-grounded in the signatures, not a proxy for free-text matching.",
+  "proposal_status": "not_frozen_evaluator_controlled_expected_outcome"
+}

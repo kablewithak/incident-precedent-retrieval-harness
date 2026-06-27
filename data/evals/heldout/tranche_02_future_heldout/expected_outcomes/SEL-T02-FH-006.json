@@ -1,0 +1,48 @@
+{
+  "case_id": "SEL-T02-FH-006",
+  "expected_outcome_kind": "explicit_tie",
+  "expected_representative_ids": [],
+  "expected_non_dominated_ids": [
+    "INC-009",
+    "INC-010"
+  ],
+  "expected_reason_codes": {
+    "classification": "evaluator-diagnostic-only",
+    "codes": [
+      "contradicted_signal_penalty",
+      "identity_alignment_not_sufficient_with_extra_contradiction",
+      "explicit_non_dominated_tie"
+    ],
+    "non_runtime_notice": "These codes are comparison-harness diagnostics only and must not be loaded by runtime selector code."
+  },
+  "pre_selector_validation": {
+    "must_pass_before_selector": true,
+    "expected_status": "valid"
+  },
+  "source_grounding": {
+    "source_corpus": "synthetic RelayOps incident-card corpus supplied in blind authoring package",
+    "source_cards": [
+      {
+        "source_card_id": "INC-009",
+        "source_card_sha256": "2625957bae8015d8dbbd582ea852d00db20bbb8ff941b21101a3dcf26b5de69c",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      },
+      {
+        "source_card_id": "INC-010",
+        "source_card_sha256": "6d2420b97f3b9fe7a86e0fe879b87f95cb700897574ae47e1745e82d9d8296f5",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      }
+    ],
+    "grounding_note": "Only the supplied card IDs and their schema-derived signatures ground this evaluation asset."
+  },
+  "acceptance_reason": "INC-010 has stronger identity and context alignment but carries authentication_failure, which the intake explicitly contradicts; INC-009 avoids that contradiction but cannot dominate identity and context.",
+  "failure_label_intent": [
+    "dominance_relation_error",
+    "tie_handling_error",
+    "contract_interpretation_error"
+  ],
+  "diagnostic_explanation": "This is intentionally a tie, not a weak positive case. It proves that a candidate cannot win solely by stacking other alignments while retaining an extra contradicted signal family that a rival avoids.",
+  "proposal_status": "not_frozen_evaluator_controlled_expected_outcome"
+}

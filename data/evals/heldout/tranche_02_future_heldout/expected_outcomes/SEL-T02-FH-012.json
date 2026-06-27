@@ -1,0 +1,47 @@
+{
+  "case_id": "SEL-T02-FH-012",
+  "expected_outcome_kind": "invalid_input",
+  "expected_representative_ids": [],
+  "expected_non_dominated_ids": [],
+  "expected_reason_codes": {
+    "classification": "evaluator-diagnostic-only",
+    "codes": [
+      "cross_family_candidate_pool_rejected",
+      "selector_not_executed"
+    ],
+    "non_runtime_notice": "These codes are comparison-harness diagnostics only and must not be loaded by runtime selector code."
+  },
+  "pre_selector_validation": {
+    "must_pass_before_selector": false,
+    "expected_status": "invalid",
+    "validation_boundary": "candidate_pool_family",
+    "expected_error_class": "cross_family_candidate_pool_rejected",
+    "selector_execution_permitted": false
+  },
+  "source_grounding": {
+    "source_corpus": "synthetic RelayOps incident-card corpus supplied in blind authoring package",
+    "source_cards": [
+      {
+        "source_card_id": "INC-001",
+        "source_card_sha256": "6b86e6aa5b8ccc3269231511604af06981084918f6f73f665e05daa7a18efcdd",
+        "incident_family": "queue_backlog_consumer_failure",
+        "selection_signature_present": false
+      },
+      {
+        "source_card_id": "INC-009",
+        "source_card_sha256": "2625957bae8015d8dbbd582ea852d00db20bbb8ff941b21101a3dcf26b5de69c",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      }
+    ],
+    "grounding_note": "Only the supplied card IDs and their schema-derived signatures ground this evaluation asset."
+  },
+  "acceptance_reason": "The candidate pool contains source cards from distinct incident families and must fail closed at candidate-pool validation before any representative comparison may occur.",
+  "failure_label_intent": [
+    "intake_validation_error",
+    "schema_signature_error",
+    "harness_or_manifest_error"
+  ],
+  "diagnostic_explanation": "This is deliberately a mixed-family candidate pool. It rejects cross-family membership before selector execution and does not ask the selector to choose a representative.",
+  "proposal_status": "not_frozen_evaluator_controlled_expected_outcome"
+}

@@ -1,0 +1,147 @@
+{
+  "acceptance_audit_path": "docs/reports/tranche-02-future-heldout-v2-acceptance-audit.json",
+  "active_policy_loaded": false,
+  "decision": "frozen_test_only",
+  "expected_outcome_count": 12,
+  "freeze_manifest_path": "data/evals/heldout/tranche_02_future_heldout/TRANCHE_02_FUTURE_HELDOUT_FREEZE_MANIFEST.json",
+  "freeze_manifest_sha256": "75f7421220824ab2ad3ac9629653a71dcc8289a82e53ecc29205974ee2e9e049",
+  "frozen_fixture_path": "data/evals/heldout/tranche_02_future_heldout",
+  "generated_at": "2026-06-27T19:07:07.914191Z",
+  "non_claims": [
+    "This operation freezes test-only evaluation inputs and evaluator outcomes; it does not activate representative selection.",
+    "This operation does not load selector implementation, active policy, retrieval, procedures, existing held-out assets, or procedure-asymmetry fixtures.",
+    "This operation does not authorize an activation comparison, policy integration, procedure execution, production use, or customer-data validation."
+  ],
+  "pre_selector_checks": [
+    {
+      "case_id": "SEL-T02-FH-001",
+      "expected_error_class": null,
+      "expected_outcome_kind": "single_representative",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-002",
+      "expected_error_class": null,
+      "expected_outcome_kind": "single_representative",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-003",
+      "expected_error_class": null,
+      "expected_outcome_kind": "single_representative",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-004",
+      "expected_error_class": null,
+      "expected_outcome_kind": "single_representative",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-005",
+      "expected_error_class": null,
+      "expected_outcome_kind": "explicit_tie",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-006",
+      "expected_error_class": null,
+      "expected_outcome_kind": "explicit_tie",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-007",
+      "expected_error_class": null,
+      "expected_outcome_kind": "explicit_tie",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-008",
+      "expected_error_class": null,
+      "expected_outcome_kind": "explicit_tie",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-009",
+      "expected_error_class": null,
+      "expected_outcome_kind": "explicit_tie",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-010",
+      "expected_error_class": null,
+      "expected_outcome_kind": "single_representative",
+      "selector_execution_permitted": true,
+      "validation_boundary": "RepresentativeSelectionIntake_and_candidate_pool_shape",
+      "validation_status": "valid"
+    },
+    {
+      "case_id": "SEL-T02-FH-011",
+      "expected_error_class": "duplicate_operational_signal_family",
+      "expected_outcome_kind": "invalid_input",
+      "selector_execution_permitted": false,
+      "validation_boundary": "RepresentativeSelectionIntake",
+      "validation_status": "invalid_expected"
+    },
+    {
+      "case_id": "SEL-T02-FH-012",
+      "expected_error_class": "cross_family_candidate_pool_rejected",
+      "expected_outcome_kind": "invalid_input",
+      "selector_execution_permitted": false,
+      "validation_boundary": "candidate_pool_family",
+      "validation_status": "invalid_expected"
+    }
+  ],
+  "proposal_archive_name": "tranche-02-future-heldout-blind-authoring-proposal-v2.zip",
+  "proposal_archive_sha256": "a371be0ab28e2b7f742cf682f212d2665e4e2d893004bc73e72c898c3d886fa0",
+  "report_kind": "tranche_02_future_heldout_freeze",
+  "retrieval_loaded": false,
+  "runtime_case_count": 12,
+  "selector_activation_authorized": false,
+  "selector_loaded": false,
+  "source_aggregate_verifications": [
+    {
+      "aggregate_name": "runtime_inputs",
+      "expected_sha256": "5a165ec48d0528362440f6736d25fb914c1d914aa21e1231b7e81b1db9e763b1",
+      "formula": "sha256_sorted_sha256_byte_count_relative_path_lines_v1",
+      "observed_sha256": "5a165ec48d0528362440f6736d25fb914c1d914aa21e1231b7e81b1db9e763b1"
+    },
+    {
+      "aggregate_name": "expected_outcomes",
+      "expected_sha256": "ec6225ae594be5d2f1bd21dad559baede4e34d102293167c67ee773ba9d7bdea",
+      "formula": "sha256_sorted_sha256_byte_count_relative_path_lines_v1",
+      "observed_sha256": "ec6225ae594be5d2f1bd21dad559baede4e34d102293167c67ee773ba9d7bdea"
+    },
+    {
+      "aggregate_name": "documentation",
+      "expected_sha256": "47b61266488a6f5aeec5788d6684c4a84860e85adaf19b46ff6808d98c75c397",
+      "formula": "sha256_sorted_sha256_byte_count_relative_path_lines_v1",
+      "observed_sha256": "47b61266488a6f5aeec5788d6684c4a84860e85adaf19b46ff6808d98c75c397"
+    },
+    {
+      "aggregate_name": "all_non_manifest_assets",
+      "expected_sha256": "a2c4871677fa8a6d5210ae31412b46bf128af78b709cbe48da4ccca614d88639",
+      "formula": "sha256_sorted_sha256_byte_count_relative_path_lines_v1",
+      "observed_sha256": "a2c4871677fa8a6d5210ae31412b46bf128af78b709cbe48da4ccca614d88639"
+    }
+  ],
+  "source_archive_asset_count": 27
+}

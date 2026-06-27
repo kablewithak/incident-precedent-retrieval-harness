@@ -1,0 +1,46 @@
+{
+  "case_id": "SEL-T02-FH-011",
+  "expected_outcome_kind": "invalid_input",
+  "expected_representative_ids": [],
+  "expected_non_dominated_ids": [],
+  "expected_reason_codes": {
+    "classification": "evaluator-diagnostic-only",
+    "codes": [
+      "duplicate_intake_signal_family_rejected",
+      "selector_not_executed"
+    ],
+    "non_runtime_notice": "These codes are comparison-harness diagnostics only and must not be loaded by runtime selector code."
+  },
+  "pre_selector_validation": {
+    "must_pass_before_selector": false,
+    "expected_status": "invalid",
+    "validation_boundary": "RepresentativeSelectionIntake",
+    "expected_error_class": "duplicate_operational_signal_family",
+    "selector_execution_permitted": false
+  },
+  "source_grounding": {
+    "source_corpus": "synthetic RelayOps incident-card corpus supplied in blind authoring package",
+    "source_cards": [
+      {
+        "source_card_id": "INC-009",
+        "source_card_sha256": "2625957bae8015d8dbbd582ea852d00db20bbb8ff941b21101a3dcf26b5de69c",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      },
+      {
+        "source_card_id": "INC-010",
+        "source_card_sha256": "6d2420b97f3b9fe7a86e0fe879b87f95cb700897574ae47e1745e82d9d8296f5",
+        "incident_family": "connection_pool_exhaustion",
+        "selection_signature_present": true
+      }
+    ],
+    "grounding_note": "Only the supplied card IDs and their schema-derived signatures ground this evaluation asset."
+  },
+  "acceptance_reason": "The typed intake repeats the same operational signal family and therefore violates the published intake validation contract before any candidate comparison may occur.",
+  "failure_label_intent": [
+    "intake_validation_error",
+    "harness_or_manifest_error"
+  ],
+  "diagnostic_explanation": "This is deliberately malformed only at the typed intake boundary. It proves the harness fails closed before selection rather than de-duplicating or silently accepting invalid evidence.",
+  "proposal_status": "not_frozen_evaluator_controlled_expected_outcome"
+}
