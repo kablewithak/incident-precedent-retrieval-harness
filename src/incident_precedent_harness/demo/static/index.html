@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Related Incident Evidence · Local Demo</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1020;
+      --panel: #121a2f;
+      --panel-2: #17223d;
+      --text: #eaf0ff;
+      --muted: #aebad4;
+      --line: #2a385d;
+      --good: #75d6a5;
+      --warn: #ffc66b;
+      --bad: #ff8c8c;
+      --accent: #86b7ff;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: radial-gradient(circle at top right, #162a53 0, var(--bg) 45%); color: var(--text); min-height: 100vh; }
+    header { max-width: 1500px; margin: 0 auto; padding: 30px 28px 18px; display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; }
+    h1 { margin: 0 0 8px; font-size: clamp(1.7rem, 3vw, 2.45rem); letter-spacing: -0.035em; }
+    h2 { margin: 0 0 10px; font-size: 1.05rem; }
+    h3 { margin: 0 0 7px; font-size: .92rem; color: var(--muted); font-weight: 650; text-transform: uppercase; letter-spacing: .075em; }
+    p { margin: 0; color: var(--muted); line-height: 1.5; }
+    .eyebrow { font-size: .78rem; font-weight: 720; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .scope { max-width: 400px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: rgba(18,26,47,.76); color: var(--muted); font-size: .88rem; line-height: 1.4; }
+    main { max-width: 1500px; margin: 0 auto; padding: 0 28px 36px; }
+    .grid { display:grid; grid-template-columns: minmax(360px, .95fr) minmax(420px, 1.25fr); gap: 18px; }
+    .panel { border: 1px solid var(--line); border-radius: 16px; background: rgba(18,26,47,.88); box-shadow: 0 18px 48px rgba(0,0,0,.19); overflow: hidden; }
+    .panel-inner { padding: 20px; }
+    .scenarios { display:flex; flex-wrap:wrap; gap:8px; margin: 16px 0 20px; }
+    button, select, textarea { font: inherit; }
+    button { cursor: pointer; border: 1px solid var(--line); background: #20325a; color: var(--text); border-radius: 9px; padding: 9px 11px; font-weight: 650; }
+    button:hover { border-color: var(--accent); }
+    button.active { background: #284b8d; border-color: var(--accent); }
+    button.primary { width: 100%; background: #2e65bd; border-color: #5c93ee; padding: 12px; margin-top: 16px; }
+    button.primary:disabled { cursor: not-allowed; opacity: .7; }
+    label { display:block; font-size:.86rem; color:var(--muted); margin: 12px 0 6px; }
+    textarea, select { width:100%; color:var(--text); background:#0d152a; border:1px solid var(--line); border-radius:9px; padding:10px; }
+    textarea { min-height: 130px; resize: vertical; line-height:1.4; }
+    .fact-grid { display:grid; grid-template-columns: 1fr 130px; gap: 8px 10px; align-items:center; margin-top:10px; }
+    .fact-grid > div { color:var(--muted); font-size:.86rem; }
+    details { margin-top: 14px; padding-top: 14px; border-top:1px solid var(--line); }
+    summary { cursor:pointer; color:var(--accent); font-weight:680; }
+    .selection-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .checks { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap: 8px; margin-top:10px; }
+    .check { display:flex; gap:8px; align-items:center; color:var(--muted); font-size:.84rem; }
+    .check input { accent-color: var(--accent); }
+    .results-empty { min-height: 550px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px; }
+    .results-empty .icon { font-size:3rem; margin-bottom:12px; }
+    .status { margin-top: 14px; border-radius:9px; border:1px solid var(--line); padding: 10px 12px; font-size:.9rem; display:none; }
+    .status.good { display:block; border-color: rgba(117,214,165,.45); background:rgba(49,124,88,.18); color:#c9ffe0; }
+    .status.bad { display:block; border-color: rgba(255,140,140,.45); background:rgba(129,50,50,.18); color:#ffd4d4; }
+    .result { display:none; padding:20px; }
+    .result.visible { display:block; }
+    .decision { display:flex; flex-wrap:wrap; align-items:center; gap:10px; padding-bottom:16px; margin-bottom:16px; border-bottom:1px solid var(--line); }
+    .badge { display:inline-flex; align-items:center; min-height:28px; border-radius:999px; padding:3px 10px; font-size:.78rem; font-weight:760; letter-spacing:.02em; border:1px solid; }
+    .badge.evidence_found { background:rgba(66,143,99,.2); color:#b6f2c8; border-color:rgba(117,214,165,.5); }
+    .badge.evidence_found_with_conflict, .badge.missing_critical_facts { background:rgba(150,111,34,.2); color:#ffe4a8; border-color:rgba(255,198,107,.5); }
+    .badge.insufficient_precedent, .badge.provider_degraded { background:rgba(148,59,66,.19); color:#ffc8ca; border-color:rgba(255,140,140,.5); }
+    .result-grid { display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
+    .card { border:1px solid var(--line); border-radius:12px; background:var(--panel-2); padding:14px; }
+    .value { color:var(--text); font-weight:680; overflow-wrap:anywhere; }
+    .muted { color:var(--muted); font-size:.87rem; line-height:1.48; }
+    ul { margin:8px 0 0; padding-left:18px; color:var(--muted); }
+    li { margin:4px 0; }
+    .notice { margin-top:14px; padding:12px; border-left:3px solid var(--warn); background:rgba(160,117,38,.14); color:#ffe5ad; font-size:.88rem; line-height:1.45; }
+    .helper { margin-top:8px; font-size:.86rem; }
+    .safety-banner { margin:0 0 14px; padding:12px 14px; border:1px solid rgba(255,198,107,.5); border-radius:12px; background:rgba(160,117,38,.14); color:#ffe5ad; font-size:.9rem; line-height:1.45; }
+    .state-explainer { margin-top:8px; }
+    .technical-state { margin-top:10px; font-size:.78rem; color:var(--muted); }
+    pre { overflow:auto; background:#081022; border:1px solid var(--line); border-radius:12px; padding:13px; color:#cfe0ff; font-size:.78rem; line-height:1.42; max-height:330px; }
+    footer { max-width:1500px; margin:0 auto; padding:0 28px 30px; color:var(--muted); font-size:.8rem; }
+    @media (max-width: 980px) { .grid { grid-template-columns: 1fr; } .results-empty { min-height:260px; } }
+    @media (max-width: 640px) { header, main, footer { padding-left:16px; padding-right:16px; } header { flex-direction:column; } .selection-grid, .result-grid { grid-template-columns:1fr; } .fact-grid { grid-template-columns:1fr; } .checks { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <div class="eyebrow">Related Incident Evidence · Local Demo</div>
+      <h1>Evidence before action.</h1>
+      <p>Tell the system what you have confirmed. It will show safe historical evidence, preserve uncertainty, and keep every action with a human.</p>
+    </div>
+    <div class="scope"><strong>Local synthetic demonstration only.</strong><br>Human review is always required. Nothing here diagnoses root cause, runs a procedure, uploads company data, or creates a customer account.</div>
+  </header>
+
+  <main>
+    <div class="grid">
+      <section class="panel">
+        <div class="panel-inner">
+          <h2>Review the current incident</h2>
+          <p>Choose a safe demo scenario or describe a sanitized incident. The system will show what is safe to review and what still needs human judgment.</p>
+          <div class="scenarios">
+            <button class="scenario active" data-scenario="pool">Pool-pressure evidence</button>
+            <button class="scenario" data-scenario="conflict">Conflicting evidence</button>
+            <button class="scenario" data-scenario="insufficient">No safe match</button>
+            <button class="scenario" data-scenario="degraded">Evidence service unavailable</button>
+          </div>
+
+          <label for="summary">What is happening right now?</label>
+          <p class="helper">Use a short sanitized summary. Do not paste credentials, customer identifiers, or raw logs.</p>
+          <textarea id="summary"></textarea>
+
+          <details open>
+            <summary>What have we confirmed?</summary>
+            <p class="helper">Mark a fact as confirmed when you observed it, ruled out when you checked and rejected it, or leave it as not checked when it has not been verified.</p>
+            <div class="fact-grid" id="facts"></div>
+          </details>
+
+          <details>
+            <summary>Advanced: choose the closest past example</summary>
+            <p class="helper">Optional. This can only change which already-approved past example is highlighted. It cannot change the conclusion, missing facts, procedure posture, or safety limits.</p>
+            <label class="check"><input id="selection-enabled" type="checkbox" checked> Highlight the closest approved past example</label>
+            <div id="selection-controls">
+              <div class="selection-grid">
+                <div><label for="service">Service</label><select id="service"></select></div>
+                <div><label for="component">Component</label><select id="component"></select></div>
+                <div><label for="change-context">Change context</label><select id="change-context"></select></div>
+              </div>
+              <div class="checks" id="signals"></div>
+            </div>
+          </details>
+
+          <button id="submit" class="primary">Check the evidence safely</button>
+          <div id="status" class="status" role="status"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div id="empty" class="results-empty">
+          <div class="icon">⌁</div>
+          <h2>Start a safe evidence review.</h2>
+          <p>The result will explain what the system can show, what remains uncertain, and why no action runs automatically.</p>
+        </div>
+        <div id="result" class="result"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer>Loopback-only local surface · no payload persistence · synthetic RelayOps corpus · human review required · no procedure runs automatically</footer>
+
+  <script>
+    const factDefinitions = [
+      ["database_connection_pool_utilization", "Database connection-pool utilization"],
+      ["database_connection_acquire_latency", "Database connection-acquire latency"],
+      ["active_database_connections", "Active database connections"],
+      ["migration_lock_waits", "Migration lock waits"],
+      ["error_rate_by_component", "Component error rate"],
+      ["worker_deployment_version", "Worker deployment version"],
+      ["queue_depth", "Queue depth"],
+      ["consumer_error_rate", "Consumer error rate"]
+    ];
+    const services = ["payments-api", "auth-service", "webhook-delivery-service", "feature-flag-service", "notification-service", "workflow-service"];
+    const components = ["postgres-client-pool", "auth-db-client", "delivery-store-client", "delivery-consumer", "delivery-store-writer", "flag-evaluator", "event-consumer", "notification-worker", "cache-update-worker", "postgres-primary"];
+    const contexts = ["none", "configuration", "deployment", "migration", "feature_flag", "dependency", "unknown"];
+    const signals = [
+      ["connection_pool_pressure", "Connection-pool pressure"],
+      ["active_connection_pressure", "Active connection pressure"],
+      ["authentication_failure", "Authentication failure"],
+      ["readiness_failure", "Readiness failure"],
+      ["component_error_pressure", "Component error pressure"],
+      ["queue_backlog", "Queue backlog"],
+      ["retry_amplification", "Retry amplification"]
+    ];
+    const scenarios = {
+      pool: {
+        summary: "Payments API requests are timing out while database connection-pool utilisation and connection-acquire latency are elevated. Active database connections are high. Migration lock waits are absent.",
+        facts: { database_connection_pool_utilization:"confirmed", database_connection_acquire_latency:"confirmed", active_database_connections:"confirmed", migration_lock_waits:"contradicted", error_rate_by_component:"confirmed" },
+        selection: true, service:"payments-api", component:"postgres-client-pool", context:"none", signals:["connection_pool_pressure", "active_connection_pressure"], provider:true
+      },
+      conflict: {
+        summary: "After a worker release, webhook processing slowed and backlog increased. Worker deployment version, queue depth, consumer error rate, database pool utilisation, connection-acquire latency, active database connections, and component error rate are all elevated. Migration lock waits are absent.",
+        facts: { worker_deployment_version:"confirmed", queue_depth:"confirmed", consumer_error_rate:"confirmed", database_connection_pool_utilization:"confirmed", database_connection_acquire_latency:"confirmed", active_database_connections:"confirmed", error_rate_by_component:"confirmed", migration_lock_waits:"contradicted" },
+        selection: false, provider:true
+      },
+      insufficient: {
+        summary: "A user reports a vague service slowdown, but there are no confirmed queue, migration, or database-pool verification facts.",
+        facts: {}, selection:false, provider:true
+      },
+      degraded: {
+        summary: "Payments API requests are timing out while database connection-pool utilisation and connection-acquire latency are elevated. Active database connections are high.",
+        facts: { database_connection_pool_utilization:"confirmed", database_connection_acquire_latency:"confirmed", active_database_connections:"confirmed", migration_lock_waits:"contradicted", error_rate_by_component:"confirmed" },
+        selection:false, provider:false
+      }
+    };
+    let currentScenario = "pool";
+
+    const decisionMessages = {
+      evidence_found: {
+        title: "Relevant historical evidence found",
+        description: "The system found historical evidence that is safe to review. A human still decides what to investigate next."
+      },
+      evidence_found_with_conflict: {
+        title: "More than one plausible explanation remains",
+        description: "The evidence points to more than one possible path. The system is deliberately not choosing a single explanation or procedure."
+      },
+      missing_critical_facts: {
+        title: "More verification is needed",
+        description: "Plausible historical evidence exists, but key facts have not been confirmed yet."
+      },
+      insufficient_precedent: {
+        title: "No safe historical match found",
+        description: "The system does not have enough grounded historical evidence to show a reliable precedent."
+      },
+      provider_degraded: {
+        title: "Evidence service unavailable",
+        description: "The system is failing closed. It is not showing precedent or procedure candidates while required evidence capability is unavailable."
+      }
+    };
+
+    const selectionMessages = {
+      not_requested: "No closest-example comparison was requested. The policy display is unchanged.",
+      selection_not_applied: "A closest-example comparison was not safe or applicable here, so the system preserved the complete policy-approved set.",
+      single_representative_applied: "One approved past example best matches the additional details you supplied. This does not change the system conclusion.",
+      explicit_tie_applied: "More than one approved past example remains equally relevant, so the system kept the full tie set visible."
+    };
+
+    function options(values) { return values.map(v => `<option value="${v}">${v}</option>`).join(""); }
+    document.getElementById("service").innerHTML = options(services);
+    document.getElementById("component").innerHTML = options(components);
+    document.getElementById("change-context").innerHTML = options(contexts);
+    document.getElementById("facts").innerHTML = factDefinitions.map(([id,label]) => `<div>${label}</div><select data-fact="${id}"><option value="unknown">not checked yet</option><option value="confirmed">confirmed</option><option value="contradicted">ruled out</option></select>`).join("");
+    document.getElementById("signals").innerHTML = signals.map(([id,label]) => `<label class="check"><input type="checkbox" value="${id}"> ${label}</label>`).join("");
+
+    function applyScenario(key) {
+      currentScenario = key;
+      const scenario = scenarios[key];
+      document.getElementById("summary").value = scenario.summary;
+      document.getElementById("selection-enabled").checked = scenario.selection;
+      document.getElementById("selection-controls").style.opacity = scenario.selection ? "1" : ".45";
+      document.getElementById("selection-controls").style.pointerEvents = scenario.selection ? "auto" : "none";
+      document.getElementById("service").value = scenario.service || "payments-api";
+      document.getElementById("component").value = scenario.component || "postgres-client-pool";
+      document.getElementById("change-context").value = scenario.context || "none";
+      document.querySelectorAll("select[data-fact]").forEach(select => select.value = (scenario.facts[select.dataset.fact] || "unknown"));
+      document.querySelectorAll("#signals input").forEach(input => input.checked = (scenario.signals || []).includes(input.value));
+      document.querySelectorAll(".scenario").forEach(button => button.classList.toggle("active", button.dataset.scenario === key));
+    }
+    document.querySelectorAll(".scenario").forEach(button => button.addEventListener("click", () => applyScenario(button.dataset.scenario)));
+    document.getElementById("selection-enabled").addEventListener("change", event => {
+      const active = event.target.checked;
+      document.getElementById("selection-controls").style.opacity = active ? "1" : ".45";
+      document.getElementById("selection-controls").style.pointerEvents = active ? "auto" : "none";
+    });
+
+    function payload() {
+      const facts = [...document.querySelectorAll("select[data-fact]")]
+        .filter(select => select.value !== "unknown")
+        .map(select => ({ fact: select.dataset.fact, status: select.value }));
+      const body = {
+        input_summary: document.getElementById("summary").value.trim(),
+        observed_facts: facts,
+        provider_available: scenarios[currentScenario].provider
+      };
+      if (document.getElementById("selection-enabled").checked) {
+        body.representative_selection_intake = {
+          service: document.getElementById("service").value,
+          component: document.getElementById("component").value,
+          change_context: document.getElementById("change-context").value,
+          operational_signal_families: [...document.querySelectorAll("#signals input:checked")].map(input => input.value),
+          contradicted_signal_families: []
+        };
+      }
+      return body;
+    }
+
+    function setStatus(type, message) {
+      const status = document.getElementById("status");
+      status.className = `status ${type}`;
+      status.textContent = message;
+    }
+    function safeList(items) { return items && items.length ? `<ul>${items.map(item => `<li>${escapeHtml(String(item))}</li>`).join("")}</ul>` : `<p class="muted">None</p>`; }
+    function escapeHtml(value) { const div = document.createElement("div"); div.textContent = value; return div.innerHTML; }
+    function renderPacket(packet) {
+      const decision = packet.policy_decision;
+      const selection = packet.representative_selection;
+      const advisory = packet.semantic_advisory;
+      const selected = selection ? selection.displayed_representative_ids : decision.retained_precedent_ids;
+      const decisionMessage = decisionMessages[decision.decision_state] || {
+        title: decision.decision_state,
+        description: "The system returned a governed evidence decision."
+      };
+      const selectionMessage = selection
+        ? (selectionMessages[selection.status] || "The closest-example comparison produced a trace-safe result.")
+        : "No closest-example comparison was requested. The policy display is unchanged.";
+      const semantic = advisory.candidate_evidence.map(item => `${item.incident_id} · rank ${item.rank}`).join("<br>") || "No advisory candidates";
+      document.getElementById("empty").style.display = "none";
+      const result = document.getElementById("result");
+      result.classList.add("visible");
+      result.innerHTML = `
+        <div class="decision">
+          <div><h2 style="margin-bottom:4px">Evidence review</h2><p>${escapeHtml(decisionMessage.description)}</p></div>
+          <span class="badge ${decision.decision_state}">${escapeHtml(decisionMessage.title)}</span>
+        </div>
+        <div class="safety-banner"><strong>Human review required.</strong> No procedure will run automatically. This screen supports investigation; it does not diagnose, remediate, or take production action.</div>
+        <div class="result-grid">
+          <div class="card">
+            <h3>System conclusion</h3>
+            <div class="value">${escapeHtml(decisionMessage.title)}</div>
+            <p class="muted state-explainer">${escapeHtml(decisionMessage.description)}</p>
+            <p class="technical-state">Technical state: <code>${escapeHtml(decision.decision_state)}</code></p>
+            <p class="muted" style="margin-top:12px">Historical evidence the system can safely show</p>
+            ${safeList(decision.retained_precedent_ids)}
+            <p class="muted" style="margin-top:12px">Facts that still need verification</p>
+            ${safeList(decision.missing_critical_facts)}
+          </div>
+          <div class="card">
+            <h3>Closest past example</h3>
+            <div class="value">${selected.length ? selected.map(escapeHtml).join(", ") : "None"}</div>
+            <p class="muted state-explainer">${escapeHtml(selectionMessage)}</p>
+            <p class="technical-state">${selection ? `Technical selection status: <code>${escapeHtml(selection.status)}</code>` : "No advanced closest-example comparison supplied."}</p>
+          </div>
+          <div class="card">
+            <h3>Human review and suggested investigation</h3>
+            <p class="muted">These are optional investigation materials for a human responder. They do not authorize a change, restart, configuration update, or any other production action.</p>
+            <p class="muted" style="margin-top:12px">Suggested investigation material</p>
+            ${safeList(decision.candidate_procedure_ids)}
+            <p class="notice"><strong>Review only.</strong> Procedure execution authorized: <strong>${packet.procedure_execution_authorized}</strong></p>
+          </div>
+          <div class="card">
+            <h3>Related evidence from Superlinked SIE</h3>
+            <div class="value">${escapeHtml(advisory.status === "available" ? "Advisory evidence available" : "Advisory evidence unavailable")}</div>
+            <p class="muted" style="margin-top:8px">${semantic}</p>
+            <p class="muted" style="margin-top:12px">This is supporting context only. It cannot change the system conclusion, missing facts, procedure posture, or no-execution limit.</p>
+            <p class="technical-state">Technical advisory state: <code>${escapeHtml(advisory.status)}</code></p>
+          </div>
+        </div>
+        <div class="notice"><strong>Evidence before action.</strong> Historical incident evidence is not a diagnosis, remediation instruction, or production operating decision.</div>
+        <details><summary>Inspect technical details</summary><pre>${escapeHtml(JSON.stringify(packet, null, 2))}</pre></details>
+      `;
+    }
+
+    document.getElementById("submit").addEventListener("click", async () => {
+      const button = document.getElementById("submit");
+      const body = payload();
+      if (!body.input_summary) { setStatus("bad", "Add a sanitized description of what is happening."); return; }
+      button.disabled = true;
+      setStatus("good", "Checking the evidence safely…");
+      try {
+        const response = await fetch("/api/triage", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body) });
+        const data = await response.json();
+        if (!response.ok || data.status !== "ok") throw new Error(data.safe_message || "The local demo request was refused.");
+        renderPacket(data.packet);
+        setStatus("good", "Evidence review ready. The conclusion, supporting evidence, and human-review limit are shown separately.");
+      } catch (error) {
+        setStatus("bad", error.message || "The local demo could not safely create a packet.");
+      } finally { button.disabled = false; }
+    });
+
+    applyScenario("pool");
+  </script>
+</body>
+</html>
