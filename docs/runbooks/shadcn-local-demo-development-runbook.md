@@ -17,12 +17,14 @@ Run the React/shadcn development frontend against the existing local Python demo
 ```powershell
 Set-Location .\apps\local-demo-ui
 
-npm install
+npm ci
 
 npm run test
 
 npm run build
 ```
+
+`npm ci` installs exactly the public-registry dependency graph pinned in `package-lock.json`.
 
 `node_modules/`, Vite caches, and `dist/` must not be committed.
 
@@ -56,6 +58,7 @@ From the repository root:
 
 ```powershell
 python -m pytest .\tests\unit\test_local_demo_application.py
+
 python -m pytest .\tests\unit\test_local_demo_ux_copy.py
 ```
 
@@ -63,6 +66,7 @@ From `apps\local-demo-ui`:
 
 ```powershell
 npm run test
+
 npm run build
 ```
 
