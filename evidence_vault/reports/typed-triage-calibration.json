@@ -1,0 +1,240 @@
+{
+  "calibration_case_count": 12,
+  "generated_at": "2026-06-27T15:34:01.098656Z",
+  "known_limits": [
+    "Calibration-only report; held-out cases are not loaded or scored.",
+    "The anti-anchoring policy consumes deterministic keyword candidates only in this slice.",
+    "Local-SIE dense candidates are advisory evidence and cannot alter policy decision state, retained precedents, missing facts, or procedure eligibility.",
+    "No packet authorizes procedure execution, automated remediation, or root-cause determination.",
+    "This report evaluates packet control behavior, not retrieval-quality superiority or production readiness."
+  ],
+  "metrics": {
+    "calibration_case_count": 12,
+    "decision_state_match_rate": 1.0,
+    "matching_decision_state_count": 12,
+    "procedure_execution_authorized_count": 0,
+    "provider_degraded_packet_count": 1,
+    "semantic_advisory_available_count": 11
+  },
+  "outcomes": [
+    {
+      "decision_state_matches": true,
+      "eval_id": "EVAL-001",
+      "expected_decision_state": "evidence_found",
+      "failure_labels": [],
+      "observed_decision_state": "evidence_found",
+      "policy_retained_precedent_ids": [
+        "INC-003"
+      ],
+      "procedure_execution_authorized": false,
+      "semantic_advisory_status": "available",
+      "semantic_candidate_ids": [
+        "INC-012",
+        "INC-003",
+        "INC-007",
+        "INC-004",
+        "INC-002"
+      ]
+    },
+    {
+      "decision_state_matches": true,
+      "eval_id": "EVAL-002",
+      "expected_decision_state": "missing_critical_facts",
+      "failure_labels": [],
+      "observed_decision_state": "missing_critical_facts",
+      "policy_retained_precedent_ids": [
+        "INC-003"
+      ],
+      "procedure_execution_authorized": false,
+      "semantic_advisory_status": "available",
+      "semantic_candidate_ids": [
+        "INC-004",
+        "INC-003",
+        "INC-002",
+        "INC-001",
+        "INC-007"
+      ]
+    },
+    {
+      "decision_state_matches": true,
+      "eval_id": "EVAL-003",
+      "expected_decision_state": "insufficient_precedent",
+      "failure_labels": [],
+      "observed_decision_state": "insufficient_precedent",
+      "policy_retained_precedent_ids": [],
+      "procedure_execution_authorized": false,
+      "semantic_advisory_status": "available",
+      "semantic_candidate_ids": [
+        "INC-012",
+        "INC-001",
+        "INC-004",
+        "INC-007",
+        "INC-003"
+      ]
+    },
+    {
+      "decision_state_matches": true,
+      "eval_id": "EVAL-004",
+      "expected_decision_state": "provider_degraded",
+      "failure_labels": [],
+      "observed_decision_state": "provider_degraded",
+      "policy_retained_precedent_ids": [],
+      "procedure_execution_authorized": false,
+      "semantic_advisory_status": "provider_degraded",
+      "semantic_candidate_ids": []
+    },
+    {
+      "decision_state_matches": true,
+      "eval_id": "EVAL-005",
+      "expected_decision_state": "evidence_found",
+      "failure_labels": [],
+      "observed_decision_state": "evidence_found",
+      "policy_retained_precedent_ids": [
+        "INC-005"
+      ],
+      "procedure_execution_authorized": false,
+      "semantic_advisory_status": "available",
+      "semantic_candidate_ids": [
+        "INC-005",
+        "INC-006",
+        "INC-002",
+        "INC-007",
+        "INC-008"
+      ]
+    },
+    {
+      "decision_state_matches": true,
+      "eval_id": "EVAL-006",
+      "expected_decision_state": "missing_critical_facts",
+      "failure_labels": [],
+      "observed_decision_state": "missing_critical_facts",
+      "policy_retained_precedent_ids": [
+        "INC-007"
+      ],
+      "procedure_execution_authorized": false,
+      "semantic_advisory_status": "available",
+      "semantic_candidate_ids": [
+        "INC-007",
+        "INC-012",
+        "INC-003",
+        "INC-005",
+        "INC-006"
+      ]
+    },
+    {
+      "decision_state_matches": true,
+      "eval_id": "EVAL-007",
+      "expected_decision_state": "evidence_found",
+      "failure_labels": [],
+      "observed_decision_state": "evidence_found",
+      "policy_retained_precedent_ids": [
+        "INC-003"
+      ],
+      "procedure_execution_authorized": false,
+      "semantic_advisory_status": "available",
+      "semantic_candidate_ids": [
+        "INC-003",
+        "INC-007",
+        "INC-012",
+        "INC-004",
+        "INC-006"
+      ]
+    },
+    {
+      "decision_state_matches": true,
+      "eval_id": "EVAL-008",
+      "expected_decision_state": "insufficient_precedent",
+      "failure_labels": [],
+      "observed_decision_state": "insufficient_precedent",
+      "policy_retained_precedent_ids": [],
+      "procedure_execution_authorized": false,
+      "semantic_advisory_status": "available",
+      "semantic_candidate_ids": [
+        "INC-008",
+        "INC-006",
+        "INC-009",
+        "INC-005",
+        "INC-007"
+      ]
+    },
+    {
+      "decision_state_matches": true,
+      "eval_id": "EVAL-009",
+      "expected_decision_state": "evidence_found",
+      "failure_labels": [],
+      "observed_decision_state": "evidence_found",
+      "policy_retained_precedent_ids": [
+        "INC-009"
+      ],
+      "procedure_execution_authorized": false,
+      "semantic_advisory_status": "available",
+      "semantic_candidate_ids": [
+        "INC-009",
+        "INC-008",
+        "INC-006",
+        "INC-007",
+        "INC-005"
+      ]
+    },
+    {
+      "decision_state_matches": true,
+      "eval_id": "EVAL-010",
+      "expected_decision_state": "missing_critical_facts",
+      "failure_labels": [],
+      "observed_decision_state": "missing_critical_facts",
+      "policy_retained_precedent_ids": [
+        "INC-010"
+      ],
+      "procedure_execution_authorized": false,
+      "semantic_advisory_status": "available",
+      "semantic_candidate_ids": [
+        "INC-010",
+        "INC-009",
+        "INC-008",
+        "INC-011",
+        "INC-007"
+      ]
+    },
+    {
+      "decision_state_matches": true,
+      "eval_id": "EVAL-011",
+      "expected_decision_state": "evidence_found_with_conflict",
+      "failure_labels": [],
+      "observed_decision_state": "evidence_found_with_conflict",
+      "policy_retained_precedent_ids": [
+        "INC-011",
+        "INC-003"
+      ],
+      "procedure_execution_authorized": false,
+      "semantic_advisory_status": "available",
+      "semantic_candidate_ids": [
+        "INC-003",
+        "INC-007",
+        "INC-012",
+        "INC-004",
+        "INC-010"
+      ]
+    },
+    {
+      "decision_state_matches": true,
+      "eval_id": "EVAL-012",
+      "expected_decision_state": "insufficient_precedent",
+      "failure_labels": [],
+      "observed_decision_state": "insufficient_precedent",
+      "policy_retained_precedent_ids": [],
+      "procedure_execution_authorized": false,
+      "semantic_advisory_status": "available",
+      "semantic_candidate_ids": [
+        "INC-002",
+        "INC-004",
+        "INC-006",
+        "INC-011",
+        "INC-010"
+      ]
+    }
+  ],
+  "policy_candidate_source": "deterministic_keyword_top_5",
+  "report_kind": "typed_triage_calibration",
+  "semantic_advisory_source": "local_sie_dense_top_5",
+  "status": "passed"
+}
