@@ -1,0 +1,106 @@
+{
+  "activation_blockers": [
+    "The strict-dominance selector remains disconnected from AntiAnchoringDecisionPolicy.",
+    "This fixture is a governed test-only adversarial control, not independent future held-out activation evidence.",
+    "The fixture covers only connection_pool_exhaustion candidates and does not establish cross-family policy safety.",
+    "Selector activation still requires a separate ADR, independently authored future held-out cases, policy integration review, and a promotion gate."
+  ],
+  "comparison_decision": "comparison_passed_activation_blocked",
+  "decision_reasons": [
+    "All three isolated fixture cases matched their reviewer-controlled expected outcomes.",
+    "The reversed candidate order preserved the primary selected representative.",
+    "Procedure posture changed between the adversarial and neutral card sets while the typed-selection outcome remained stable.",
+    "Activation remains blocked because this is governed test-only evidence, not policy-integrated independent held-out evidence."
+  ],
+  "fixture_contract_version": "procedure-asymmetry-adversarial-fixture-v2",
+  "generated_at": "2026-06-27T18:07:20.135130Z",
+  "metrics": {
+    "active_policy_changed": false,
+    "contract_pass_rate": 1.0,
+    "expected_outcome_count": 3,
+    "failed_case_ids": [],
+    "heldout_loaded": false,
+    "import_receipt_verified": true,
+    "imported_fixture_asset_count": 15,
+    "order_invariance_passed": true,
+    "procedure_asymmetry_present": true,
+    "procedure_neutrality_passed": true,
+    "retrieval_loaded": false,
+    "runtime_case_count": 3,
+    "selector_activation_claim": false
+  },
+  "non_claims": [
+    "This harness does not load the active incident corpus, retrieval, held-out cases, procedures, or AntiAnchoringDecisionPolicy.",
+    "Expected reason codes are evaluator diagnostics; they are not supplied to the selector and are not a selector-output contract.",
+    "A passing comparison does not freeze Tranche 02, activate representative selection, authorize procedures, or prove production or customer-data readiness."
+  ],
+  "outcomes": [
+    {
+      "actual_representative_incident_ids": [
+        "INC-014"
+      ],
+      "actual_state": "single_representative",
+      "candidate_incident_ids": [
+        "INC-013",
+        "INC-014"
+      ],
+      "case_id": "PAF-T02-001",
+      "contract_matches": true,
+      "controlled_card_set_id": "PAV-001-procedure-asymmetric",
+      "diagnostic_reason_codes": [
+        "typed_strict_dominance",
+        "forbidden_procedure_metadata_ignored",
+        "forbidden_candidate_order_ignored",
+        "forbidden_incident_identifier_ignored"
+      ],
+      "expected_representative_incident_ids": [
+        "INC-014"
+      ],
+      "expected_state": "single_representative"
+    },
+    {
+      "actual_representative_incident_ids": [
+        "INC-014"
+      ],
+      "actual_state": "single_representative",
+      "candidate_incident_ids": [
+        "INC-014",
+        "INC-013"
+      ],
+      "case_id": "PAF-T02-002",
+      "contract_matches": true,
+      "controlled_card_set_id": "PAV-001-procedure-asymmetric",
+      "diagnostic_reason_codes": [
+        "typed_strict_dominance",
+        "forbidden_procedure_metadata_ignored",
+        "order_invariance_required"
+      ],
+      "expected_representative_incident_ids": [
+        "INC-014"
+      ],
+      "expected_state": "single_representative"
+    },
+    {
+      "actual_representative_incident_ids": [
+        "INC-014"
+      ],
+      "actual_state": "single_representative",
+      "candidate_incident_ids": [
+        "INC-013",
+        "INC-014"
+      ],
+      "case_id": "PAF-T02-003",
+      "contract_matches": true,
+      "controlled_card_set_id": "PAV-002-procedure-neutral-control",
+      "diagnostic_reason_codes": [
+        "typed_strict_dominance",
+        "procedure_neutral_control_parity"
+      ],
+      "expected_representative_incident_ids": [
+        "INC-014"
+      ],
+      "expected_state": "single_representative"
+    }
+  ],
+  "report_kind": "procedure_asymmetry_fixture_comparison"
+}
