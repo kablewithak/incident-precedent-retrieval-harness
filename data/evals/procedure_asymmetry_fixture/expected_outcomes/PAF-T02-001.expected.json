@@ -1,0 +1,18 @@
+{
+  "case_id": "PAF-T02-001",
+  "expected_non_dominated_ids": [
+    "INC-014"
+  ],
+  "expected_outcome_kind": "single_representative",
+  "expected_reason_codes": [
+    "typed_strict_dominance",
+    "forbidden_procedure_metadata_ignored",
+    "forbidden_candidate_order_ignored",
+    "forbidden_incident_identifier_ignored"
+  ],
+  "expected_representative_ids": [
+    "INC-014"
+  ],
+  "reason_code_status": "evaluation_diagnostic_only_not_selector_contract",
+  "review_rationale": "INC-014 exactly matches the intake service, component, and change context; it also contains every matching signal family exposed by INC-013 and additional matching signal families. INC-013 has explicit identity and context mismatches. Its more favorable test-only procedure posture, lower incident identifier, and first candidate position are prohibited selection inputs under ADR-0012 and ADR-0019."
+}

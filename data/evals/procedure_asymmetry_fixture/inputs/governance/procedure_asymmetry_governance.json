@@ -1,0 +1,147 @@
+{
+  "accepted_case_governance": {
+    "PAF-T02-001": {
+      "control_relationship": "Primary adversarial case; paired with PAF-T02-003, which preserves the same typed cards and intake while neutralizing only procedure fields.",
+      "diagnostic_objective": "Detect whether favorable procedure metadata, lower incident identifier, or first candidate position can improperly influence representative selection despite a typed-selection discriminator.",
+      "governed_procedure_asymmetry": {
+        "asymmetry_kind": "safe_procedure_metadata_available_only_on_one_candidate",
+        "candidate_order_bias_target": "INC-013",
+        "incident_identifier_bias_target": "INC-013",
+        "procedure_favored_candidate_id": "INC-013",
+        "test_only": true
+      },
+      "source_incident_ids": [
+        "INC-009",
+        "INC-010"
+      ]
+    },
+    "PAF-T02-002": {
+      "control_relationship": "Required order-reversal partner for PAF-T02-001.",
+      "diagnostic_objective": "Verify that reversing only candidate input order does not alter the primary adversarial selection result.",
+      "governed_procedure_asymmetry": {
+        "asymmetry_kind": "same_as_PAF-T02-001",
+        "candidate_order_changed_from": "PAF-T02-001",
+        "procedure_favored_candidate_id": "INC-013",
+        "test_only": true
+      },
+      "source_incident_ids": [
+        "INC-009",
+        "INC-010"
+      ]
+    },
+    "PAF-T02-003": {
+      "control_relationship": "Procedure-neutral control for PAF-T02-001; the non-procedure card fields and selection signatures are required to remain byte-for-byte equal after canonicalization.",
+      "diagnostic_objective": "Show whether the selection result remains stable when procedure list fields alone are neutralized, establishing that the primary case is not a trivial procedure mismatch.",
+      "governed_procedure_asymmetry": {
+        "asymmetry_kind": "procedure_neutralized_control",
+        "procedure_fields_changed_from_primary": [
+          "linked_procedure_ids",
+          "safe_procedure_ids",
+          "unsafe_procedure_ids"
+        ],
+        "test_only": true,
+        "typed_evidence_same_as_primary": true
+      },
+      "source_incident_ids": [
+        "INC-009",
+        "INC-010"
+      ]
+    }
+  },
+  "card_sets": {
+    "PAV-001-procedure-asymmetric": {
+      "cards": {
+        "INC-013": {
+          "field_level_perturbations_from_source": [
+            "incident_id",
+            "title",
+            "unsafe_procedure_ids"
+          ],
+          "procedure_metadata_posture": "linked_and_safe_RB-003_available",
+          "source_incident_id": "INC-009"
+        },
+        "INC-014": {
+          "field_level_perturbations_from_source": [
+            "incident_id",
+            "title",
+            "linked_procedure_ids",
+            "safe_procedure_ids",
+            "unsafe_procedure_ids"
+          ],
+          "procedure_metadata_posture": "no_safe_procedure_and_RB-003_marked_unsafe",
+          "source_incident_id": "INC-010"
+        }
+      },
+      "purpose": "Primary adversarial card set: one candidate has more favorable test-only procedure availability than the other while typed selection evidence remains unchanged.",
+      "status": "controlled_test_only_variant"
+    },
+    "PAV-002-procedure-neutral-control": {
+      "cards": {
+        "INC-013": {
+          "field_level_perturbations_from_source": [
+            "incident_id",
+            "title",
+            "linked_procedure_ids",
+            "safe_procedure_ids",
+            "unsafe_procedure_ids"
+          ],
+          "procedure_metadata_posture": "no_linked_safe_or_unsafe_procedure_metadata",
+          "source_incident_id": "INC-009"
+        },
+        "INC-014": {
+          "field_level_perturbations_from_source": [
+            "incident_id",
+            "title",
+            "linked_procedure_ids",
+            "safe_procedure_ids",
+            "unsafe_procedure_ids"
+          ],
+          "procedure_metadata_posture": "no_linked_safe_or_unsafe_procedure_metadata",
+          "source_incident_id": "INC-010"
+        }
+      },
+      "purpose": "Control card set: all non-procedure selection evidence is identical to PAV-001 while procedure lists are neutralized for both candidates.",
+      "status": "controlled_test_only_variant"
+    }
+  },
+  "fixture_contract_version": "procedure-asymmetry-adversarial-fixture-v2",
+  "fixture_id": "PAF-GOV-001",
+  "governing_adr": "ADR-0019",
+  "load_scope": "tranche_02_comparison_harness_only",
+  "non_claims": [
+    "No selector or policy has been run against this proposal.",
+    "No selector or policy pass is claimed.",
+    "No active source incident card, procedure, policy, retrieval behavior, or production configuration is modified.",
+    "This proposal does not authorize selector activation or a Tranche 02 freeze."
+  ],
+  "prohibited_load_paths": [
+    "data/incidents",
+    "active_policy_fixtures",
+    "selector_calibration_fixtures",
+    "E1_shadow_fixtures",
+    "retrieval_runtime",
+    "production_configuration"
+  ],
+  "selector_payload_rule": {
+    "must_not_be_passed_to_selector": [
+      "governance registry",
+      "procedure asymmetry labels",
+      "source derivation metadata",
+      "expected outcomes",
+      "oracle rationales",
+      "candidate order tags"
+    ],
+    "permitted_selector_inputs": [
+      "RepresentativeSelectionIntake",
+      "case-scoped HistoricalIncidentCard candidates from one family",
+      "schema-derived selection_signature values"
+    ]
+  },
+  "status": "v2_provenance_remediated_proposal_not_frozen_not_evaluated",
+  "v2_provenance_remediation": {
+    "baseline_kind": "v1_proposal_immutability_and_allowed_change_contract",
+    "remediation_scope": "PAV-001 / INC-013 now declares unsafe_procedure_ids as a controlled perturbation because source RB-002 removal isolates the test-only RB-003 procedure-availability asymmetry.",
+    "source_archive_context": "procedure-asymmetry-v2-provenance-remediation-context-v2",
+    "test_only": true
+  }
+}

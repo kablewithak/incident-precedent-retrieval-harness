@@ -1,0 +1,41 @@
+{
+  "candidate_incident_ids": [
+    "INC-013",
+    "INC-014"
+  ],
+  "candidate_pool_family": "connection_pool_exhaustion",
+  "case_design_tags": [
+    "primary_adversarial",
+    "typed_strict_dominance",
+    "procedure_asymmetry",
+    "candidate_order_nonwinner_first",
+    "incident_id_order_nonwinner_first",
+    "test_only"
+  ],
+  "case_id": "PAF-T02-001",
+  "contract_version": "tranche-02-selection-v1",
+  "controlled_card_set_id": "PAV-001-procedure-asymmetric",
+  "fixture_contract_version": "procedure-asymmetry-adversarial-fixture-v1",
+  "input_provenance": {
+    "authored_by_role": "independent_case_author",
+    "authoring_batch": "procedure-asymmetry-blind-authoring-2026-06-26",
+    "created_at_utc": "2026-06-26T17:34:00Z",
+    "source_type": "controlled_test_only_schema_derived"
+  },
+  "selection_intake": {
+    "change_context": "configuration",
+    "component": "auth-db-client",
+    "contradicted_signal_families": [],
+    "operational_signal_families": [
+      "connection_pool_pressure",
+      "authentication_failure",
+      "readiness_failure",
+      "component_error_pressure"
+    ],
+    "service": "auth-service"
+  },
+  "source_incident_ids": [
+    "INC-009",
+    "INC-010"
+  ]
+}

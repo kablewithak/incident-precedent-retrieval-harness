@@ -1,0 +1,16 @@
+{
+  "case_id": "PAF-T02-003",
+  "expected_non_dominated_ids": [
+    "INC-014"
+  ],
+  "expected_outcome_kind": "single_representative",
+  "expected_reason_codes": [
+    "typed_strict_dominance",
+    "procedure_neutral_control_parity"
+  ],
+  "expected_representative_ids": [
+    "INC-014"
+  ],
+  "reason_code_status": "evaluation_diagnostic_only_not_selector_contract",
+  "review_rationale": "This control retains the same candidate identifiers, non-procedure card fields, selection signatures, and typed intake as PAF-T02-001, while only procedure list fields are neutralized. INC-014 remains the unique typed strict-dominance candidate. This establishes that the primary case is diagnostic of forbidden procedure leakage rather than a procedure-driven oracle."
+}
