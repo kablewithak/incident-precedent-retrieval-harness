@@ -1,0 +1,190 @@
+{
+  "activation_blockers": [
+    "The strict-dominance selector is not wired into AntiAnchoringDecisionPolicy and remains shadow-only.",
+    "Calibration fixtures are not independent held-out evidence for an activation change.",
+    "The selector currently supports connection_pool_exhaustion cards only; active policy covers additional incident families.",
+    "Any activation proposal requires a separate ADR, an independently authored future held-out tranche, and a new promotion gate."
+  ],
+  "contract_version": "representative-selection-v1",
+  "decision": "calibration_passed_activation_blocked",
+  "decision_reasons": [
+    "All fixed selection-calibration contracts passed.",
+    "Fixed order-invariance groups produced identical results.",
+    "Activation remains blocked because calibration is not independent held-out evidence and the selector is not wired into the active policy."
+  ],
+  "generated_at": "2026-06-27T17:03:52.073157Z",
+  "metrics": {
+    "active_policy_changed": false,
+    "all_candidates_connection_pool_exhaustion": true,
+    "explicit_tie_case_count": 3,
+    "failed_case_ids": [],
+    "heldout_loaded": false,
+    "order_invariance_group_count": 1,
+    "order_invariance_pass_rate": 1.0,
+    "retrieval_loaded": false,
+    "selection_calibration_case_count": 10,
+    "selection_contract_pass_rate": 1.0,
+    "selector_activation_claim": false,
+    "single_representative_case_count": 7
+  },
+  "non_claims": [
+    "This report does not load the frozen held-out tranche or reuse EVAL-110 as a calibration fixture.",
+    "This report does not invoke lexical retrieval, dense retrieval, semantic inference, or provider infrastructure.",
+    "This report does not modify or activate AntiAnchoringDecisionPolicy.",
+    "A calibration pass does not prove that activation will preserve held-out behavior, improve retrieval, authorize a procedure, or establish production readiness."
+  ],
+  "outcomes": [
+    {
+      "actual_representative_incident_ids": [
+        "INC-009"
+      ],
+      "actual_state": "single_representative",
+      "contract_matches": true,
+      "expected_representative_incident_ids": [
+        "INC-009"
+      ],
+      "expected_state": "single_representative",
+      "order_invariance_group": null,
+      "order_variant": null,
+      "selection_case_id": "SEL-CAL-001"
+    },
+    {
+      "actual_representative_incident_ids": [
+        "INC-010"
+      ],
+      "actual_state": "single_representative",
+      "contract_matches": true,
+      "expected_representative_incident_ids": [
+        "INC-010"
+      ],
+      "expected_state": "single_representative",
+      "order_invariance_group": null,
+      "order_variant": null,
+      "selection_case_id": "SEL-CAL-002"
+    },
+    {
+      "actual_representative_incident_ids": [
+        "INC-011"
+      ],
+      "actual_state": "single_representative",
+      "contract_matches": true,
+      "expected_representative_incident_ids": [
+        "INC-011"
+      ],
+      "expected_state": "single_representative",
+      "order_invariance_group": null,
+      "order_variant": null,
+      "selection_case_id": "SEL-CAL-003"
+    },
+    {
+      "actual_representative_incident_ids": [
+        "INC-009",
+        "INC-012"
+      ],
+      "actual_state": "explicit_tie",
+      "contract_matches": true,
+      "expected_representative_incident_ids": [
+        "INC-009",
+        "INC-012"
+      ],
+      "expected_state": "explicit_tie",
+      "order_invariance_group": null,
+      "order_variant": null,
+      "selection_case_id": "SEL-CAL-004"
+    },
+    {
+      "actual_representative_incident_ids": [
+        "INC-009",
+        "INC-010"
+      ],
+      "actual_state": "explicit_tie",
+      "contract_matches": true,
+      "expected_representative_incident_ids": [
+        "INC-009",
+        "INC-010"
+      ],
+      "expected_state": "explicit_tie",
+      "order_invariance_group": null,
+      "order_variant": null,
+      "selection_case_id": "SEL-CAL-005"
+    },
+    {
+      "actual_representative_incident_ids": [
+        "INC-009",
+        "INC-010",
+        "INC-011",
+        "INC-012"
+      ],
+      "actual_state": "explicit_tie",
+      "contract_matches": true,
+      "expected_representative_incident_ids": [
+        "INC-009",
+        "INC-010",
+        "INC-011",
+        "INC-012"
+      ],
+      "expected_state": "explicit_tie",
+      "order_invariance_group": null,
+      "order_variant": null,
+      "selection_case_id": "SEL-CAL-006"
+    },
+    {
+      "actual_representative_incident_ids": [
+        "INC-009"
+      ],
+      "actual_state": "single_representative",
+      "contract_matches": true,
+      "expected_representative_incident_ids": [
+        "INC-009"
+      ],
+      "expected_state": "single_representative",
+      "order_invariance_group": "ORDER-INVARIANCE-001",
+      "order_variant": "canonical",
+      "selection_case_id": "SEL-CAL-007"
+    },
+    {
+      "actual_representative_incident_ids": [
+        "INC-009"
+      ],
+      "actual_state": "single_representative",
+      "contract_matches": true,
+      "expected_representative_incident_ids": [
+        "INC-009"
+      ],
+      "expected_state": "single_representative",
+      "order_invariance_group": "ORDER-INVARIANCE-001",
+      "order_variant": "reversed",
+      "selection_case_id": "SEL-CAL-008"
+    },
+    {
+      "actual_representative_incident_ids": [
+        "INC-012"
+      ],
+      "actual_state": "single_representative",
+      "contract_matches": true,
+      "expected_representative_incident_ids": [
+        "INC-012"
+      ],
+      "expected_state": "single_representative",
+      "order_invariance_group": null,
+      "order_variant": null,
+      "selection_case_id": "SEL-CAL-009"
+    },
+    {
+      "actual_representative_incident_ids": [
+        "INC-012"
+      ],
+      "actual_state": "single_representative",
+      "contract_matches": true,
+      "expected_representative_incident_ids": [
+        "INC-012"
+      ],
+      "expected_state": "single_representative",
+      "order_invariance_group": null,
+      "order_variant": null,
+      "selection_case_id": "SEL-CAL-010"
+    }
+  ],
+  "report_kind": "representative_selection_calibration_readiness",
+  "selector_name": "strict_dominance_representative_selector_v1"
+}
