@@ -4,6 +4,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from incident_precedent_harness.decisions.conditional_representative_selection import (
+    ConditionalRepresentativeSelectionPolicy,
+    RepresentativeSelectionRefinement,
+)
 from incident_precedent_harness.decisions.policy import AntiAnchoringDecisionPolicy
 from incident_precedent_harness.domain.incident_data import (
     CandidateInvestigationProcedure,
@@ -38,11 +42,12 @@ class TriageInputRejectedError(ValueError):
 
 @dataclass(frozen=True, slots=True)
 class TriageService:
-    """Create non-executing packets from policy authority plus semantic advisory evidence.
+    """Create non-executing packets from policy authority plus advisory evidence.
 
-    The active anti-anchoring policy receives only deterministic keyword candidates.
-    Local-SIE dense retrieval is displayed as advisory evidence and is structurally
-    unable to change the policy result in this slice.
+    The active anti-anchoring policy receives deterministic keyword candidates.
+    Local-SIE dense retrieval remains advisory-only. When explicitly supplied,
+    typed representative-selection evidence can narrow only a separate displayed
+    precedent set after policy admission; it cannot alter the policy decision.
     """
 
     incidents: tuple[HistoricalIncidentCard, ...]
@@ -72,11 +77,9 @@ class TriageService:
         )
 
         if not request.provider_available:
-            policy_result = self.policy.evaluate(
-                intake=request,
-                ranked_candidates=keyword_candidates,
-                incidents=self.incidents,
-                procedures=self.procedures,
+            policy_result, representative_selection = self._policy_result(
+                request=request,
+                keyword_candidates=keyword_candidates,
             )
             return self._packet(
                 request=request,
@@ -87,17 +90,16 @@ class TriageService:
                     candidate_evidence=(),
                     safe_reason="Input declared the required semantic provider unavailable.",
                 ),
+                representative_selection=representative_selection,
             )
 
         try:
             semantic_advisory = self._semantic_advisory(request)
         except SemanticInferenceError as error:
             degraded_request = request.model_copy(update={"provider_available": False})
-            policy_result = self.policy.evaluate(
-                intake=degraded_request,
-                ranked_candidates=keyword_candidates,
-                incidents=self.incidents,
-                procedures=self.procedures,
+            policy_result, representative_selection = self._policy_result(
+                request=degraded_request,
+                keyword_candidates=keyword_candidates,
             )
             return self._packet(
                 request=request,
@@ -108,19 +110,45 @@ class TriageService:
                     candidate_evidence=(),
                     provider_failure=error.failure,
                 ),
+                representative_selection=representative_selection,
             )
 
-        policy_result = self.policy.evaluate(
-            intake=request,
-            ranked_candidates=keyword_candidates,
-            incidents=self.incidents,
-            procedures=self.procedures,
+        policy_result, representative_selection = self._policy_result(
+            request=request,
+            keyword_candidates=keyword_candidates,
         )
         return self._packet(
             request=request,
             policy_result=policy_result,
             semantic_advisory=semantic_advisory,
+            representative_selection=representative_selection,
         )
+
+    def _policy_result(
+        self,
+        *,
+        request: TriageRequest,
+        keyword_candidates,
+    ):
+        if request.representative_selection_intake is None:
+            return (
+                self.policy.evaluate(
+                    intake=request,
+                    ranked_candidates=keyword_candidates,
+                    incidents=self.incidents,
+                    procedures=self.procedures,
+                ),
+                None,
+            )
+
+        result = ConditionalRepresentativeSelectionPolicy(self.policy).evaluate(
+            intake=request,
+            ranked_candidates=keyword_candidates,
+            incidents=self.incidents,
+            procedures=self.procedures,
+            selection_intake=request.representative_selection_intake,
+        )
+        return result.policy_decision, result.refinement
 
     def _semantic_advisory(self, request: TriageRequest) -> SemanticAdvisory:
         response = self.semantic_client.encode_incident_texts(
@@ -166,14 +194,22 @@ class TriageService:
             raise TriageInputRejectedError(codes)
 
     @staticmethod
-    def _packet(*, request: TriageRequest, policy_result, semantic_advisory: SemanticAdvisory) -> TriageEvidencePacket:  # type: ignore[no-untyped-def]
+    def _packet(
+        *,
+        request: TriageRequest,
+        policy_result,
+        semantic_advisory: SemanticAdvisory,
+        representative_selection: RepresentativeSelectionRefinement | None,
+    ) -> TriageEvidencePacket:
         return TriageEvidencePacket(
             request_id=request.request_id,
             trace_id=request.trace_id,
             policy_decision=policy_result,
             semantic_advisory=semantic_advisory,
+            representative_selection=representative_selection,
             non_claims=(
                 "Semantic candidate evidence is advisory and cannot alter the active anti-anchoring policy decision.",
+                "Representative-selection display refinement is optional, typed, and cannot alter policy state, missing facts, or procedure eligibility.",
                 "Historical precedent is not a diagnosis, root-cause determination, or remediation instruction.",
                 "Candidate procedure IDs, when present, remain human-review material; this packet never authorizes execution.",
                 "This local synthetic-data path does not establish production readiness or customer-data validation.",

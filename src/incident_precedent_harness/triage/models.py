@@ -8,10 +8,14 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from incident_precedent_harness.decisions.conditional_representative_selection import (
+    RepresentativeSelectionRefinement,
+)
 from incident_precedent_harness.decisions.models import PolicyDecisionResult
 from incident_precedent_harness.domain.incident_data import (
     ObservedVerificationFact,
     RecordIdentifier,
+    RepresentativeSelectionIntake,
 )
 from incident_precedent_harness.inference.models import ProviderFailure
 
@@ -85,6 +89,7 @@ class TriageRequest(BaseModel):
     input_summary: SafeSummary
     observed_facts: tuple[ObservedVerificationFact, ...] = ()
     provider_available: bool = True
+    representative_selection_intake: RepresentativeSelectionIntake | None = None
 
     @field_validator("observed_facts")
     @classmethod
@@ -99,12 +104,11 @@ class TriageRequest(BaseModel):
 
 
 class TriageEvidencePacket(BaseModel):
-    """User-facing packet with a policy result and advisory-only semantic evidence.
+    """User-facing packet with policy authority and non-authoritative evidence.
 
-    The semantic advisory is deliberately separate from ``policy_decision``. The
-    decision policy receives deterministic lexical candidates only in this slice,
-    so semantic rank, score, and candidate order cannot alter decision state,
-    retained precedent IDs, missing facts, or procedure eligibility.
+    ``representative_selection`` is an optional display refinement. It never
+    changes ``policy_decision`` and therefore cannot alter policy state, missing
+    facts, procedure eligibility, degraded handling, or execution authority.
     """
 
     model_config = ConfigDict(extra="forbid")
@@ -114,6 +118,7 @@ class TriageEvidencePacket(BaseModel):
     trace_id: UUID
     policy_decision: PolicyDecisionResult
     semantic_advisory: SemanticAdvisory
+    representative_selection: RepresentativeSelectionRefinement | None = None
     procedure_execution_authorized: Literal[False] = False
     non_claims: tuple[str, ...] = Field(min_length=1, max_length=8)
 
@@ -126,4 +131,11 @@ class TriageEvidencePacket(BaseModel):
                 raise ValueError("semantic degradation must produce a provider_degraded policy decision")
             if self.policy_decision.retained_precedent_ids or self.policy_decision.candidate_procedure_ids:
                 raise ValueError("provider-degraded packets cannot expose precedent or procedure candidates")
+            if (
+                self.representative_selection is not None
+                and self.representative_selection.displayed_representative_ids
+            ):
+                raise ValueError(
+                    "provider-degraded packets cannot expose representative-selection output"
+                )
         return self
